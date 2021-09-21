@@ -1,0 +1,128 @@
+from SALib.sample import saltelli
+from SALib.analyze import sobol
+import networkx as nx
+import matplotlib as plt
+import numpy as np
+import math as calc
+import cmath
+import string
+import pandas as pd
+import itertools
+from networkx.utils import not_implemented_for
+from itertools import combinations, permutations
+from collections import defaultdict
+from random import sample
+from collections import deque
+from itertools import chain
+from itertools import islice
+from networkx.utils import not_implemented_for
+import statistics
+from random import randrange
+import time
+import threading
+from SALib.sample import saltelli
+from SALib.sample import morris as ms
+from SALib.sample.saltelli import sample as ss
+from SALib.analyze.sobol import analyze as sa
+from SALib.analyze import morris as ma
+from SALib.plotting import morris as mp
+from SALib.test_functions import Ishigami
+import numpy as np
+
+def ET(X):
+    # column 0 = C, column 1 = R, column 2 = t
+    return
+
+"""
+VAR=[:,0]
+n=[:,1]
+"""
+
+def test(X):
+        num=(int(randrange(0,600)))
+        F=nx.random_tree(num)
+        BC=nx.betweenness_centrality(F)
+        G=nx.barabasi_albert_graph(num,3)
+        cliques=list(nx.enumerate_all_cliques(G))
+
+
+        triads = [i for i in cliques if len(i)==3]
+        triadsA=np.array(triads)
+
+
+        A=triadsA[:,0]
+        B=triadsA[:,1]
+        C=triadsA[:,2]
+        df=pd.DataFrame(triads)
+
+
+
+
+        BCA=[]
+        for x in (A):
+                for n in (BC):
+                        if x==n:
+                                BCA.append(BC[n])
+                                
+        BCB=[]
+        for y in (B):
+                for n in (BC):
+                        if y==n:
+                                BCB.append(BC[n])
+
+        BCC=[]
+        for z in (C):
+                for n in (BC):
+                        if z==n:
+                                BCC.append(BC[n])
+
+        df['BCA']=BCA
+        df['BCB']=BCB
+        df['BCC']=BCC
+        df['AVG']=(df['BCA']+df['BCB']+df['BCC'])/3
+        df['VAR']=(((df['BCA']-df['AVG'])**2+(df['BCB']-df['AVG'])**2+(df['BCC']-df['AVG'])**2)/3)
+        V= np.mean(df['VAR'])
+        df1=df[4:6]
+
+
+
+
+        dff=[]
+        for k in G.nodes:
+            for n in (BC):
+                    if k==n:
+                        dff.append(BC[n])
+
+        T=max(dff)
+
+        H=pd.DataFrame(dff)
+        H['BCMax']=T
+        H.rename( columns={0 :'BCentrality'}, inplace=True )
+
+
+        H['Hier']=(H['BCMax']-H['BCentrality'])
+        H=np.mean(H['Hier'])
+        v=H*V
+        e=len(list(G.edges))
+        t=len(triads)
+        Density=(e*(num*(num-1)**-1))
+
+    
+        return H*X[:,0]*(e*X[:,1])/num*X[:,2]*((num*X[:,2]))-1
+
+
+
+problem = {'num_vars': 3,
+           'names': ['H','n.edges','n.nodes'],
+           'bounds': [[0, 1],
+                      [0,10000],
+                      [0,600]]}
+
+# Generate samples
+param_values = saltelli.sample(problem, 2**17, calc_second_order=True)
+
+# Run model (example)
+Y = test(param_values)
+
+# Perform analysis
+Si = sobol.analyze(problem, Y, print_to_console=True)
