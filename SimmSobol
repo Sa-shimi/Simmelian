@@ -35,7 +35,7 @@ import numpy as np
 def test():
         p=randrange(3,10)
         tri=327
-        num=randrange(10,200)
+        num=randrange(20,200)
         F=nx.random_tree(num)
 
 
@@ -55,6 +55,7 @@ def test():
 
 
         triads = [i for i in cliques if len(i)==3]
+        t=len(triads)
 
         triadsA=np.array(triads)
 
@@ -90,7 +91,8 @@ def test():
         df['BCC']=BCC
         df['AVG']=(df['BCA']+df['BCB']+df['BCC'])/3
         df['VAR']=(((df['BCA']-df['AVG'])**2+(df['BCB']-df['AVG'])**2+(df['BCC']-df['AVG'])**2)/3)
-        V= np.mean(df['VAR'])
+        VAR=np.sum(df['VAR'])
+        V= VAR/t
         df1=df[4:6]
 
 
@@ -113,7 +115,6 @@ def test():
         Q=np.mean(H['Hier'])
         v=Q*V
         e=len(list(G.edges))
-        t=len(triads)
         Density=(2*e*((num*(num-1))**-1))
 
         
@@ -141,22 +142,22 @@ def test():
             return s
 
  
-        P=np.matrix([t,num,Density,Q,v])
+        P=np.matrix([VAR,t,Q])
 
 
         return(P)
  
 
-num_vars=5
+num_vars=3
 
 problem = {
           'num_vars': num_vars,
-          'names': ['t','num', 'Density','H','v']
+          'names': ['VAR','t','H']
         }
 
 
 param_values=np.ndarray(shape=(num_vars,), dtype=float)
-for _ in range ((2*(num_vars)+2)**1):
+for _ in range ((2*(num_vars)+2)**4):
         test()
         param_values=np.vstack([param_values,test()])
 
@@ -167,13 +168,20 @@ param_values=np.array(param_values)
 
 
 def formula(X):
-        return X[:,0]*X[:,1]*((1+X[:,2])**-1)*X[:,3]*X[:,4]
+        return X[:,3]*(X[:,1]/X[:,2])
         
 #capire perchè non fa le moltiplicazioni
 
 
 Y =formula(param_values)
 
+
+Si = sobol.analyze(problem, Y, print_to_console=True)
+
+        
+
+
+time.sleep(1)
 
 Si = sobol.analyze(problem, Y, print_to_console=True)
 
