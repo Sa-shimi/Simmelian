@@ -120,7 +120,7 @@ def test():
         
         
         
-                BC1=nx.betweenness_centrality(F)
+        BC1=nx.betweenness_centrality(F)
         isinstance(BC1, dict)
         df1=pd.DataFrame(lll)
 
@@ -174,7 +174,7 @@ def test():
 
         
 
-
+        Vl=V/V1
 
         
         
@@ -195,9 +195,10 @@ def test():
                 return nx.single_source_shortest_path_length(G, v)
             s = statistics.variance(l for u in G for l in path_length(u).values())
             return s
-            V=V/V1
+
+
  
-        P=np.matrix([V,Q,eccentricity(G),Density,t,num,e,Clustering])
+        P=np.matrix([Vl,Q,eccentricity(G),Density,t,num,e,Clustering])
 
 
         return(P)
@@ -215,7 +216,7 @@ problem = {
 
 
 param_values=np.ndarray(shape=((num_vars+1),), dtype=float)
-for _ in range (1000*(num_vars+1)):
+for _ in range (10*(num_vars+1)):
         test()
         param_values=np.vstack([param_values,test()])
 
@@ -239,6 +240,4 @@ def formula(X):
 
 #Y =formula(param_values)
 
-Si = analyze(problem,param_values, Y, num_resamples=1000 ,print_to_console=True)
-
-        
+Si = analyze(problem,param_values, Y, num_resamples=10 ,print_to_console=True)
