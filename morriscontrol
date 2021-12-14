@@ -26,9 +26,10 @@ from random import randrange
 from SALib.analyze.sobol import analyze
 from SALib.analyze.morris import analyze
 
+
 def test():
-    p = randrange(4, 10)
-    num = 70
+    p = randrange(3, 15)
+    num = randrange(20,100)
     F = nx.random_tree(num, create_using=nx.DiGraph, )
 
     G = nx.barabasi_albert_graph(num, p)
@@ -41,7 +42,6 @@ def test():
             pippa = F.out_degree()
             pippa1 = np.array(pippa)
             pippa2 = pippa1[pippa1[:, 1] != 0]
-            pippa3 = np.array([x for x in pippa1 if x not in pippa2])
             F = F.subgraph(pippa2[:, 0])
             return F
 
@@ -59,7 +59,7 @@ def test():
             i += 1
             F = CC(F)
             layer(F)
-        return dict(zip(results[:0], results[:,1]))
+        return dict(zip(results[:, 0], results[:, 1]))
 
     BC = Control_Centrality(F)
     isinstance(BC, dict)
@@ -67,7 +67,8 @@ def test():
     list(G.nodes)
     if (len(list(nx.connected_components(G)))) != 1:
         return
-
+    lll = combinations(G.nodes(), 3)
+    lll = np.matrix(list(lll))
     cliques = list(nx.enumerate_all_cliques(G))
 
     triads = [i for i in cliques if len(i) == 3]
@@ -79,7 +80,9 @@ def test():
     B = triadsA[:, 1]
     C = triadsA[:, 2]
     df = pd.DataFrame(triads)
-
+    A1 = lll[:, 0]
+    B1 = lll[:, 1]
+    C1 = lll[:, 2]
     BCA = []
     for x in (A):
         for n in (BC):
@@ -122,6 +125,44 @@ def test():
     H['Hier'] = (H['BCMax'] - H['BCentrality'])
     Q = np.mean(H['Hier'])
     v = Q * V
+    BC1 = Control_Centrality(F)
+    isinstance(BC1, dict)
+    df1 = pd.DataFrame(lll)
+    BC1A = []
+    for x in (A1):
+        for n in (BC1):
+            if x == n:
+                BC1A.append(BC1[n])
+    BC1B = []
+    for y in (B1):
+        for n in (BC1):
+            if y == n:
+                BC1B.append(BC1[n])
+    BC1C = []
+    for z in (C1):
+        for n in (BC1):
+            if z == n:
+                BC1C.append(BC1[n])
+    df1['BC1A'] = BC1A
+    df1['BC1B'] = BC1B
+    df1['BC1C'] = BC1C
+    df1['AVG1'] = (df1['BC1A'] + df1['BC1B'] + df1['BC1C']) / 3
+    df1['VAR1'] = (((df1['BC1A'] - df1['AVG1']) ** 2 + (df1['BC1B'] - df1['AVG1']) ** 2 + (
+            df1['BC1C'] - df1['AVG1']) ** 2) / 3)
+    V1 = np.mean(df1['VAR1'])
+    df11 = df1[4:6]
+    dff1 = []
+    for k in G.nodes:
+        for n in (BC1):
+            if k == n:
+                dff1.append(BC1[n])
+    T1 = max(dff1)
+    H1 = pd.DataFrame(dff1)
+    H1['BC1Max'] = T1
+    H1.rename(columns={0: 'BCentrality1'}, inplace=True)
+    H1['Hier1'] = (H1['BC1Max'] - H1['BCentrality1'])
+    Vl = V / V1
+
     e = len(list(G.edges))
     Density = (2 * e * ((num * (num - 1)) ** -1))
     Clustering = nx.average_clustering(G)
@@ -146,7 +187,7 @@ def test():
         s = statistics.variance(l for u in G for l in path_length(u).values())
         return s
 
-    P = np.matrix([V, Q, eccentricity(G), Density, t, num, e, Clustering])
+    P = np.matrix([Vl, Q, eccentricity(G), Density, t, num, e, Clustering])
 
     return (P)
 
@@ -160,7 +201,7 @@ problem = {
 }
 
 param_values = np.ndarray(shape=((num_vars + 1),), dtype=float)
-for _ in range(1 * (num_vars + 1)):
+for _ in range(100 * (num_vars + 1)):
     test()
     param_values = np.vstack([param_values, test()])
 
@@ -169,7 +210,45 @@ Y = np.array(param_values[:, 0])
 Y = Y.flatten()
 param_values = np.delete(param_values, 0, 1)
 param_values = np.array(param_values)
-print(param_values)
-print(Y)
-Si = analyze(problem, param_values, Y, num_resamples=1, print_to_console=True)
-print(Si)
+Si = analyze(problem, param_values, Y, num_resamples=100, print_to_console=True)
+print('max Y', max(Y))
+print('min Y', min(Y))
+print('max H', max(param_values[:, 0]))
+print('max EX', max(param_values[:, 1]))
+print('max D', max(param_values[:, 2]))
+print('max T', max(param_values[:, 3]))
+print('max Num', max(param_values[:, 4]))
+print('max edges', max(param_values[:, 5]))
+print('max C', max(param_values[:, 6]))
+print('min H', min(param_values[:, 0]))
+print('min EX', min(param_values[:, 1]))
+print('min D', min(param_values[:, 2]))
+print('min T', min(param_values[:, 3]))
+print('min Num', min(param_values[:, 4]))
+print('min Edges', min(param_values[:, 5]))
+print('min C', min(param_values[:, 6]))
+print('mean Y', statistics.mean(Y))
+print('mean H', statistics.mean(param_values[:, 0]))
+print('mean EX', statistics.mean(param_values[:, 1]))
+print('mean D', statistics.mean(param_values[:, 2]))
+print('mean T', statistics.mean(param_values[:, 3]))
+print('mean Num', statistics.mean(param_values[:, 4]))
+print('mean Edges', statistics.mean(param_values[:, 5]))
+print('mean C', statistics.mean(param_values[:, 6]))
+print('quantiles Y', statistics.quantiles(Y))
+print('quantiles H', statistics.quantiles(param_values[:, 0]))
+print('quantiles EX', statistics.quantiles(param_values[:, 1]))
+print('quantiles D', statistics.quantiles(param_values[:, 2]))
+print('quantiles T', statistics.quantiles(param_values[:, 3]))
+print('quantiles Num', statistics.quantiles(param_values[:, 4]))
+print('quantiles Edges', statistics.quantiles(param_values[:, 5]))
+print('quantiles C', statistics.quantiles(param_values[:, 6]))
+print('variance Y', statistics.variance(Y))
+print('variance H', statistics.variance(param_values[:, 0]))
+print('variance EX', statistics.variance(param_values[:, 1]))
+print('variance D', statistics.variance(param_values[:, 2]))
+print('variance T', statistics.variance(param_values[:, 3]))
+print('variance Num', statistics.variance(param_values[:, 4]))
+print('variance Edges', statistics.variance(param_values[:, 5]))
+print('variance C', statistics.variance(param_values[:, 6]))
+print('number of samples', len(Y))
