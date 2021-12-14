@@ -59,7 +59,7 @@ def test():
             i += 1
             F = CC(F)
             layer(F)
-        return results
+        return dict(zip(results[:0], results[:,1]))
 
     BC = Control_Centrality(F)
     isinstance(BC, dict)
@@ -82,21 +82,21 @@ def test():
 
     BCA = []
     for x in (A):
-        for [n, z] in (BC):
+        for n in (BC):
             if x == n:
-                BCA.append(BC[z])
+                BCA.append(BC[n])
 
     BCB = []
     for y in (B):
-        for [n, z] in (BC):
+        for n in (BC):
             if y == n:
-                BCB.append(BC[z])
+                BCB.append(BC[n])
 
     BCC = []
-    for q in (C):
-        for [n, z] in (BC):
-            if q == n:
-                BCC.append(BC[z])
+    for z in (C):
+        for n in (BC):
+            if z == n:
+                BCC.append(BC[n])
 
     df['BCA'] = BCA
     df['BCB'] = BCB
@@ -109,11 +109,11 @@ def test():
 
     dff = []
     for k in G.nodes:
-        for [n, z] in (BC):
+        for n in (BC):
             if k == n:
-                dff.append(BC[z])
+                dff.append(BC[n])
 
-    T = max(BC[:, 1])
+    T = max(dff)
 
     H = pd.DataFrame(dff)
     H['BCMax'] = T
