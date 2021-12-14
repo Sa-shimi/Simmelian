@@ -252,3 +252,4 @@ print('variance Num', statistics.variance(param_values[:, 4]))
 print('variance Edges', statistics.variance(param_values[:, 5]))
 print('variance C', statistics.variance(param_values[:, 6]))
 print('number of samples', len(Y))
+
