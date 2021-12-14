@@ -1,0 +1,175 @@
+import networkx as nx
+from SALib.analyze import sobol
+import numpy as np
+import string
+import pandas as pd
+import itertools
+from itertools import repeat
+from networkx.utils import not_implemented_for
+from itertools import combinations, permutations
+from collections import defaultdict
+from random import sample
+from collections import deque
+from itertools import chain
+from itertools import islice
+from networkx.utils import not_implemented_for
+import statistics
+from random import randrange
+import time
+import threading
+from SALib.sample import morris as morris
+from SALib.analyze.morris import analyze
+import telebot
+from itertools import combinations
+import statistics
+from random import randrange
+from SALib.analyze.sobol import analyze
+from SALib.analyze.morris import analyze
+
+def test():
+    p = randrange(4, 10)
+    num = 70
+    F = nx.random_tree(num, create_using=nx.DiGraph, )
+
+    G = nx.barabasi_albert_graph(num, p)
+
+    def Control_Centrality(F):
+        length = len(F.nodes)
+        i = 1
+
+        def CC(F):
+            pippa = F.out_degree()
+            pippa1 = np.array(pippa)
+            pippa2 = pippa1[pippa1[:, 1] != 0]
+            pippa3 = np.array([x for x in pippa1 if x not in pippa2])
+            F = F.subgraph(pippa2[:, 0])
+            return F
+
+        def layer(F):
+            culo = [x for x in F.nodes if x not in CC(F).nodes]
+            banana = [i] * len(culo)
+            results = np.column_stack((culo, banana))
+            return results
+
+        results = layer(F)
+
+        while len(results) < length:
+            results = np.concatenate([results, layer(F)])
+            results = np.unique(results, axis=0)
+            i += 1
+            F = CC(F)
+            layer(F)
+        return results
+
+    BC = Control_Centrality(F)
+    isinstance(BC, dict)
+
+    list(G.nodes)
+    if (len(list(nx.connected_components(G)))) != 1:
+        return
+
+    cliques = list(nx.enumerate_all_cliques(G))
+
+    triads = [i for i in cliques if len(i) == 3]
+    t = len(triads)
+
+    triadsA = np.array(triads)
+
+    A = triadsA[:, 0]
+    B = triadsA[:, 1]
+    C = triadsA[:, 2]
+    df = pd.DataFrame(triads)
+
+    BCA = []
+    for x in (A):
+        for [n, z] in (BC):
+            if x == n:
+                BCA.append(BC[z])
+
+    BCB = []
+    for y in (B):
+        for [n, z] in (BC):
+            if y == n:
+                BCB.append(BC[z])
+
+    BCC = []
+    for q in (C):
+        for [n, z] in (BC):
+            if q == n:
+                BCC.append(BC[z])
+
+    df['BCA'] = BCA
+    df['BCB'] = BCB
+    df['BCC'] = BCC
+    df['AVG'] = (df['BCA'] + df['BCB'] + df['BCC']) / 3
+    df['VAR'] = (((df['BCA'] - df['AVG']) ** 2 + (df['BCB'] - df['AVG']) ** 2 + (df['BCC'] - df['AVG']) ** 2) / 3)
+    VAR = np.sum(df['VAR'])
+    V = VAR / t
+    df1 = df[4:6]
+
+    dff = []
+    for k in G.nodes:
+        for [n, z] in (BC):
+            if k == n:
+                dff.append(BC[z])
+
+    T = max(BC[:, 1])
+
+    H = pd.DataFrame(dff)
+    H['BCMax'] = T
+    H.rename(columns={0: 'BCentrality'}, inplace=True)
+
+    H['Hier'] = (H['BCMax'] - H['BCentrality'])
+    Q = np.mean(H['Hier'])
+    v = Q * V
+    e = len(list(G.edges))
+    Density = (2 * e * ((num * (num - 1)) ** -1))
+    Clustering = nx.average_clustering(G)
+
+    def eccentricity(G):
+        n = len(G)
+        if n == 0:
+            msg = (
+                "the null graph has no paths, thus there is no average"
+                "shortest path length")
+            raise nx.NetworkXPointlessConcept(msg)
+        if n == 1:
+            return 0
+        if G.is_directed() and not nx.is_weakly_connected(G):
+            raise nx.NetworkXError("Graph is not weakly connected.")
+        if not G.is_directed() and not nx.is_connected(G):
+            raise nx.NetworkXError("Graph is not connected.")
+
+        def path_length(v):
+            return nx.single_source_shortest_path_length(G, v)
+
+        s = statistics.variance(l for u in G for l in path_length(u).values())
+        return s
+
+    P = np.matrix([V, Q, eccentricity(G), Density, t, num, e, Clustering])
+
+    return (P)
+
+
+num_vars = 7
+
+problem = {
+    'num_vars': 7,
+    'names': ['H', 'EX', 'D', 'T', 'Num', 'Edges', 'C'],
+    'groups': None
+}
+
+param_values = np.ndarray(shape=((num_vars + 1),), dtype=float)
+for _ in range(1 * (num_vars + 1)):
+    test()
+    param_values = np.vstack([param_values, test()])
+
+param_values = np.delete(param_values, 0, 0)
+Y = np.array(param_values[:, 0])
+Y = Y.flatten()
+param_values = np.delete(param_values, 0, 1)
+param_values = np.array(param_values)
+print(param_values)
+print(Y)
+Si = analyze(problem, param_values, Y, num_resamples=1, print_to_console=True)
+print(Si)
