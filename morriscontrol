@@ -28,11 +28,14 @@ from SALib.analyze.morris import analyze
 
 
 def test():
-    p = randrange(3, 15)
-    num = randrange(20,100)
+    p = 10
+    num = 50
     F = nx.random_tree(num, create_using=nx.DiGraph, )
 
     G = nx.barabasi_albert_graph(num, p)
+
+    def combine(arr, s): 
+        return list(combinations(arr, s))
 
     def Control_Centrality(F):
         length = len(F.nodes)
@@ -59,73 +62,74 @@ def test():
             i += 1
             F = CC(F)
             layer(F)
-        return dict(zip(results[:, 0], results[:, 1]))
+        return dict(zip(results[:,0], (results[:,1]/max(results[:,1]))))
 
-    BC = Control_Centrality(F)
+    BC = nx.betweenness_centrality(F)
+
+                
+            
+
     isinstance(BC, dict)
-
     list(G.nodes)
-    if (len(list(nx.connected_components(G)))) != 1:
-        return
-    lll = combinations(G.nodes(), 3)
+
+    lll = combinations(G.nodes(), 2)
     lll = np.matrix(list(lll))
     cliques = list(nx.enumerate_all_cliques(G))
-
     triads = [i for i in cliques if len(i) == 3]
-    t = len(triads)
+    simm= []
+    for n in triads:
+        for l in combine(n,2):
+            simm.append(l)
 
-    triadsA = np.array(triads)
 
-    A = triadsA[:, 0]
-    B = triadsA[:, 1]
-    C = triadsA[:, 2]
-    df = pd.DataFrame(triads)
+    simmelian = []
+    for i in simm:
+        if i not in simmelian:
+            simmelian.append(i)
+
+    simmelian=np.array(simmelian)
+
+    A= simmelian[:,0]
+    B= simmelian[:,1]
     A1 = lll[:, 0]
     B1 = lll[:, 1]
-    C1 = lll[:, 2]
+    df=pd.DataFrame(simmelian)
+    numsimm = len(simmelian)
+
     BCA = []
     for x in (A):
         for n in (BC):
             if x == n:
                 BCA.append(BC[n])
-
     BCB = []
     for y in (B):
         for n in (BC):
             if y == n:
                 BCB.append(BC[n])
 
-    BCC = []
-    for z in (C):
-        for n in (BC):
-            if z == n:
-                BCC.append(BC[n])
 
     df['BCA'] = BCA
     df['BCB'] = BCB
-    df['BCC'] = BCC
-    df['AVG'] = (df['BCA'] + df['BCB'] + df['BCC']) / 3
-    df['VAR'] = (((df['BCA'] - df['AVG']) ** 2 + (df['BCB'] - df['AVG']) ** 2 + (df['BCC'] - df['AVG']) ** 2) / 3)
+    df['AVG'] = (df['BCA'] + df['BCB']) / 2
+    df['VAR'] = (((df['BCA'] - df['AVG']) ** 2 + (df['BCB'] - df['AVG']) ** 2) / 2)
     VAR = np.sum(df['VAR'])
-    V = VAR / t
-    df1 = df[4:6]
-
+    V = VAR / numsimm
+    df1 = df[3:4]
     dff = []
     for k in G.nodes:
         for n in (BC):
             if k == n:
                 dff.append(BC[n])
-
     T = max(dff)
 
     H = pd.DataFrame(dff)
     H['BCMax'] = T
     H.rename(columns={0: 'BCentrality'}, inplace=True)
-
     H['Hier'] = (H['BCMax'] - H['BCentrality'])
     Q = np.mean(H['Hier'])
     v = Q * V
-    BC1 = Control_Centrality(F)
+
+    BC1 = nx.betweenness_centrality(F)
     isinstance(BC1, dict)
     df1 = pd.DataFrame(lll)
     BC1A = []
@@ -138,19 +142,12 @@ def test():
         for n in (BC1):
             if y == n:
                 BC1B.append(BC1[n])
-    BC1C = []
-    for z in (C1):
-        for n in (BC1):
-            if z == n:
-                BC1C.append(BC1[n])
     df1['BC1A'] = BC1A
     df1['BC1B'] = BC1B
-    df1['BC1C'] = BC1C
-    df1['AVG1'] = (df1['BC1A'] + df1['BC1B'] + df1['BC1C']) / 3
-    df1['VAR1'] = (((df1['BC1A'] - df1['AVG1']) ** 2 + (df1['BC1B'] - df1['AVG1']) ** 2 + (
-            df1['BC1C'] - df1['AVG1']) ** 2) / 3)
+    df1['AVG1'] = (df1['BC1A'] + df1['BC1B']) / 2
+    df1['VAR1'] = (((df1['BC1A'] - df1['AVG1']) ** 2 + (df1['BC1B'] - df1['AVG1']) ** 2)) / 2
     V1 = np.mean(df1['VAR1'])
-    df11 = df1[4:6]
+    df11 = df1[3:4]
     dff1 = []
     for k in G.nodes:
         for n in (BC1):
@@ -162,7 +159,6 @@ def test():
     H1.rename(columns={0: 'BCentrality1'}, inplace=True)
     H1['Hier1'] = (H1['BC1Max'] - H1['BCentrality1'])
     Vl = V / V1
-
     e = len(list(G.edges))
     Density = (2 * e * ((num * (num - 1)) ** -1))
     Clustering = nx.average_clustering(G)
