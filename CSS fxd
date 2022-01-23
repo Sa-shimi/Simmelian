@@ -1,0 +1,75 @@
+import networkx as nx
+import matplotlib as plt
+from SALib.analyze import sobol
+import numpy as np
+import math as calc
+import cmath
+import string
+import pandas as pd
+import itertools
+from networkx.utils import not_implemented_for
+from itertools import combinations, permutations
+from collections import defaultdict
+from random import sample
+from collections import deque
+from itertools import chain
+from itertools import islice
+from networkx.utils import not_implemented_for
+import statistics
+from random import randrange
+import time
+import threading
+from SALib.sample import saltelli
+from SALib.sample import morris as morris
+from SALib.sample.saltelli import sample as ss
+from SALib.analyze.sobol import analyze
+from SALib.analyze.morris import analyze 
+from SALib.analyze import morris as ma
+from SALib.plotting import morris as mp
+from SALib.test_functions import Ishigami
+import numpy as np
+
+AN=np.matrix('0 1 1 0 0; 1 0 0 0 0; 1 0 0 1 1; 0 0 1 0 1; 0 0 1 1 0')
+CSS=[]
+C1=np.matrix('0 1 1 1 0; 1 0 0 0 0; 1 0 0 0 0; 1 0 0 0 1; 0 0 0 1 0')
+C2=np.matrix('0 1 1 0 0; 1 0 0 0 0; 1 0 0 0 1; 0 0 0 0 1; 0 0 1 1 0')
+C3=np.matrix('0 0 1 0 0; 0 0 0 1 0; 1 0 0 1 1; 0 1 1 0 0; 0 0 1 0 0')
+C4=np.matrix('0 0 0 0 0; 0 0 0 1 0; 0 0 0 1 1; 0 1 1 0 1; 0 0 1 1 0')
+C5=np.matrix('0 1 0 0 0; 1 0 0 0 0; 0 0 0 0 1; 0 0 0 0 1; 0 0 1 1 0')
+CSS.append(C1)
+CSS.append(C2)
+CSS.append(C3)
+CSS.append(C4)
+CSS.append(C5)
+
+
+
+
+D1=C1-AN
+D2=C2-AN
+D3=C3-AN
+D4=C4-AN
+D5=C5-AN
+
+BigDick=D1+D2+D3+D4+D5
+
+d1=((BigDick[0,]-D1[0,]).sum())/5
+d2=((BigDick[1,]-D2[1,]).sum())/5
+d3=((BigDick[2,]-D3[2,]).sum())/5
+d4=((BigDick[3,]-D4[3,]).sum())/5
+d5=((BigDick[4,]-D5[4,]).sum())/5
+
+dd1=(abs(BigDick[0,]-D1[0,]).sum())/5
+dd2=(abs(BigDick[1,]-D2[1,]).sum())/5
+dd3=(abs(BigDick[2,]-D3[2,]).sum())/5
+dd4=(abs(BigDick[3,]-D4[3,]).sum())/5
+dd5=(abs(BigDick[4,]-D5[4,]).sum())/5
+
+DD1=d1/dd1
+DD2=d2/dd2
+DD3=d3/dd3
+DD4=d4/dd4
+DD5=d5/dd5
+
+
+                     matrix[n,m]=1
