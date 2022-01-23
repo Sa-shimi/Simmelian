@@ -1,0 +1,58 @@
+import networkx as nx
+import matplotlib as plt
+from SALib.analyze import sobol
+import numpy as np
+import math as calc
+import cmath
+import string
+import pandas as pd
+import itertools
+from networkx.utils import not_implemented_for
+from itertools import combinations, permutations
+from collections import defaultdict
+from random import sample
+from collections import deque
+from itertools import chain
+from itertools import islice
+from networkx.utils import not_implemented_for
+import statistics
+from random import randrange
+import time
+import threading
+from SALib.sample import saltelli
+from SALib.sample import morris as morris
+from SALib.sample.saltelli import sample as ss
+from SALib.analyze.sobol import analyze
+from SALib.analyze.morris import analyze 
+from SALib.analyze import morris as ma
+from SALib.plotting import morris as mp
+from SALib.test_functions import Ishigami
+import numpy as np
+
+CSS=[]
+num=10
+
+def culo():
+    G=nx.barabasi_albert_graph(num,2)
+    G=nx.to_numpy_matrix(G)
+    return(G)
+
+for x in range(num):
+    CSS.append(culo())
+R=[]
+i=0
+while ( i <= (num-1)):
+    R.append(i)
+    i = i + 1
+
+
+matrix = np.zeros((num, num)) 
+for n in R:
+    for m in R:
+            CN=CSS[n]
+            if (CSS[n])[n,m] == (CSS[m])[n,m]:
+                if (CSS[n])[n,m] == 1:
+                     matrix[n,m]=1
+
+
+BigDick
