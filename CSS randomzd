@@ -29,16 +29,18 @@ from SALib.plotting import morris as mp
 from SALib.test_functions import Ishigami
 import numpy as np
 
-CSS=[]
-num=10
 
+num=randrange(1,100)
 def culo():
-    G=nx.barabasi_albert_graph(num,2)
+    G=nx.fast_gnp_random_graph(num,0.2)
     G=nx.to_numpy_matrix(G)
     return(G)
 
 for x in range(num):
     CSS.append(culo())
+
+
+
 R=[]
 i=0
 while ( i <= (num-1)):
@@ -46,13 +48,35 @@ while ( i <= (num-1)):
     i = i + 1
 
 
-matrix = np.zeros((num, num)) 
+AN = np.zeros((num, num)) 
 for n in R:
     for m in R:
             CN=CSS[n]
             if (CSS[n])[n,m] == (CSS[m])[n,m]:
                 if (CSS[n])[n,m] == 1:
-                     matrix[n,m]=1
+                     AN[n,m]=1
+
+G=nx.from_numpy_matrix(AN)
+
+D=[]
+for n in R:
+    D.append(CSS[n]-AN)
+
+BigDick=sum(D)
+DD=[]
+DD1=[]
+d=[]
+
+for n in R:
+    DD.append(((BigDick[n,]-(D[n])[n,]).sum())/num)
+    DD1.append((abs(BigDick[n,]-(D[n])[n,]).sum())/num)
+    d.append((n,(DD[n]-DD1[n])))
+dl=dict(d)
+
+c=nx.betweenness_centrality(G)
 
 
-BigDick
+            
+
+nx.draw(G, with_labels=True)
+plt.show()
