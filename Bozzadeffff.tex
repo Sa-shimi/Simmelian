@@ -1,0 +1,673 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\title{Vertically Spanning Simmelian Ties}
+\author{Sasha Piccione}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hanging}
+\usepackage{blindtext}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Vertically Spanning Simmelian Ties}
+\rfoot{\thepage}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\addcontentsline{toc}{section}
+
+
+
+
+\newpage
+\section{Introduction}
+\bigskip
+We’re slowly moving toward the “Knowledge Economy” which is generally considered as an economic system that heavily relies on knowledge for the creation of profit and value (Powell and Snellman, 2004). Understanding how knowledge can be transferred, acquired and absorbed, thus, appears to be of crucial importance for different types of subjects.
+
+There are different streams of research that study and analyze the dynamics of communication and, in particular, of knowledge transfer between subjects or groups (Mitton et al. 2007; Watson and Hewett, 2006).
+
+One important stream of studies that tried discerning the dynamics of knowledge transfer, which can be defined as the moving and incorporation of knowledge (Hansen, 1999), belongs to Social Network Studies. For instance, many researchers in this field tried to understand how specific structural characteristics of a network could favor or impede the acquisition of knowledge by one subject (e.g. Granovetter, 1973; Burt, 1992; Krackhardt 1998; Wang, 2016), the way in which knowledge is transferred within a group (Tasselli and Caimo, 2019), the transfer of knowledge across different groups (Tortoriello et al., 2012), the ability to absorb the knowledge acquired (Tortoriello and Krackhardt 2010; Lissoni, 2001) and to exploit it by replicating it (Chen et al., 2014; Wang et al. 2020). 
+
+By exploring such streams of study, one would face different and, sometimes, conflicting findings regarding the effects that specific structural characteristics of a network have on the capability of acquiring (Burt and Knez, 1996), transferring (Burt et al. 2013) and codifying knowledge within one or more organizations. The main cause of such discrepancies is related to the different ways in which the objects of the research are defined. XXXXXXXXAs we will see, in fact, there are different levels of analysis (Kilduff and Lee, 2020), different focal units considered and, most importantly, different structural characteristics observed. Among the different network structural characteristics that could favor the transfer of knowledge, ties’ strength appears to be the most interesting and debated one (Reagans and McEvily, 2003) due to the fact that, depending on a tie’s strength, a specific type of knowledge can be better transferred. 
+
+But also the differences between the types of network considered in different studies play a role in the causation of the abovementioned divergences. As a matter of fact, are we considering a “friendship” network (Gibbons, 2004)? Or are we considering an advice network? Additionally, it is pretty complex to define and assess the degree of friendship between two subjects (see Krackhardt 1987; Krackhardt and Brass, 1994) or even the general intensity of the link.
+
+In addition to the differences related to the ways in which a network is analyzed, there are discrepancies also in the way in which knowledge is defined (Morrison, 2008; Wang et al., 2014).
+
+Having this been said, we are of the opinion that the stream of literature that analyses social networks with the aim of understanding how knowledge is transferred, acquired and absorbed throughout the network might be overlooking some additional aspects that are related to the social environment. Even though knowledge transfer has to be seen as a process that is strongly embedded in a socio-cultural context (Giuliani, 2007), the extant literature rarely tackled such aspect.
+
+One interesting aspect that we consider worth studying is the effect that specific structural characteristics can have on the vertical communication and transfer of knowledge. By vertical communication and transfer of knowledge we intend the communication and the transfer between one employee and its supervisor (or subordinate) (see Simpson, 1959). There are cases, that can be defined as "Cross Cutting" (Bartels et al. 2010), in which such communication or transfer happens between two subjects that are not directly connected by the chain of command (meaning that between them there is one or more persons between them). 
+In this paper our aim is to provide a tool that might allow to address such type of issue. Better put, this paper proposes an index that allows to compare two or more companies and to assess whether one is more vertically connected to the other and, thus, understand whether there are aspects of the social context that can be the cause of a higher verticality.
+
+XXXX continuare e unire XXXXX
+
+In particular, we found a gap in the research regarding vertical (top-down or bottom-up) transfer of knowledge. Focusing on such a specific knowledge transfer directionXXXXX appears to be relevant if we take into consideration that such type of communication and knowledge transfer has to take into consideration the difficulties and issues of trust between the two social parties (superiors and subordinates)  (Jirjhan and Pfeifer, 2009; Bramucci and Zanfei, 2015). 
+
+The remainder of the paper is structured as follows. In the first chapter we will further explore the main divergencies in the literature regarding knowledge transfer and Social Network characteristics. After that, we will focus our attention on the studies regarding Simmelian ties and, in particular, on Simmelian ties belonging to diverse knowledge cliques (Tortoriello et al., 2015). In due course, we will propose our model and provide a detailed description of the methodology followed in order to test it and to evaluate it.
+Finally, some considerations and implications for future research are drawn.
+
+
+\newpage
+\section{Literature review}
+In the introduction we briefly mentioned some of the numerous branches of research that tried to tackle the issue regarding structural elements of a network and the capability to transfer knowledge within the network or, in some cases, across its boundaries. The main divergencies relate to the focal unit of analysis (Burt, 1992), the level of analysis (Kilduff and Lee, 2020) but also the type of network considered (Krackhardt and Brass, 1994) and the way we perceive knowledge (Wang et al., 2014).
+
+For what concerns the focal unit of analysis, three main streams of research can be identified. The first one relates to the studies that focus on the individual and how her position in the social network or the characteristics of the connections she has can influence her ability to acquire, absorb or trade knowledge (e.g. Burt, et al. 2013). The second one regards dyads, with a focus on the likeliness of a tie between two subjects depending on their position in the network (Zappa and Lomi, 2015). Finally, the third one regards the research focusing on triads and bigger groups. Research belonging to this third group largely rely on findings and considerations coming from other field of studies such as psychology (Krackhardt, 1987) and sociology (Solorzano et al., 2019; Kilduff et al., 2020). As we will see further in the paper, triads represent a \emph{sui generis} category as they entail mechanisms that are different from the ones of other types of group (Kilduff et al. 2020).
+
+A second element of differentiation is represented by the various levels of analysis considered by researchers. On the one hand, researchers have focused on intragroup transfer of knowledge (Krakhardt, 1999; Pedersen et al. 2019) while, on the other hand, we have research regarding intergroup knowledge transfer (Uzzi, 1997, Faems et al. 2007). Additionally, both levels of analysis differentiate themselves depending on whether they’re taking into consideration the geographical scope (Giuliani, 2007; Pedersen et al. 2019) or psychological aspects (Song et al. 2003; Kotabe et al. 2007).
+But also, the differences between the networks considered in different studies play a role in the causation of the abovementioned divergences in the results. As a matter of fact, are we considering a “friendship” network? Or are we considering an advice network? Additionally, how do we define friendship and how do we assess it? (see Krackhardt 1987; Krackhardt and Brass, 1994).
+
+In addition to the differences and the discrepancies related to the ways in which a network is analyzed, there are differences also in the way in which knowledge is defined. For instance, some researchers define it as a “club good”, meaning that some types of knowledge are kept within the boundaries of certain groups or clusters (Giuliani, 2007; Morrison, 2008), which is in line with the definition of Von Hippel (1994) of “Sticky knowledge”. On the other side, knowledge is also considered as a public or quasi-public good (Antonelli, 2018) or leaky (Seely Brown and Duguid, 2001; Liebeskind, 1996). Another difference that regards knowledge is the way in which it is conceived in the network by the researcher. More precisely, authors such as Wang et al. (2014) see knowledge “elements” as the nodes in the “knowledge fnetwork” that are connected (the ties) through their application. More precisely, Wang et al. (2014) are of the opinion that knowledge elements shouldn’t be considered as “atomistic, but [are] linked by means of their joint applications in previous inventions” (p. 485). If this stream of research evaluates the knowledge in light of the position it occupies within the knowledge network, another group of researchers evaluates knowledge depending on the possibility of being transferred (Giuliani, 2007; Huggins and Johnston, 2010). In the latter case knowledge (or knowledge elements) is not seen as a node in the knowledge network, but as a good that has to be transferred between social connections (ties).
+
+As we noticed, there are different criteria and methodologies adopted, each of which focused on specific level of analysis and on a specific network structural characteristic. Focusing on too many aspects might be risky as combining different measures and methodologies could make things more complicated and potentially foggy.
+
+One aspect that is at the center of nowadays discussion is the role that tie strength plays in the transfer of knowledge. The relevance of ties’ strength was first highlighted by Granovetter (1973) in his seminal study. The author defined ties’ strength as “the (probably linear) combination of the amount of time, the emotional intensity, the intimacy (mutual confiding), and the reciprocal services which characterize the tie” (Granovetter, 1973: p. 1371). The debate whether strong ties are better than weak ties in transferring knowledge has, in fact, pervaded much of the discussion in the field (Gargiulo et al., 2009; Friedkin, 1982; Hansen, 1999). The two typologies of tie enable the transfer of two different kinds of knowledge. As a matter of fact, strong ties are considered to be crucial in the transfer of uncodified (Morrison, 2008; Reagans and McEvily, 2003), implicit (Fritsch and Kauffeld-Monz, 2010) and non-diversified knowledge (Gargiulo, 2009) while weak ties enable the acquisition and the transfer of diversified knowledge (Rodan and Galunic, 2004). When trying to assess whether strong or weak ties are to be preferred, the trade-off focuses on the preferability of one type of knowledge over the other with the - implicit - assumption that there's no  possible configuration other than the ones within the spectrum weak-strong ties. 
+
+Another issue that should be taken into consideration when it comes to study the strength of ties and its potential effect on knowledge transfer regards the measurement of the strength of a tie between two subjects see Marsden and Campbell (1984). Eventually, an interesting solution to this problem has been found by Tortoriello and Krackhardt (2010) (see also Krackhardt, 1998). The authors, utilize the concept developed by the sociologist Simmel (1950) of simmelian ties, which are ties that connect two subjects (A and B) that have a third subject (C) in common (see Krackhardt, 1992); in substance, a Simmelian tie is a tie that is part of a triad. Following the studies of Simmel (1950), several authors suggest considering the concept of Simmelian ties as a proxy for strong ties(Krackhardt, 1998). The assumed strength that characterizes Simmelian ties is derived from the peculiar sociological and psychological implications that are related to such specific social condition - like social pressure (Solorzano et al., 2019; Reagans, 2005).
+
+At the same time some of these psychological and sociological aspects tend to push people to gather and socialize in such a way that might be considered inefficient for the company (Krackhardt and Stern, 1988); more precisely, Krackhardt and Stern (1988) demonstrated how workers tend to form “closed” clusters if they are not guided or incentivized to do differently. Such clustering dynamic represents and obstacle for a potential frictionless and fruitful communication and knowledge transfer between workers from different units (Krackhardt and Stern, 1988). The more two units are separated, the more distant and untranslatable the knowledge possessed by each unit is (Lissoni, 2001; Morrison, 2008), also for a potential broker (see Burt, 2015).
+
+There are numerous researches that attempt to explore and understand the mechanisms that cause such clustering behavior between workers and, in particular, try to develop strategies that have the aim to incentivize worker to interact with distant workers (Tortoriello and Krackhardt, 2010, von Hippel, 1994). The ultimate aim of such incentives is to foster the diffusion of diverse knowledge within the company. 
+
+
+\subsection{Simmelian Ties}
+In this subchapter we will explore more in detail what the literature intends for Simmelian ties and what are the main characteristics of such type of link.
+
+According to Solorzano et al. (2019) there are three main aspects that differentiate Simmelian ties from other dyads.
+
+The first group of elements regards the reciprocity, the symmetry and the clearance that characterize the triad (Simmel, 1950); all subjects in the triad know each other and everyone is aware of it (Krackhardt, 1992). In substance, a Simmelian tie is a tie in a clique of three nodes. The aspects of reciprocity, symmetry and clearance regarding how relations are distributed are necessary for the other two characteristics.
+
+Since everyone knows each other, when two subjects are interacting, the third party behaves as an indirect controlling dispositive (Krackhardt, 1998). Better put, the third party acts as a counterbalance to potential power imbalances, even though she doesn’t actively intervene (Solorzano et al., 2019; Krackhardt, 1999). In other words, subjects in a triad - that are, thus, connected through Simmelian ties - do not have the same bargaining power that they would have in a simple dyad (Krackhardt, 1998). If in a dyad the subject can bargain and try to convince the counterpart to take a specific decision over another, in a triad the same subject cannot try to convince the others as she is in a minoritarian position and, additionally, cannot threaten to leave the triad as she would be the most damaged (Krackhardt, 1999). Solorzano et al. (2019) argued that triads best express the necessary social normative power that prevents one of the subjects to behave in an “unregulated” way.
+
+Finally, the presence of a third subject permits the triad to be more unsusceptible to external influence (Solorzano et al. 2019). Strictly linked to the ones before, this characteristic prevents single subjects to be influenced by external subjects as it would result in a misconduct (depending on the rules of the triad under discussion). Such mechanism may also result in an excessive stress in case the focal subject is the only common node between two different triads; in this case she will need to behave according to the social rules developed in both groups contemporaneously (Krackhardt, 1999). 
+
+We earlier defined Simmelian ties as dyads within a closed triad. One might argue that we can consider every tie in a generic clique to be comparable to a Simmelian tie. Given the necessary conditions for a Simmelian tie, it is quite unlikely that a bigger clique is found. Such issue is more improbable if an “Actual Network”  (Krackhardt, 1987) is taken into consideration. An Actual Network is a network the ties of which exist if and only if both the subjects confirm the presence of a link between them.  The utilization of Actual Networks instead of other types of networks is useful in attenuating the effects caused “Cognitive Simplicity” (Kilduff and Lee, 2020). 
+
+Additionally, a clique made of a higher number of people might result to be weaker and less stable than triads. What might increase the number of members a clique is the pulling effect caused by the sharing of a socio-demographic characteristic (Reagans, 2005; see Pedersen et al. 2019). The pulling effect that sharing a specific characteristic has, however, diminishes with the increase of the amount of people sharing that characteristic due to a sort of an emerging competing effect within such group (Reagans, 2005). Triads, therefore, can be seen as strong and stable social structures. 
+
+But how are Simmelian ties connected with the transfer of knowledge? In the next subchapter we will explore the role that Simmelian ties might play in the transfer of knowledge within a company.
+
+\subsection{Inter-unit simmelian ties and vertically spanning simmelian ties}
+Earlier in the paper we briefly mentioned the role that strong or weak ties play in the transfer of knowledge with a particular emphasis regarding the characteristic of the different types of knowledge that strong or weak ties can better transfer. One of the main issues that subjects might face when trying to transfer or absorb knowledge coming from distant subject in the network is the fact that it can be uncodified and, thus, hard to translate, replicate or absorb (Chen et al. 2014). As we will see, the distance between subjects in a network can be defined and, thus, calculated in different ways.
+
+Tortoriello and Krackhardt (2010) proved that Simmelian ties can be assumed to be strong ties and that they facilitate the transfer of complex knowledge. In particular, Tortoriello and Krackhardt (2010) wanted to see whether Simmelian ties – by virtue of their assumed strength – could not just facilitate the transfer of tacit, complex and uncodified knowledge but whether, under specific circumstances, they could facilitate the transfer of distant and diverse knowledge. For instance, the authors argue that subjects connected by Simmelian ties situated in different units of a company face less difficulty in transferring diverse knowledge. By being part of what Tortoriello et al. (2015) defined as “diverse knowledge clique”, subjects enjoy the easiness of knowledge transfer caused by the strength of ties and the diversity of knowledge obtained due to the diverse position of subjects in the company.
+
+As a matter of fact, Tortoriello and Krackhardt (2010) take into consideration two types of networks representing the same population: the formal network (formal organization of the company) and the informal network (Krackhardt and Hanson, 1993). Taking into consideration both structures enriches the comprehension of the dynamics that come into play in the knowledge transfer process. 
+
+Nevertheless, Tortoriello and Krackhardt’s (2010) research is limited to inter-unit analysis and, thus, acknowledges the potential discrepancies that might exist between the formal and the informal structure of a company without taking into consideration the broader social aspects to which such discrepancies might be linked in a causational way. 
+
+One aspect that we consider relevant to analyze would be the role that Simmelian ties might play in the vertical transfer of knowledge within a company, which is the transfer of knowledge between two subjects that belong to different hierarchical levels in the organizational structure.. More specifically, we are of the opinion that understanding whether the presence of Simmelian ties between subjects that occupy vertically differentiated position within a company facilitate the transfer of knowledge between such subjects. In our opinion such gap might be interesting as it would acknowledge the role that social and complex factor related to the dialectic between workers and employers has in the vertical transfer of knowledge and, in particular, how different labour relations institutions have attempted to erode such contrast. Understanding whether specific institutional and social environments could favor or hamper the development of Vertically spanning Simmelian ties might help managers to develop HR strategies with the aim of incentivizing them and, eventually, diminish the detrimental effect caused by the social divergences between the two social parties (the superiors and the subordinates). On the other side, understanding the role of Vertically spanning Simmelian ties can be helpful for a deeper and more complex comprehension of the role that institutional environment created by the national regulation might play in such processXXXXX. 
+In this paper we want to provide a tool that can allow future research in assessing whether a company has more Vertically Spanning ties then others and, thus, understand which elements might be fostering such formation.
+In the following chapter we will provide a description of the way in which we built our model.
+
+
+\newpage
+\section{The Model}
+As said, Tortoriello and Krackhardt (2010) take into consideration both the informal and the formal structure of a company. More precisely, they authors want to assess whether the presence of Simmelian Ties that connect employees belonging to different organizational units (like divisions and department) could foster innovation by permittingXXXXX the transfer of diverse knowledge. They propose an index, called  \emph{E-I} index, which is calculated as follows:
+
+
+\begin{equation}\label{eqn}
+E\textnormal{-}I=\frac{E-I}{E+I}
+\end{equation}
+
+Where $E$ indicates the total amount of ties that connect workers from a generic unit to workers into another unit while $I$ indicates the amount of ties that connect subjects within the same generic unit (McGrath and Krackhardt 2003). The \emph{E-I} index tends to be negative (Krackhardt and Stern, 1988) due to the fact that people tend to interact with people they spend time with which are, eventually, the ones in the same unit. 
+
+For as interesting and satisfying this measure might be, it doesn’t take into account potential sociological aspects that are typical of the workplace and that might infringe the ability of a company to transfer knowledge vertically (Jirjhan and Pfeifer, 2009).
+
+
+XXXXmigliorarequasotto
+Differently from Tortoriello and Krackhardt, we propose to analyze the verticality of the distribution of informal triads and, in particular, the distribution of Vertically spanning triads. In order to do so, we will utilize the information obtained from two networks:
+\begin{itemize}
+	\item The formal network, which represents the structural organization of a company, \emph{i.e.} the hierarchical relationships between superiors and subordinates. Such network is represented by an undirected tree-like graph (Hunter, 2016);
+	\item The informal network, which represents the personal relationship between employees of a company. In this paper we represent such network by utilising different random network generation models (see \empj{infra}).
+\end{itemize}
+Previous researchers have pointed out several aspects that must be considered when it comes to friendship networks as people tend to simplify and bias their relationship in order to achieve a sort of “cognitive simplicity” (Kilduff and Lee, 2020). On the one hand, people tend to perceive their relationships as “balanced", meaning that they prefer to find reciprocity even when there’s none (Heider, 1958). On the other hand, there’s a tendency for the recreation of a “small world” when there is a cognitive fallacy, meaning that in case of lacking information regarding the relationship within a given group, the members of such group will tend to consider the network as more connected than it actually is (Kilduff et al. 2008).
+In order to tackle this issue, we will take into consideration what Krackhardt (1992) has termed as “Actual Networks”. Actual Networks are indirect networks in which an edge between two subject exists only if both of them declare its existence. Better put, an edge between i and j exists if:
+
+\begin{equation} \label{eqn}
+R_{m,n}^* = \begin{cases} 1 & \mbox{if } R_{m,n}^m=R_{m,n}^n=1 \\ 0 & \mbox{otherwise}  \end{cases}
+\end{equation}
+
+Where $R_{m,n}^m$ is the acknowledgement of the existence of the edge $R_{m,n}$ by $m$ and $R_{m,n}^n$ is the acknowledgement of the existence of the edge $R_{m,n}$ by $n$. Only if both subjects declare the existence of such tie we will have the “actual” tie $R_{i,j}^\ast$.
+Having defined the basic unit of analysis that we want to consider, we must now define an additional element that is crucial for the analysis that this paper aims to carry on, i.e. Simmelian Ties. There are different ways to individuate Simmelian ties. We will follow the methodology proposed by Krackhardt (1998). According to the author, a generic tie, $R_{i,j}^\ast$, is a Simmelian tie if the following conditions are satisfied:
+
+\begin{enumerate}
+\item $\begin{aligned}[t]
+	R_{i,j}^\ast=R_{j,k}^*=1\
+\end{aligned}$
+\item $\begin{aligned}[t]
+	R_{i,k}^\ast{=R}_{k,i}^\ast{=R}_{j,k}^\ast{=R}_{k,j}^\ast=1 
+\end{aligned}$
+\end{enumerate}
+The first condition expresses the necessity for symmetry between the two subjects connected by the tie. The second condition, on the other hand, expresses the necessity of the tie to be situated in a triad, the members of which are connected through actual ties.
+ 
+Having defined the unit of analysis and the way in which we’re going to individuate it, it is now time to discuss the way in which we intend to measure the verticality of Simmelian ties within a company. 
+In order to do so we will need to take into consideration two different networks. We will, in fact, measure the verticality utilizing information from the formal network but we will refer to connections formed in the informal network. To be clearer, for "formal" network we intend the organizational structure of the company; the position of each person within the formal network depends, thus, on the job title that one has. In order to do so, we will individuate all the  triads in an informal network (see \emph{Figure} 1) of a company. After having done that, we will project these triads on the formal network of the same company (see \emph{Figures} 2 and 3).
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=15cm]{~/Desktop/figure1}\caption{Triads found in informal network}
+\bigskip
+\includegraphics[width=15cm]{~/Desktop/figure2}\caption{Triads projected on formal network}
+\end{center}
+\end{figure}
+\begin{figure}
+\begin{center}
+\includegraphics[width=15cm]{~/Desktop/figure3}\caption{Triads projected on formal network (reshaped)}
+\end{center}
+\end{figure}
+
+
+
+
+\begin{equation} \label{eqn}
+t= \begin{cases} 1 & \exists~k \mid R_{m,n}^*=R_{m,k}^*=R_{n,k}^*=1 \\ 0 & \mbox{otherwise}  \end{cases}
+\end{equation}
+
+Before individuating the verticality of a Simmelian tie, we need to measure the hierarchy of each subject in the formal network. In order to do so, we will follow Freeman’s (1977) suggestion. For instance, the author considered the measurement of Betweenness Centrality as a good indicator for measuring the hierarchical level of a worker within the company if we assume that the organizational structure of a company resembles a tree network (Hunter, 2016) (see \emph{Figure 3}).
+\begin{equation}
+{BC}_m=\frac{2}{n^2-3n+2}\sum_{k,n\neq m}\frac{{\ b}_{kn}^m}{b_{kn}}
+\end{equation}
+
+In which ${\ b}_{kn}^m$ indicates the number of geodesic paths (shortest path between two nodes) between the nodes k and n (that are different from m) that pass through the node m, while $b_{kn}$ indicates the number of geodesic paths between $k$ and $n$. $\frac{2}{n^2-3n+2}$ is a normalization factor that represents the inverse of total number of possible paths that pass through \emph{m} (Freeman, 1977).
+It is now time to tackle the issue of Verticality within a triad. In order to do so, we will calculate the variance of the measurement $BC_m$ measured on the formal network for each node in a triad formed in the informal network $t_k$\footnote{
+
+Where
+$\begin{aligned}
+\overline{BC}_k \in \{\overline{BC}_1, \overline{BC}_2\dots \overline{BC}_k, \dots, \overline{BC}_K\}
+\end{aligned}$
+and
+$\begin{aligned}
+	t_k \in \{t_1, t_2\dots t_k, \dots, t_ K\}
+\end{aligned}$
+
+Finally, $k$ indicates a generic triad within the interval  [1...k...K]
+}.
+
+
+
+\begin{equation}
+{VAR}_{t_k}=\frac{\sum_{i=1}^3\left({BC_i}-{\overline{BC}}_k\right)^2}{n_t}
+\end{equation}
+
+
+ 
+Where ${BC_i}$ is the betweenness centrality of a node in the formal network while $\overline{BC}$ is the average of the betweenness centrality of the nodes (of the triad) in the formal network. Ultimately, $n_t$ indicates the amount of nodes considered in the calculations of the variance. Nevertheless, as long as we’re taking into consideration only triads, $n_t$ will always be equal to 3. Let us recall that we will need to take into consideration the verticality of all the potential triads within the network.
+In substance, $\nu$ indicates the average variance  of the betweenness centrality calculated on the formal structure but within triads that have previously been individuated in the informal structure.
+\begin{equation}
+\nu=\sum_{k=1}^{K}\frac{{VAR}_{t_k}}{K}
+\end{equation}
+Where $VAR_{t_k}$ is the variance of \emph{Betweenness Centrality} (calculated as in Formula 4) in the formal network of triads individuated in the informal network ($t_i$, defined as in \emph{Formula 7}). 
+As we argued earlier, following Freeman (1977), we utilize betweenness centrality as a proxy of hierarchy. $\nu$, therefore, indicates the average variance of hierarchy within informal triads in a population, i.e. the variance of Hierarchy 
+The higher $\nu$ is, the higher the degree of Verticality of the Simmellian ties within a given network.
+
+In the development of the model we figured out that it was flawed as there were, potentially, several factors that could have affected the validity of our measurement. For instance, we were not convinced by the fact that, potentially, the dimension of the networks could have an impact on our measurement due to the fact that a bigger company (say, with 1000 workers) is likely to be more hierarchical thanf a smaller company (say, 300 workers). In a more hierarchical structure, we could find less vertically spanning informal ties due to the increased separation between workers belonging to different hierarchical layers and to the importance of propinquity in the development of informal connections (Krackhardt and Stern, 1988; McGrath and Krackhardt, 2003). However, such problematic is strictly bound to the assumption that the structural organization of a company resembles a tree network or a star network (Hunter, 2016; Liu et al. 2012) and that it grows mostly through its offsprings; therefore, the increase of the nodes of the formal network would have a negative effect on our measurement. In order to be more precise, Liu et al. (2012) suggest to consider a directed and acyclic network in order to portray the hierarchical relationship between the members of a network. However, Hunter (2016) points out that, when it comes to analyse the communication mechanisms within a network, an indirect tree network is better to fulfil such purpose.
+We initially thought of handling this issue by following Freeman's suggestion (1977). The author suggest considering the average difference between highest betweenness centrality value within the network and the betweenness centrality of all the other points within the network (Freeman, 1977).
+
+\begin{equation}
+H=\frac{\sum_{m=1}^{n}\left[{BC}_{Max}-{BC}_m\right]}{n-1}
+\end{equation}
+
+Where $BC_{Max}$ is the highest betweenness centrality value within the considered network and $BC_m$ is the betweenness centrality of all the other points in the network. The value of $H$ ranges between 0 and 1. If $H$ = 0, all the nodes within the network have the same centrality, which can happen when we're facing a "ring" network (like in \emph{Figure 4}), $H$ =1 only when we’re facing a star network in which there is only one node connecting all the others (like in \emph{Figure 5}). Therefore, the closer $H$ to 1, the more hierarchical the analyzed network is.
+
+\begin{figure}
+\centering
+\includegraphics[width=9cm]{~/Desktop/Plots Simmel/Stella}\caption{Star Network with 6 noces}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=9cm]{~/Desktop/Plots Simmel/Cerchio}\caption{Circle Network with 6 nodes}
+\end{figure}
+
+We, however, were not convinced that $H$ alone could permit us to obtain a measurement that takes into account the shape of the formal network due to the fact that, for as valid the measurement is, it might not completely provide a thorough representation of the formal network. We, nevertheless, include it in our analyses in order to compare it with our own measurement and to, consequently, completely understand whether it plays a role or not.
+
+In order make sure that our model properly accounts for the peculiar shape of a given formal network, we must recall how we developed the measurement of $\nu$.
+
+First of all, let us recall that that the \emph{Betweenness Centrality} – which is the base of the value of $\nu$ – is calculated on the nodes of the formal network. Therefore, the formal network is what provides the basic value to our $\nu$. We can, thus, see that the structure of the formal network affects the value of $\nu$; the more hierarchical the formal network, the less likely to find a node with high \emph{Betweenness Centrality}. Once again, by having a large share of nodes with low \emph{Betweenness Centrality}, we will encounter more triads the $VAR$ (as calculated in \emph{Formula} 5) of which is low. Eventually, having a large share of triads with a low $VAR$ will result in a low value of $\nu$. 
+
+On the other hand, we must understand the effect that the structural characteristics of the informal network might have on the value of $\nu$. In order to answer this question, we must focus on the unit of analysis taken into consideration in this study, $i.e.$ the triad. Each triad in the informal network has a specific value (\emph{VAR}), which does not depend on the position of the triad in the informal network. In substance, the generation of random informal networks has the scope of generating random sets of triads. In substance, we suggest that in the generation of random networks, the input parameters might affect the amount of triads that are present; however, the position of these triads in the informal networks does not impact the value of $\nu$ due to the fact that in this study they’re considered as a mere unit of analysis randomly generated. Better put, we are utilizing the generation of random networks just as a way to obtain combinations of three nodes, $i.e.$ the triads. However, the value we attach to each combination/triad is dependent on the shape of the formal network and independent from their position within the informal network. We can, therefore, appreciate how, at least partially, the value of $\nu$ is influenced by a component of probability. Better put, as long as the value of $BC$ is calculated the values taken from the formal network and not from the informal one, the value of $\nu$ shouldn’t be strongly affected by the differences in the position of triads in the informal network. As a consequence, we can assume that the way in which we generate the network  does not affect the value of $\nu$. To be more precise, the methodology that we adopt to generate a network indeed affects the shape and the characteristics of that network; however, bearing in mind what we're interested to analyse is not affected by the way in which the informal networks are generated, the random network generation methodology might lose part of its importance.
+If we accept the assumption that the value of $\nu$ is – at least partially – determined by a probabilistic game, we could potentially predict the value of $\nu$ given the formal network and its characteristics. The shape of the formal network, as we said above, is going to define what is the value of $\nu$ that we’re likely to obtain, independently from the way in which we generate the informal network.
+Each triad in the informal network has a specific value, which – again – does not depend on the position of the triad in the informal network. On the other hand, we can preliminarily know the value of all the possible triads as we have the complete information of the formal network. If we have a set of all possible triads and their respective values of $VAR$ and if we assume such value to be independent from the structure of the informal network, we can consider the generation of informal networks as a way to decide which triads should be picked from such set. In a more figurative way, let us imagine that the set of all potential values of $VAR$ are turned cards scattered on a table. The generation of a random informal network tells us \emph{how many} “cards” we should draw. Additionally, the methodology adopted (be it Barabasi-Albert, the Watts-Strogatz etc.) tells us \emph{which} “cards” we should preferentially pick: either from the centre, from the periphery or without any specific preference. The metaphor of the cards is meant to help us better grasph the randomness that we want to highlight and the fact that the position of the “cards” picked doesn’t affect the outcome. Does the number of “cards” drawn affect the outcome? If we consider the total sum of the values we’ve picked, the more cards the higher the value. However, as long as we’re considering the average of the variances, it does not or, at least, not that much. With an increase of the number of triads, the value of the resulting $\nu$ will converge toward a specific value that we will now define as $\rho$. Such value is calculated as:
+
+\begin{equation}
+\rho=\frac{\sum_{t=1}^{T}VAR_{t_T}}{T}
+\end{equation}
+
+Where ${VAR}_{t_T}$ represents the variance within a generic triad and $T$ is the total amount of possible triads in a given network.
+$\rho$ indicates the average $VAR$ of all the potential triads. Such value is entirely detached from the parameters of the informal network. The value of $\rho$, by being the average $VAR$ of all the potential triads, is the $\nu$ representing all the potential triads. At the same time, however, getting back to the probabilistic game approach, $\rho$ represents the expected value that we would obtain if we draw a “card” or a set of “cards”. $\rho$, therefore, indicates the value of $\nu$ that a group should have, given its formal network. $\rho$, thus, represents an independent characteristic of the formal network of a company or organization. 
+
+By comparing $\nu$ with $\rho$, we acknowledge whether our informal network can be considered as more vertical or less vertical given the formal network that it is associated with. More clearly, even though $\rho$ by itself doesn’t provide any particular information regarding the $Hierarchy$ or the dimension of the formal network, when compared with $\nu$, it allows to account for such characteristics. 
+More clearly, be $\phi$ calculated as follows:
+
+\begin{equation}
+\phi=\frac{\frac{\sum_{t=1}^{K}VAR_{t_K}}{K}}{\frac{\sum_{t=1}^{T}VAR_{t_T}}{T}}
+\end{equation}
+
+In a more simplified way:
+\begin{equation}
+\phi=\frac{\nu}{\rho}
+\end{equation}
+
+$\phi$ indicates the comparison of the \emph{actual verticality} of all the  Simmelian ties of the informal network compared to the \emph{expected verticality} of all the possible combinations Simmelian ties. If $\phi$ is higher than 1, it means that the informal network we have in front of us is more vertically spanning than a hypothetical (or randomly generated) network could be. If, on the other hand, $\phi$ is lower than 1, it means that the informal network we have in front of us is less vertically spanning than a hypothetical (or randomly generated network could be). 
+
+But what type of values of $\phi$ we should expect? Considering what we've said earlier regarding the way in which $\phi$ is obtained, its possible value depends on the way we obtain the information of the formal and informal networks. If the networks are generated through random network generation methods, we are most likely, on average, obtain values that is extremely close to 1. Such conviction is sustained by the fact that as we said above, the value of $\phi$ is not affected by the random informal network and, on the other side, $\rho$ accounts for the structural peculiarity of a given formal network.
+On the other hand, if we consider \emph{observed network} (Robins et al. 2007), \emph{i.e.} the network that the researcher build by gathering the data from the field, we would obtain a result different from 1. This is so because  \emph{observed networks} are characterized by peculiar structural characteristics that are the result of "local social processes" (Robins et al., 2007, p. 175). Having this been said, we hypothesise that the value of $\phi$ is not affected by the random networks we generate.
+
+\bigskip
+\emph{H1. The value of $\phi$ is not affected by the structural characteristics of randomly generated informal networks.}
+\bigskip
+
+In order to further proof the independence of $\phi$ from the structural characteristics of randomly generated informal networks we want to carry out our analysis taking into consideration different random network generation methods, which are the Barabasi-Albert (1999), the Erdős-Rényi (1960) and the Watts-Strogatz (1998). We picked these methods as they allow us to obtain random networks with sufficiently different structural characteristics. In particular, we expect triads to be differently distributed in the informal network depending on the random generation process. Despite such differences, we expect to have negligible differences in the impacts that the structural characteristics of the different types of network have on $\phi$.
+
+\bigskip
+\emph{H2. The choice of random network generation methodology doesn't impact the effect that structural characteristics of randomly generated informal networks have on $\phi$}.
+\bigskip
+
+If both hypotheses prove to be right, we could conclude that $\phi$ is able to signal the specific social process that we earlier addressed, \emph{i.e.} the vertical distribution of Simmelian ties within a given organization. If $\phi$ is not affected by the structural characteristics of the randomly generated informal network - regardless the methodology adopted to generate it - it means that it can only be affected by phenomena that are not randomized but that are associated with the social and institutional environment. As a consequence, our index could be used to properly tackle the issues that, as we have highlighted in the previous chapters, have been overlooked by the extant literature: the effect that vertically spanning strong ties can have on vertical knowledge diffusion and which social contexts can facilitate the formation of such ties. 
+
+The remainder of the paper is structured as follows. In the next chapter we will explain in detail how we designed the analysis, the input parameters that we wanted to analyse and, eventually, how we carried out the analysis. Eventually, some final considerations are drawn and the potential weaknesses and implications are highlighted.
+
+
+
+
+\subsection{The testing}
+
+
+In order to understand which parameters might affect our measure, we decided to generate a considerable number of random samples. Due to the complexity of the analysis we were about to carry out, we decided not to rely on a specific software (such as Ucinet or Gephi) but preferred to develop our own program that would allow us to fully customize the process. We, therefore, opted to develop our own Python script which would allow us to generate random and non-random networks, to apply our model on them and to extract the variables that we considered to be interesting. We also developed our own Python code to carry out the sensitivity analysis\footnote{All the Python scripts are available at the following permanent link: https://github.com/Sa-shimi/Simmelian}. A detailed description of the functioning of the Python script can be found in the \emph{Appendix}.
+
+Each sample generated one random informal network (G), one formal random network (FR) and four predesigned formal networks. These four formal networks were purposefully designed before the generation of the samples. For instance, each predesigned network represented an ideal-typical scenario:
+\begin{itemize}
+	\item A graph that resembled the structural hierarchy of an organization (F) (see\emph{Figure 6 in Appendix};
+	\item A star graph the vertices of which were composed by 5 nodes connected in line (S5) (see \emph{Figure 7 in Appendix}) ;
+	\item A star graph the vertices of which were composed by 10 nodes connected in line (S10) (see \emph{Figure 8 in Appendix});
+	\item A graph consisting of a central ring of 10 nodes each of which was a star graph (SY)(see \emph{Figures 9 in Appendix}).
+\end{itemize}
+
+
+The number of nodes for each graph was coincident with the number of nodes set for the sample (be it arbitrary or random, see \emph{infra}). 
+For what regards the informal networks, we generated them randomly for each sample. For what concerns the way in which the informal networks were generated, we opted for three methods of random network generation:
+\begin{itemize}
+	\item Barabasi-Albert (1999);
+	\item Erdős-Rényi (1960);
+	\item Watts-Strogatz (1998).
+\end{itemize}
+We decided to pick three random generation methodologies since we were of the opinion that there are some peculiarities (such as \emph{Density}, \emph{Eccentricity}, \emph{Average Clustering}) of the informal (randomly generated) network that might affect our measurements and that, thus, we should try to test different “types” of networks in order to better stress the potential impact that one of such peculiarities might have on our measurements.
+At the same time, we were of the idea that the way in which we decide do generate a random network might affect the relationship between the structural characteristics of a network. 
+In order to generate a random network, each method required at least two input parameters:
+\begin{itemize}
+	\item The first one is common to every methodology, \emph{i.e.} the number of nodes that would compose the generated network;
+	\item The second one regards the way in which, for each additional node, new edges were created and to which existing node they were linked. For instance:
+	\begin{itemize}
+		\item The Barabasi-Albert method requires an $m$ amount of edges to be preferentially attached to nodes that already have a high degree centrality. The degree centrality of a node is determined by the amount of edges that are attached to such node;
+		\item The Erdős-Rényi method requires a probability (between 0 and 1) of edge creation between the additional node and all the already present nodes;
+		\item The Watts-Strogatz method requires two parameters: the first one is the $k$ number of nearest nodes to which the new node is attached in a ring topology (with the aim of forming a circle), the second one is probability – $p$ – of  rewiring of each edge. In order to clarify the concept of rewiring, we must describe how Watts-Strogatz networks are built. After all nodes are placed in a ring topology, $k$ ties are added to each node connecting it to $k/2$ neighbors to each side. After having placed all the ties, some of them, determined by the probability $p$, are re-attached to a different random node. 
+	\end{itemize}
+\end{itemize}
+
+We chose these three methodologies of random network generations due to the fact that they spawn networks with sufficiently different structural characteristics.
+
+
+\bigskip
+\subsubsection{The observed variables}
+After having planned the way in which the analysis would be carried out, we needed to understand which output parameters would have been interesting to observe. For instance, during this process we asked ourselves: what could affect the value of $\nu$?
+The first parameter we thought of was the number $t$ of triads present in the informal network. More precisely, as long as we are working on randomly generated network, we must take into consideration that by increasing the amount of triads, the possibility to have a higher V would slightly increase.
+The second parameter is the \emph{Average Clustering Coefficient}. We have considerable differences in terms of clustering coefficients and, therefore, tracking down how it changes depending on the input variables might be of particular interest. The average clustering coefficient has been calculated as:
+
+\begin{equation}
+C=\frac{1}{n}\sum_{i\in G}C_i
+\end{equation}
+
+Where $C_i$ is the \emph{Clustering Coefficient} of the node $\ i$. The \emph{Clustering Coefficient} is calculated as:
+
+\begin{equation}
+C_i=\frac{(t_i)}{k_i(k_i)-1}
+\end{equation}
+
+Where $t_i$ is the total amount of triads to which the node $i$ is belonging while $k_i$ is the Degree Centrality of the node $i$, which equals to the amount of ties that it has. 
+
+On the other side, we wanted to take into consideration other similar or linked measures. The first one is the \emph{Density}. The \emph{Density} is the relationship between the edges of a network. In order to calculate it, we must first calculate the average degree c of the network, which is calculated as:
+
+\begin{equation}
+c=\frac{1}{n}\sum_{i=1}^{n}k_i
+\end{equation}
+
+Where $n$ is the amount of nodes and $k_i$ is the degree of the generic node $i$. As long as we’re considering undirected networks, we know that:
+
+\begin{equation}
+c=\frac{2m}{n}
+\end{equation}
+
+For undirected networks the \emph{Density} is generally calculated as:
+\begin{equation}
+D=\frac{2m}{n(n-1)}
+\end{equation}
+
+
+Where $m$ is the amount of ties and $n$ is the amount of nodes in the given network. However, due to \emph{Formula 13}, we can simplify as:
+
+\begin{equation}
+D=\frac{c}{n-1}
+\end{equation}
+
+
+Another one is the \emph{Eccentricity}, calculated as:
+
+\begin{equation}
+Ex=\sum_{g=1}^{G}\frac{[\overline{\min d(i,j)}-\min d(i,j)]^2}{g-1}
+\end{equation}
+
+
+Where $\overline{\min{d\left(i,j\right)}}$ is the average geodesic distance between two generic nodes while $\min{d(i,j)}$ is a generic geodesic path and $g$ is the amount of geodesic paths.
+For what regards the \emph{Density}, we wanted to account it as it not only includes the number of nodes and of edges, but it expresses the relationship between them. 
+The role that \emph{Eccentricity} might play is linked to the specific type of (formal) network that we’re taking into consideration. As we know, the nodes with a high \emph{ Betweenness Centrality} will be a considerably small minority of the analyzed population. The \emph{Eccentricity}, thus, by being expression of the potential diversity between nodes, might cause an increase of the value of $\nu$.
+The three parameters abovementioned are the ones that are not strictly related to the model that we initially developed but that we thought might have a role in the measurement we’re observing. For what regards the parameters that are strictly connected with the proposed model, we observed:
+\begin{itemize}
+	\item Number of nodes;
+	\item Number of edges;
+	\item Number of triads;
+	\item Hierarchy of the formal network.
+\end{itemize}
+
+
+
+
+
+\subsubsection{The sampling process}
+Before starting the sampling that we would utilize for the Sensitivity Analysis, we carried out some preliminary sampling with the aim of understanding what were the most reasonable value parameters (be it $p$, $m$ or $k$) to set for the final sampling.
+Eventually, we came to consider the following values as the most reasonable limits that would allow as to have sufficient variability between samples and that could be executed within a reasonable amount of time.
+For the time required by the Barabasi-Albert method, we decided to limit the amount of edges to be attached to existing nodes to 15.
+For what regards the Watts-Strogatz, for each additional node, we fixed the limit of the amount of neighbors to which it is linked to 15 and the rewiring probability to 1.
+Finally, for what regards the Erdős-Rényi, we set 0.4 as a limit for probability of creation of an additional edge.
+
+The sensitivity analysis (from now on, SA) has the aim of increasing the comprehension of the role that an input parameter plays within a given model. Depending on the type of sensitivity analysis, we can infer different information about the role that an input parameter plays in our model. There are two main types of SA methods: the One At a Time (OAT) method and the global method. The first one analyses the impact of one input parameter at a time on the output value by fixing all the other input variables; the second one, on the other side, analyses all the input parameters together. The first one is generally considered to be more feasible in terms of time necessary for the analysis, but doesn’t provide satisfying insights regarding the way in which input parameters interact with each other and, most importantly, how such interactions affect the model output (see Campolongo and Saltelli, 1997).  
+We individuated Morris’ method (Morris, 1991) as the best methodology of SA for our case. Morris’ method allows us to understand the effect that each input parameter has on the model and, in particular, to rank them depending on the magnitude of their impact. Additionally, such method allows to understand whether the relationship between an input parameter and the output is linear or U-shaped (inverted or non-inverted). We can infer such information from two results of the analysis: $\mu$ and $\mu*$ which indicate, respectively, the overall influence of an input factor on the output, which is calculated by summing all the elementary effects of all the samples, while the second one is the mean of the absolute values of such such elementary effects. More simply, the first one provides an estimate of the overall influence while the second provides an insight regarding the magnitude (in absolute terms) of the influence of a given input factor. 
+We carried out such several times for each type of random network generation method. We tried to carry out such analysis by requiring the model to run 200.000 times and, then, 8.000 times. As it can be seen in \emph{Tables 1-5}, there's no appreciable difference in terms of results between the analysis done on 200.000 samples and the ones done on 8.000 samples. 
+
+
+
+
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nuBA}\caption{Morris Analysis ($\nu$) with Barabasi-Albert Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nu2BA}\caption{Morris Analysis ($\nu$) with Barabasi-Albert Networks (200000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nuER}\caption{Morris Analysis ($\nu$) with Erdős-Rényi Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nu2ER}\caption{Morris Analysis ($\nu$) with Erdős-Rényi Networks (200000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nuWS}\caption{Morris Analysis ($\nu$) with Watts-Strogatz Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/phiBA}\caption{Morris Analysis ($\phi$) with Barabasi-Albert Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/phiER}\caption{Morris Analysis ($\phi$) with Erdős-Rényi Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/phiWS}\caption{Morris Analysis ($\phi$) with Watts-Strogatz Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nuparBA}\caption{Parameters' Value of samples of Morris Analysis ($\nu$) with Barabasi-Albert Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nuparER}\caption{Parameters' Value of samples of Morris Analysis ($\nu$) with Erdős-Rényi Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/nuparWS}\caption{Parameters' Value of samples of Morris Analysis ($\nu$) with Watts-Strogatz Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/phiparBA}\caption{Parameters' Value of samples of Morris Analysis ($\phi$) with Barabasi-Albert Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/phiparER}\caption{Parameters' Value of samples of Morris Analysis ($\phi$) with Erdős-Rényi Networks (8000 samples)}
+\end{table}
+\begin{table}
+\centering
+\includegraphics[width=14cm]{~/Desktop/phiparWS}\caption{Parameters' Value of samples of Morris Analysis ($\phi$) with Watts-Strogatz Networks (8000 samples)}
+\end{table}
+
+
+
+
+ 
+
+In the results of the Morris analysis we can quickly discern one aspect that is common to every group: all the values of $\mu$ are particularly close to 0. Even though there are some parameters that maintain a higher magnitude than the other parameters, if compared with their respective $\mu*$, they are all virtually insignificant. The difference between $\mu$ and $\mu*$ indicates that the parameters still play a minor role which, however, on average is virtually null. 
+Having this been said, there is also a considerable probability that, differently from the results of the Morris analysis on the model of $\nu$, the signs of the results of the Morris analysis on the model of $\phi$ would change. Better put, we’re of the opinion that, if we’d repeat the Morris analysis on the model of $\phi$, the signs of the results would be random.
+
+The insignificance of the considered parameters on $\phi$ is also signaled by another aspect, which is the distribution of $\phi$. Regardless the methodology adopted for the generation of random network, in fact, $\phi$ is, on average equal to 1 and its distribution is nearly normal (except for some minor outliers) . Additionally, a considerably large share of samples are close to 1 (see quantiles in \emph{Tables10-11}. On the other hand, we cannot find such a similarity in the samples of $\nu$ (Compare \emph{Tables} 5-6 with 10-11). 
+An interesting aspect that can be noticed is that there are differences in terms of width of the distribution of $\phi$ in the different groups of samples. For instance, the minimum and the maximum output are closer in the group of networks generated with the Erdős-Rényi method than in the group of networks generated with the Barabasi-Albert method.  Again, such aspect is related not to the way in which the informal networks are generated but to the numbers of triads that can be found in a given network. The lower the amount of triads that are individuated in an informal network, the higher the variance of the value of $\phi$. 
+
+Getting back to the development of $\phi$, we can, thus, conclude that $\rho$ allows us to account for the characteristics of the formal network. On the one hand, $\rho$ takes into account the Hierarchy of the formal network as its value strictly depends on the distribution of the values of $VAR$ within the formal network. By being an average, additionally, $\rho$ also accounts for the effects that the number of nodes has on the value of nu. By normalizing the potential effects that different parameters could have on the measurement of the verticality of the Simmelian ties, the introduction of $\rho$ allows to understand whether an informal network could be considered as vertical in absolute terms. Additionally, and most importantly, $\rho$ allows to compare the verticality of the Simmelian ties of different organizations each of which might have different formal networks. In essence, by adding $\rho$ we isolate or – at least – reduce the effect that differences in the characteristics of the formal network could have in the comparison of the verticality of the Simellian ties of two groups. $\phi$ is, thus, a comparable index.
+$\phi$ allows us not only to evaluate whether a company can be considered as vertically connected, but also whether it is more vertically connected than others, regardless the characteristics of the network that are present within it.
+
+
+
+\newpage
+\section{Final Considerations}
+In this paper we wanted to present a new measurement that would allow us and future research to assess whether and how Simmelian ties - in this paper and in previous researches, assumed to be strong ties - are vertically distributed. Our aim was to develop a measurement that could be as much precise as possible and that would not be affected by random or non-related aspects such as unrelated network structural characteristics. In order to make sure to obtain such a reliable and potentially representative measurement, we decided to follow a multilayer network analysis approach and to contemporaneously consider the information extracted from two networks representing different aspects of the same group. In order to make sure that the measurement was not affected by structural characteristics of the networks, we carried out a Morris Analysis to see whether and which some parameters of the considered networks could affect our measurement. As we were able to notice, the proposed index is particularly stable (in terms of results that it provides) and not influencable by unrelated factors which, eventually, suggest us the unwavering when it comes to measure the presence and the eventual magnitude of specific social environment or factors. 
+For as solid as the proposed index might appear, there are some flaws and weaknesses that must be pointed out and taken into consideration in future applications. First of all, the obvious necessity to thoroughly test it on real-life networks or, using the words of Robins et al. (2007), to test the index utilizing \emph{observed networks}. Nevertheless, we are of the opinion that in this paper we have provided sufficient argumentation to prove that the index is able to reliably measure the social dynamic we want to tackle.
+Another issue that the proposed index has regards the choice of \emph{Betweenness Centrality} as a measurement for the hierarchical level of a given subject. Let us consider the subject (node) n. 3 in \emph{Figure 3}. Even though it is positioned in the second layer position in the organizational structure, its \emph{Betweenness Centrality} as calculated in \emph{Formula 4} is equal to 0 as it doesn't connect any couple of generic nodes. We opted to utilize such measure following Freeman's suggestion's regarding the relationship between the control one can exercise over the network it belongs to and the \emph{Bentweenness Centrality} it can it has. Future research might take into consideration the \emph{Centrality} measure proposed by Liu et al. (2012), \emph{i.e.}, \emph{Control Centrality}. Such measure allows to measure the control that a single node exercises in a weighted and directed network. In our opinion, the potentiality of such measurement resides on the fact that, in case of directed acyclic graphs (DAG), the value of \emph{Control Centrality} that a node has represents its position in the hierarchical structure of the network (Liu et al. 2012). However, considering the way in which such measurement is built (see Liu et al. 2012, p. 4), differently from the \emph{Betweenness Centrality} such measure doesn't highlight the amount of direct subordinates a person has. We, therefore, suggest to, eventually, take \emph{Control Centrality} into consideration during future research and to see whether it could better address the issue at hand.
+Eventually, future research should try to understand whether one of the two measures here discussed might be more suitably considered when the organizational structure is coupled (or combined) with a specific network rather than another one.
+In conclusion, the paper, other than an index, provides an insight on the possible methodology that can be used in order to tackle issues that are still unaddressed by the extant literature. Exploiting all the potential combinations that a multilayer approach allows to create might foster our understanding of particularly complex and multidisciplinary phenomena.
+
+
+\newpage
+\section{Appendix}
+
+\subsection{Formal Networks}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/50F}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/100F}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/200F}
+\caption{Hypothetical network with 50, 100 and 200 nodes}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/50S10}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/100S10}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/200S10}
+\caption{Star10 with 50,100 and 200 nodes}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/50S5}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/100S5}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/200S5}
+\caption{Star5 with 200 nodes}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/50Y}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/100Y}\hfill
+\includegraphics[width=5cm]{~/Desktop/Plots Simmel/200Y}
+\caption{Circle network with 50 nodes}
+\end{figure}
+
+\newpage
+\subsection{The Python Script}
+Below here you can find a flowchart that schematizes the way in which the Python script that we developed works. The steps are followed one at a time and in the exact order we placed them in the chart. The colours of the boxes signify:
+\begin{itemize}
+	\item The colour Purple indicates all those steps that we set arbitrarily and that do not affect the rest of the script;
+	\item The colour Turquoise indicates all those steps that utilize the information gathered from the Formal Network;
+	\item The colour Yellow indicates all those steps that utilize the information gathered from the Informal Network;
+	\item The colour Green indicates all those steps that utilize the information gathered from both the Formal and the Informal Networks
+\end{itemize}
+
+Each time we wanted to carry out a test, we set specific boundary parameters - such as number of nodes, number of edges - to make sure that the script runs smoothly. After having set such parameters, the program will generate a Formal Network and then an Informal one. We had to add additional controls on the networks in order to avoid issues in the following steps. In this phase the program would make sure that the were no disconnected parts and that the number of triads would be, at least, equal to 1. 
+
+After having made sure that everything was properly working, the program would start the concrete measurements. Initially, the Betweenness Centrality of each node in the Formal Network is calculated. Such values are then used as "labels" to each respective node. Better put, each node in the Formal Network had a label, which is its respective \emph{Betweenness Centrality}. The result was a list of each node combined with its $BC$. After that, the program would individuate all the triads present in the Informal Network and create a list of vectors, each of which contains the identities of the nodes within a triad. Such list is, then, compared with the list containing the $BC$ values. The program, then, compares each triad with the nodes of the Formal Network; once there's a match, the program would substitute the node in the triad with the $BC$ of the matching node. In substance, the resulting new list is composed by triads containing $BC$'s values. After such process, obtaining $\nu$ is a mere matter of calculus.
+
+After having found $\nu$, the program would individuate all the possible triads. However, finding all the triads is a complex and particularly time consuming process (Pardalo and Resende, 1999). We, thus, decided to bypass the issue by generating a list of triads each of which contained one of the possible combinations of 3 nodes. After having obtained the list with all the possible triads, the program would repeat the same process it carried earlier, \emph{i.e.}, labelling the nodes within each triad. $\phi$ is, then, calculated.
+
+Finally, the program would evaluate \emph{Hierarchy} as calculated in \emph{Formula 7} and \emph{Average Clustering Coefficient (11)}, \emph{Density (16)} and \emph{Eccentricity (17)}.
+
+Eventually, all the information are stored and the program would generate a new Formal Network and a new Informal one. Such process is repeated $n$ amount of time, depending on how many samples we wanted for our Sensitivity Analysis. After $n$ samples are obtained, the sensitivity analysis would be carried out and, eventually, we would have our results.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{~/Desktop/flow}
+\caption{Flowchart of the Python script}
+\end{figure}
+
+
+\newpage
+\section{References}
+
+\begin{hangparas}{.25in}{1}
+
+
+Antonelli C. (2018). Knowledge exhaustibility and Schumpeterian growth. The Journal of Technology Transfer, Vol. 43: 779-791.
+
+Barabasi A. and Albert R. (1999). Emergence of Scaling in Random Networks. Science, Vol. 286(5439): 509-512.
+
+Bramucci A and Zanfei A. (2015). The governance of offshoring and its effects at home. The role of codetermination in the international organization of German firms. Economia e Politica Industriale, Vol. 42(2): 217-244.
+
+Burt R. S. (2015). Reinforced Structural Holes. Social Networks, Vol. 43: 149-161.
+
+Burt R. S. (1992). The social structure of competition. In N. Nohria & R. Eccles (Eds.), Networks and orga- nizations: Structure, form, and action (pp. 57-91). Boston, MA: Harvard Business School Press. 
+
+Burt R. S., Kilduff M. and Tasselli S. (2013). Social Network Analysis: Foundations and Frontiers on Advantage. Annual review of Psychology, Vol. 64: 527-547.
+
+Burt R. S. and Knez M. (1996). A further note on the network structure of trust: reply to Krackhardt. Rationality and Society, Vol. 8(1): 117-120.
+
+Campolongo F. and  Saltelli A. (1997). Sensitivity analysis of an environmental model: an application of different analysis methods. Reliability Engineering and System Safety, Vol. 57: 49-69.
+
+Chen C., Hsiao Y. and Chu M. (2014). Transfer mechanisms and knowledge transfer: The cooperative competency perspective. Journal of Business Research, Vol. 67(12): 2531-2541.
+
+Erdős P. and Rényi A. (1960). On the evolution of random graphs. Publications of the Mathematical Institute of the Hungarian Academy of Sciences, Vol. 5:17-60.
+
+Faems D., Janssenss M. and van Looy B. (2007). The Initiation and Evolution of Interfirm Knowledge Transfer in R&D Relationships. Organization Studies, Vol. 28(11): 1699-1728.
+
+Freeman L. C. (1977). A set of measures of Centrality based on Betweenness. Sociometry, Vol. 40(1): 35-41.
+
+Friedkin N. E. (1982). Information Flow Through Strong and Weak Ties in lntraorganizational Social Networks. Social Networks, Vol. 3: 273-285. 
+
+Fritsch M. and Kauffeld-Monz M. (2010). The impact of network structure on knowledge transfer: an application of social network analysis in the context of regional innovation networks. Annual Regional Science, Vol. 44: 21-38.
+
+Gargiulo M., Ertug G. and Galunic C. (2009). The Two Faces of Control: Network Closure and Individual Performance among Knowledge Workers. Administrative Science Quarterly, Vol. 54: 299-333.
+
+Giuliani E. (2007). The selective nature of knowledge networks in clusters: evidence from the wine industry. Journal of Economic Geography, Vol. 7: 139-168.
+
+Granovetter M. S. (1973). The Strength of Weak Ties. American Journal of Sociology, Vol. 78(6): 1360-1380.
+
+Hansen M. T. (1999). The Search-Transfer Problem:The Role of Weak Ties in Sharing Knowledge across OrganizationSubunit. Administrative Science Quarterly, Vol. 44: 82-111. 
+
+Heider F. (1958). The psychology of interpersonal relations. New York, NY: Wiley.
+
+Huggins R. and Johnston A. (2010). Knowledge flow and inter-firm networks: The influence of network resources, spatial proximity and firm size. Entrepreneurship & Regional Development, Vol. 22(5): 457-484.
+
+Kilduff M. and Lee J. W. (2020). The Integration of People and Networks. Annual Review of Organizational Psychology and Organizational Behavior, Vol. 7: 155-179.
+
+Kotabe M., Dunlap-Hinkler D., Parente R. and Mishra H. A. (2007). Determinants of Cross-National Knowledge Transfer and Its Effect on Firm Innovation. Journal of International Business Studies, Vol. 38(2): 259-282.
+
+Krackhardt D. (1987). Cognitive Social Structure. Social Networks, Vol. 9: 109-134.
+
+Krackhardt D. (1998). Simmelian Tie: Super Strong and Sticky. In Roderick Kramer and Margaret Neale (eds.). Power and Influence in Organizations. Thousand Oaks, CA: Sage, pp. 21-38.
+
+Krackhardt D. (1999). The ties that torture: Simmelian tie analysis in organizations. Research in the Sociology of Organizations, Vol. 16: 183-210.
+
+Krackhardt D. and Brass D. J. (1994). Intraorganizational Networks: The Micro Side. In Stanley Wasserman and Joseph Galaskiewicz (ed.), Advances in the Social and Behavioral Sciences from Social Network Analysis. Beverly Hills: Sage, pp. 209-230.
+
+Krackhardt D. and Hanson J. R. (1993). Informal Networks: The Company Behind the Chart. Harvard Business Review, Vol. 71(4), 104:111.
+
+Krackhardt D. and Stern R. N. (1988). Informal Networks and Organizational Crises: An Experimental Simulation. Social Psychology Quarterly, Vol. 51(2): 123-140.
+
+Jirjhan U. and Pfeifer C. (2009). The Introduction of Works Councils in German Establishments — Rent Seeking or Rent Protection?. British Journal of Industrial Relations. Vol. 47(3): 521-545.
+
+Mitton C., Adair C. E., McKenzie E., Patten S. B. and Perry B. W. (2007). Knowledge Transfer and Exchange: Review and Synthesis of the Literature. The Millbank Quarterly, Vol. 85(4): 729-768.
+
+Morris M. D. (1991). Factorial sampling plans for preliminary computational experiments. Technometrics, Vol. 332: 161-174.
+
+Liebeskind J. P. (1996). Knowledge, Strategy, And the Theory of the Firm. Strategic Management Journal, Vol. 17 (Winter Special Issue): 93:107.
+
+Lissoni F. (2001). Knowledge codification and the geography of innovation: the case of Brescia mechanical cluster. Research Policy, Vol. 30: 1479-1500.
+
+Marsden P. V. and Campbell K. E. (1984). Measuring Tie Strength. Social Forces, Vol. 63(2): 482-501.
+
+McGrath C. and Krackhardt D. (2003). Network Conditions for Organizational Change The Journal of Applied Behavioral Science, Vol. 39(3): 324-336.
+
+Morrison A. (2008). Gatekeepers of Knowledge within Industrial Districts: Who They Are, How They Interact, Regional Studies, Vol. 42(6): 817-835.
+
+Pardalos J., and Resende M. (1999). On maximum clique problems in very large graphs. Discrete Mathematics and Theoretical Computer Science Vol. 50: 119-130.
+
+Pedersen T., Soda G. and Stea D. (2019) Globally networked: Intraorganizational boundary spanning in the global organization. Journal of World Business, Vol. 54(3): 169-180.
+
+Powell W. W. and Snellman K. (2004). The Knowledge Economy. Annual Review of Sociology, Vol. 30: 199-220.
+
+Reagans R. (2005). Preferences, Identity, and Competition: Predicting Tie Strength from Demographic Data. Management Science, Vol. 51(9): 1374-1383.
+
+Reagans R. and McEvily B. (2003). Network Structure and Knowledge Transfer: effects of Cohesion and Range. Administrative Science Quarterly, Vol. 48(2): 240-26.
+
+Robins G., Tom Snijders T., Wang P., Handcock M. and Pattison P. (2007). Recent developments in exponential random graph (p*) models for social networks. Social Networks, Vol. 29(2): 192-215.
+
+Rodan S. and Galunic C. (2004). More than Network Structure: how Knowledge Heterogeneity influences Managerial Performance and Innovativeness. Strategic Management Journal, Vol. 25: 541-562.
+
+Seely Brown J. and Duguid P. (2001), Knowledge and Organization: A Social-Practice Perspective. Organization Science, Vol. 12(2): 198-213.
+
+Simmel G. (1950). The Sociology of Georg Simmel. Translated and Edited by Wolff K. H., Collier McMillan, Ontario (Canada).
+
+Solorzano M. G., Tortoriello M. and Soda G. (2019). Instrumental and affective ties within the laboratory: The impact of informal cliques on innovative productivity. Strategic Management Journal, Vol. 40: 1593-1609.
+
+Song J., Almeida P. and Wu G. (2003). Learning-by-Hiring: When Is Mobility More Likely to Facilitate Interfirm Knowledge Transfer? Management Science, Vol. 49(4): 351-365.
+
+Tasselli S. and Caimo A. (2019). Does it take three to dance the Tango? Organizational design, triadic structures and boundary spanning across subunits. Social Networks, Vol. 59: 10-22.
+
+Tortoriello M. and Krackhardt D. (2010). Activating Cross-boundary Knowledge: the role of Simmelian Ties in the Generation of Innovations. Academy of Management Journal, Vol. 53(1): 167-181.
+
+Tortoriello M., McEvily B. and Krackhardt D. (2015). Being a Catalyst of Innovation: The Role of Knowledge Diversity and Network Closure. Organization Science, Vol. 26(2): 423-438.
+
+Tortoriello M., Reagans R. and McEvily B. (2012). Bridging the Knowledge Gap: The Influence of Strong Ties, Network Cohesion, and Network Range on the Transfer of Knowledge Between Organizational Units. Organization Science, Vol. 23(4): 1024-1039.
+
+Uzzi B. (1997). Social Structure and Competition in interfirm networks: the paradox of embeddedness. Administrative Science Quarterly, Vol. 42(1): 35-67.
+
+Von Hippel E. (1994). “Sticky Information” and the Locus of Problem Solving: Implications for Innovation. Management Science, Vol. 40(4):429-439 
+
+Wang J. (2016). Knowledge creation in collaboration networks: Effects of tie configuration. Research Policy, Vol. 45(1): 68-80.
+
+Wang C., Rodan S., Fruin M. and Xu X. (2014). Knowledge Networks, Collaboration Networks and Exploratory innovation. Academy of Management Journal, Vol. 57(2): 484-514.
+
+Wang J., Yang N. and Guo M. (2020). Ego-network stability and exploratory innovation: the moderating role of knowledge networks. Management Decision, Vol. 59(6): 1406-1420.
+
+Watson S. and Hewett K. (2006).A Multi-Theoretical Model of Knowledge Transfer in Organizations: Determinants of Knowledge Contribution and Knowledge Reuse. Journal of Management Studies, Vol. 43(2): 141-173.
+
+Watts D. J. and Strogatz H. S. (1998). Collective dynamics of ‘small-world’ networks. Nature, Vol. 393: 440–442.
+
+Zappa P. and Lomi A. (2015). The Analysis of Multilevel Networks in Organizations: Models and Empirical Tests. Organizational Research Methods, Vol. 18(3): 542-563.
+
+\end{hangparas}
+
+\end{document}
+
+
+
+
+
