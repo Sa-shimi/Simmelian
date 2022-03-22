@@ -1,0 +1,272 @@
+import networkx as nx
+import numpy as np
+import pandas as pd
+from itertools import combinations
+from random import randrange
+import random
+
+
+def test(psimmvertup1, psimmvertup2, psimmvertdown1, psimmvertdown2, psimmhor1, psimmhor2, pvertup1, pvertup2,
+         pvertdown1,
+         pvertdown2, phor1, phor2, psup, psub, pnorm, p, num, threshold):
+
+    psimmvertup1 = psimmvertup1
+    # 20/70
+    psimmvertup2 = psimmvertup2
+    # 20/70
+    psimmvertdown1 = psimmvertdown1
+    # 20/70
+    psimmvertdown2 = psimmvertdown2
+    # 20/70
+    psimmhor1 = psimmhor1
+    # 20/70
+    psimmhor2 = psimmhor2
+    # 20/70
+    pvertup1 = pvertup1
+    # 20/70
+    pvertup2 = pvertup2
+    # 20/70
+    pvertdown1 = pvertdown1
+    # 20/70
+    pvertdown2 = pvertdown2
+    # 20/70
+    phor1 = phor1
+    # 20/70
+    phor2 = phor2
+    # 20/70
+
+    # willingness to be influenced by, respectively, subordinates, superiors and peers
+    psub = psub
+    # 0.01
+    psup = psup
+    # 0.1
+    pnorm = pnorm
+    # 0.3
+    threshold = threshold
+    # 0.7
+
+    p = p
+    num = num
+    F = nx.random_tree(n=num, create_using=nx.DiGraph, )
+    G = nx.barabasi_albert_graph(num, p)
+
+    def Control_Centrality(F):
+        length = len(F.nodes)
+        i = 1
+
+        def CC(F):
+            pippa = F.out_degree()
+            pippa1 = np.array(pippa)
+            pippa2 = pippa1[pippa1[:, 1] != 0]
+            F = F.subgraph(pippa2[:, 0])
+            return F
+
+        def layer(F):
+            culo = [x for x in F.nodes if x not in CC(F).nodes]
+            banana = [i] * len(culo)
+            results = np.column_stack((culo, banana))
+            return results
+
+        results = layer(F)
+        while len(results) < length:
+            results = np.concatenate([results, layer(F)])
+            results = np.unique(results, axis=0)
+            i += 1
+            F = CC(F)
+            layer(F)
+        return dict(zip(results[:, 0], (results[:, 1])))
+
+    BC = Control_Centrality(F)
+    cliques = list(nx.enumerate_all_cliques(G))
+
+    triads = [i for i in cliques if len(i) == 3]
+
+    def combine(arr, s):
+        return list(combinations(arr, s))
+
+    simm = []
+    for n in triads:
+        for l in combine(n, 2):
+            simm.append(l)
+
+    simmelian = []
+    for i in simm:
+        if i not in simmelian:
+            simmelian.append(i)
+
+    simmelian = np.array(simmelian)
+    A = simmelian[:, 0]
+    B = simmelian[:, 1]
+    df = pd.DataFrame(simmelian)
+    numsimm = len(simmelian)
+
+    BCA = []
+    for x in (A):
+        for n in (BC):
+            if x == n:
+                BCA.append(BC[n])
+    BCB = []
+    for y in (B):
+        for n in (BC):
+            if y == n:
+                BCB.append(BC[n])
+
+    df['BCA'] = BCA
+    df['BCB'] = BCB
+    df['AVG'] = (df['BCA'] + df['BCB']) / 2
+    df['VAR'] = (((df['BCA'] - df['AVG']) ** 2 + (df['BCB'] - df['AVG']) ** 2) / 2)
+    VAR = np.sum(df['VAR'])
+
+    sub = []
+    for (i, j) in F.edges:
+        sub.append((j, i))
+
+    sup = F.edges
+
+    nx.set_edge_attributes(G, 0, name='prob')
+    nx.set_node_attributes(G, 0, name='relevance')
+    G.nodes[0]['relevance'] = 1
+
+    def steppy(G):
+        K = G.copy()
+        t = 1
+
+        def event(G):
+
+            P = K.copy()
+            for n in K.nodes:
+                global influencejn
+                opchange = []
+                for j in K.neighbors(n):
+                    if P.nodes[j]['relevance'] >= threshold:
+                        if (n, j) in sub:
+                            if [n, j] in simmelian:
+                                if BC[n] - BC[j] < 0:
+                                    p = randrange(psimmvertup1, psimmvertup2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
+                                            P.nodes[j]['relevance']) * psub
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] > 0:
+                                    p = randrange(psimmvertdown1, psimmvertdown2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
+                                            P.nodes[j]['relevance']) * psub
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] == 0:
+                                    p = randrange(psimmhor1, psimmhor2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
+                                            P.nodes[j]['relevance']) * psub
+                                        opchange.append(influencejn)
+                            elif [n, j] not in simmelian:
+                                if BC[n] - BC[j] < 0:
+                                    p = randrange(pvertup1, pvertup2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
+                                            P.nodes[j]['relevance']) * psub
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] > 0:
+                                    p = randrange(pvertdown1, pvertdown2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
+                                            P.nodes[j]['relevance']) * psub
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] == 0:
+                                    p = randrange(phor1, phor2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
+                                            P.nodes[j]['relevance']) * psub
+                                        opchange.append(influencejn)
+                        elif (n, j) in sup:
+                            if [n, j] in simmelian:
+                                if BC[n] - BC[j] < 0:
+                                    p = randrange(psimmvertup1, psimmvertup2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
+                                            P.nodes[j]['relevance']) * psup
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] > 0:
+                                    p = randrange(psimmvertdown1, psimmvertdown2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
+                                            P.nodes[j]['relevance']) * psup
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] == 0:
+                                    p = randrange(psimmhor1, psimmhor2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
+                                            P.nodes[j]['relevance']) * psup
+                                        opchange.append(influencejn)
+                            elif [n, j] not in simmelian:
+                                if BC[n] - BC[j] < 0:
+                                    p = randrange(pvertup1, pvertup2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
+                                            P.nodes[j]['relevance']) * psup
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] > 0:
+                                    p = randrange(pvertdown1, pvertdown2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
+                                            P.nodes[j]['relevance']) * psup
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] == 0:
+                                    p = randrange(phor1, phor2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
+                                            P.nodes[j]['relevance']) * psup
+                                        opchange.append(influencejn)
+                        else:
+                            if [n, j] in simmelian:
+                                if BC[n] - BC[j] < 0:
+                                    p = randrange(psimmvertup1, psimmvertup2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
+                                            P.nodes[j]['relevance']) * pnorm
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] > 0:
+                                    p = randrange(psimmvertdown1, psimmvertdown2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
+                                            P.nodes[j]['relevance']) * pnorm
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] == 0:
+                                    p = randrange(psimmhor1, psimmhor2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
+                                            P.nodes[j]['relevance']) * pnorm
+                                        opchange.append(influencejn)
+                            elif [n, j] not in simmelian:
+                                if BC[n] - BC[j] < 0:
+                                    p = randrange(pvertup1, pvertup2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
+                                            P.nodes[j]['relevance']) * pnorm
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] > 0:
+                                    p = randrange(pvertdown1, pvertdown2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
+                                            P.nodes[j]['relevance']) * pnorm
+                                        opchange.append(influencejn)
+                                elif BC[n] - BC[j] == 0:
+                                    p = randrange(phor1, phor2) / 100
+                                    if random.random() < p:
+                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
+                                            P.nodes[j]['relevance']) * pnorm
+                                        opchange.append(influencejn)
+                if np.size(opchange) == 0:
+                    K.nodes[n]['relevance'] = P.nodes[n]['relevance']
+                else:
+                    K.nodes[n]["relevance"] = np.average(opchange)
+            return K
+
+        K = event(K)
+        for n in K.nodes:
+            while K.nodes[n]['relevance'] <= threshold:
+                t += 1
+                event(K)
+        return t
+
+    return (steppy(G))
