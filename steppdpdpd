@@ -1,105 +1,123 @@
-P = K.copy()
 for n in K.nodes:
 opchange = []
     for j in K.neighbors(n):
-        if K.nodes[j]['relevance'] >= threshold:
+        if P.nodes[n]['relevance'] >= threshold:
             if (n, j) in sub:
                 if [n, j] in simmelian:
                     if BC[n] - BC[j] < 0:
                         p = randrange(psimmvertup1, psimmvertup2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psub) + (
-                                P.nodes[j]['relevance']) * psub)
+                            banana = (K.nodes[j]['relevance']) * (1 - psub) + (
+                                P.nodes[n]['relevance']) * psub
+                            opchange.append(banana)
                     elif BC[n] - BC[j] > 0:
                         p = randrange(psimmvertdown1, psimmvertdown2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psub) + (
-                                P.nodes[j]['relevance']) * psub)
+                            banana = (K.nodes[j]['relevance']) * (1 - psub) + (
+                                P.nodes[n]['relevance']) * psub
+                            opchange.append(banana)
                     elif BC[n] - BC[j] == 0:
                         p = randrange(psimmhor1, psimmhor2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psub) + (
-                                P.nodes[j]['relevance']) * psub)
+                            banana = (K.nodes[j]['relevance']) * (1 - psub) + (
+                                P.nodes[n]['relevance']) * psub
+                            opchange.append(banana)
                 else:
                     if BC[n] - BC[j] < 0:
                         p = randrange(pvertup1, pvertup2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psub) + (
-                                P.nodes[j]['relevance']) * psub)
+                            banana = (K.nodes[j]['relevance']) * (1 - psub) + (
+                                P.nodes[n]['relevance']) * psub
+                            opchange.append(banana)
                     elif BC[n] - BC[j] > 0:
                         p = randrange(pvertdown1, pvertdown2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psub) + (
-                                P.nodes[j]['relevance']) * psub)
+                            banana = (K.nodes[j]['relevance']) * (1 - psub) + (
+                                P.nodes[n]['relevance']) * psub
+                            opchange.append(banana)
                     elif BC[n] - BC[j] == 0:
                         p = randrange(phor1, phor2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psub) + (
-                                P.nodes[j]['relevance']) * psub)
+                            banana = (K.nodes[j]['relevance']) * (1 - psub) + (
+                                P.nodes[n]['relevance']) * psub
+                            opchange.append(banana)
             if (n, j) in sup:
                 if [n, j] in simmelian:
                     if BC[n] - BC[j] < 0:
                         p = randrange(psimmvertup1, psimmvertup2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psup) + (
-                                P.nodes[j]['relevance']) * psup)
+                            banana = (K.nodes[j]['relevance']) * (1 - psup) + (
+                                P.nodes[n]['relevance']) * psup
+                            opchange.append(banana)
                     elif BC[n] - BC[j] > 0:
                         p = randrange(psimmvertdown1, psimmvertdown2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psup) + (
-                                P.nodes[j]['relevance']) * psup)
+                            banana = (K.nodes[j]['relevance']) * (1 - psup) + (
+                                P.nodes[n]['relevance']) * psup
+                            opchange.append(banana)
                     elif BC[n] - BC[j] == 0:
                         p = randrange(psimmhor1, psimmhor2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psup) + (
-                                P.nodes[j]['relevance']) * psup)
+                            banana = (K.nodes[j]['relevance']) * (1 - psup) + (
+                                P.nodes[n]['relevance']) * psup
+                            opchange.append(banana)
                 else:
                     if BC[n] - BC[j] < 0:
                         p = randrange(pvertup1, pvertup2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psup) + (
-                                P.nodes[j]['relevance']) * psup)
+                            banana = (K.nodes[j]['relevance']) * (1 - psup) + (
+                                P.nodes[n]['relevance']) * psup
+                            opchange.append(banana)
                     elif BC[n] - BC[j] > 0:
                         p = randrange(pvertdown1, pvertdown2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psup) + (
-                                P.nodes[j]['relevance']) * psup)
+                            banana = (K.nodes[j]['relevance']) * (1 - psup) + (
+                                P.nodes[n]['relevance']) * psup
+                            opchange.append(banana)
                     elif BC[n] - BC[j] == 0:
                         p = randrange(phor1, phor2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - psup) + (
-                                P.nodes[j]['relevance']) * psup)
+                            banana = (K.nodes[j]['relevance']) * (1 - psup) + (
+                                P.nodes[n]['relevance']) * psup
+                            opchange.append(banana)
             else:
                 if [n, j] in simmelian:
                     if BC[n] - BC[j] < 0:
                         p = randrange(psimmvertup1, psimmvertup2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                P.nodes[j]['relevance']) * pnorm)
+                            banana = (K.nodes[j]['relevance']) * (1 - pnorm) + (
+                                P.nodes[n]['relevance']) * pnorm
+                            opchange.append(banana)
                     elif BC[n] - BC[j] > 0:
                         p = randrange(psimmvertdown1, psimmvertdown2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                P.nodes[j]['relevance']) * pnorm)
+                            banana = (K.nodes[j]['relevance']) * (1 - pnorm) + (
+                                P.nodes[n]['relevance']) * pnorm
+                            opchange.append(banana)
                     elif BC[n] - BC[j] == 0:
                         p = randrange(psimmhor1, psimmhor2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                P.nodes[j]['relevance']) * pnorm)
+                            banana = (K.nodes[j]['relevance']) * (1 - pnorm) + (
+                                P.nodes[n]['relevance']) * pnorm
+                            opchange.append(banana)
                 else:
                     if BC[n] - BC[j] < 0:
                         p = randrange(pvertup1, pvertup2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                P.nodes[j]['relevance']) * pnorm)
+                            banana = (K.nodes[j]['relevance']) * (1 - pnorm) + (
+                                P.nodes[n]['relevance']) * pnorm
+                            opchange.append(banana)
                     elif BC[n] - BC[j] > 0:
                         p = randrange(pvertdown1, pvertdown2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                P.nodes[j]['relevance']) * pnorm)
+                            banana = (K.nodes[j]['relevance']) * (1 - pnorm) + (
+                                P.nodes[n]['relevance']) * pnorm
+                            opchange.append(banana)
                     elif BC[n] - BC[j] == 0:
                         p = randrange(phor1, phor2) / 100
                         if random.random() < p:
-                            opchange.append((P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                P.nodes[j]['relevance']) * pnorm)
-    K.nodes[n]["relevance"] = np.average()
+                            banana = (K.nodes[j]['relevance']) * (1 - pnorm) + (
+                                P.nodes[n]['relevance']) * pnorm
+                            opchange.append(banana)
+    K.nodes[n]["relevance"] = np.average(opchange)
+return G
