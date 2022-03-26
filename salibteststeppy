@@ -9,33 +9,20 @@ import statistics as s
 import numpy as np
 
 
-def test(psimmvertup1, psimmvertup2, psimmvertdown1, psimmvertdown2, psimmhor1, psimmhor2, pvertup1, pvertup2,
-         pvertdown1,
-         pvertdown2, phor1, phor2, psup, psub, pnorm, threshold, num, p):
-    psimmvertup1 = int(psimmvertup1)
-    # 20/70
-    psimmvertup2 = int(psimmvertup2)
-    # 20/70
-    psimmvertdown1 = int(psimmvertdown1)
-    # 20/70
-    psimmvertdown2 = int(psimmvertdown2)
-    # 20/70
-    psimmhor1 = int(psimmhor1)
-    # 20/70
-    psimmhor2 = int(psimmhor2)
-    # 20/70
-    pvertup1 = int(pvertup1)
-    # 20/70
-    pvertup2 = int(pvertup2)
-    # 20/70
-    pvertdown1 = int(pvertdown1)
-    # 20/70
-    pvertdown2 = int(pvertdown2)
-    # 20/70
-    phor1 = int(phor1)
-    # 20/70
-    phor2 = int(phor2)
-    # 20/70
+def test(psimmvertup, psimmvertdown, psimmhor, pvertup,
+         pvertdown, phor, psup, psub, pnorm, threshold, num, p):
+    psimmvertup1 = int(psimmvertup-10)
+    psimmvertup2 = int(psimmvertup+10)
+    psimmvertdown1 = int(psimmvertdown-10)
+    psimmvertdown2 = int(psimmvertdown+10)
+    psimmhor1 = int(psimmhor-10)
+    psimmhor2 = int(psimmhor+10)
+    pvertup1 = int(pvertup-10)
+    pvertup2 = int(pvertup+10)
+    pvertdown1 = int(pvertdown-10)
+    pvertdown2 = int(pvertdown+10)
+    phor1 = int(phor-10)
+    phor2 = int(phor+10)
 
     # willingness to be influenced by, respectively, subordinates, superiors and peers
     psub = psub
@@ -274,37 +261,30 @@ def test(psimmvertup1, psimmvertup2, psimmvertdown1, psimmvertdown2, psimmhor1, 
     return (steppy(G))
 
 
-print(test(20, 70, 20, 70, 20, 70, 10, 70, 10, 70, 5, 70, 0.01, 0.05, 0.3, 0.7, 50, 3))
+print(test(30,40,50,60,70,80, 0.01, 0.05, 0.3, 0.7, 50, 3))
 
 problem = {
-    'num_vars': 18,
-    'names': ['psimmvertup1', 'psimmvertup2', 'psimmvertdown1', 'psimmvertdown2', 'psimmhor1', 'psimmhor2', 'pvertup1',
-              'pvertup2', 'pvertdown1', 'pvertdown2', 'phor1', 'phor2', 'psup', 'psub', 'pnorm',
+    'num_vars': 12,
+    'names': ['psimmvertup', 'psimmvertdown', 'psimmhor', 'pvertup', 'pvertdown', 'phor', 'psup', 'psub', 'pnorm',
               'threshold', 'num', 'p'],
-    'bounds': [[10, 30],
-               [60, 80],
-               [10, 30],
-               [60, 80],
-               [10, 30],
-               [60, 80],
-               [10, 30],
-               [60, 80],
-               [10, 30],
-               [60, 80],
-               [10, 30],
-               [60, 80],
+    'bounds': [[11, 89],
+               [11, 89],
+               [11, 89],
+               [11, 89],
+               [11, 89],
+               [11, 89],
                [0.1, 0.99],
                [0.1, 0.99],
                [0.1, 0.99],
                [0.3, 0.99],
-               [20, 500],
+               [40, 50],
                [2, 10]
                ]
 }
 
-param_values = SALib.sample.morris.sample(problem, 2 ** 2)
+param_values = SALib.sample.morris.sample(problem, 2 ** 4)
 Y = np.array([test(*params) for params in param_values])
-si = analyze(problem, param_values, Y, num_resamples=2 ** 2, print_to_console=True)
+si = analyze(problem, param_values, Y, num_resamples=2 ** 4, print_to_console=True)
 
 
 
@@ -316,78 +296,56 @@ print('max steps:', max(Y))
 print('mean steps',s.mean(Y))
 print('quantiles steps:', s.quantiles(Y))
 
-print('min simmvertup1:', min(param_values[:, 0]))
-print('min simmvertup2:', min(param_values[:, 1]))
-print('min simmvertdown1:', min(param_values[:, 2]))
-print('min simmvertdown2:', min(param_values[:, 3]))
-print('min simmhor1:', min(param_values[:, 4]))
-print('min simmhor2:', min(param_values[:, 5]))
-print('min pvertup1:', min(param_values[:, 6]))
-print('min pvertup2:', min(param_values[:, 7]))
-print('min pvertdown1:', min(param_values[:, 8]))
-print('min pvertdown2:', min(param_values[:, 9]))
-print('min phor1:', min(param_values[:, 10]))
-print('min phor2:', min(param_values[:, 11]))
-print('min psup:', min(param_values[:, 12]))
-print('min psub:', min(param_values[:, 13]))
-print('min pnorm:', min(param_values[:, 14]))
-print('min threshold:', min(param_values[:, 15]))
-print('min num:', min(param_values[:, 16]))
-print('min p:', min(param_values[:, 17]))
+print('min simmvertup:', min(param_values[:, 0]))
+print('min simmvertdown:', min(param_values[:, 1]))
+print('min simmhor:', min(param_values[:, 2]))
+print('min vertup:', min(param_values[:, 3]))
+print('min vertdown:', min(param_values[:, 4]))
+print('min hor:', min(param_values[:, 5]))
+print('min psup:', min(param_values[:, 6]))
+print('min psub:', min(param_values[:, 7]))
+print('min pnorm:', min(param_values[:, 8]))
+print('min threshold:', min(param_values[:, 9]))
+print('min num:', min(param_values[:, 10]))
+print('min p:', min(param_values[:, 11]))
 
-print('max simmvertup1:', max(param_values[:, 0]))
-print('max simmvertup2:', max(param_values[:, 1]))
-print('max simmvertdown1:', max(param_values[:, 2]))
-print('max simmvertdown2:', max(param_values[:, 3]))
-print('max simmhor1:', max(param_values[:, 4]))
-print('max simmhor2:', max(param_values[:, 5]))
-print('max pvertup1:', max(param_values[:, 6]))
-print('max pvertup2:', max(param_values[:, 7]))
-print('max pvertdown1:', max(param_values[:, 8]))
-print('max pvertdown2:', max(param_values[:, 9]))
-print('max phor1:', max(param_values[:, 10]))
-print('max phor2:', max(param_values[:, 11]))
-print('max psup:', max(param_values[:, 12]))
-print('max psub:', max(param_values[:, 13]))
-print('max pnorm:', max(param_values[:, 14]))
-print('max threshold:', max(param_values[:, 15]))
-print('max num:', max(param_values[:, 16]))
-print('max p:', max(param_values[:, 17]))
+print('max simmvertup:', max(param_values[:, 0]))
+print('max simmvertdown:', max(param_values[:, 1]))
+print('max simmhor:', max(param_values[:, 2]))
+print('max vertup:', max(param_values[:, 3]))
+print('max vertdown:', max(param_values[:, 4]))
+print('max hor:', max(param_values[:, 5]))
+print('max psup:', max(param_values[:, 6]))
+print('max psub:', max(param_values[:, 7]))
+print('max pnorm:', max(param_values[:, 8]))
+print('max threshold:', max(param_values[:, 9]))
+print('max num:', max(param_values[:, 10]))
+print('max p:', max(param_values[:, 11]))
 
-print('mean simmvertup1:', s.mean(param_values[:, 0]))
-print('mean simmvertup2:', s.mean(param_values[:, 1]))
-print('mean simmvertdown1:', s.mean(param_values[:, 2]))
-print('mean simmvertdown2:', s.mean(param_values[:, 3]))
-print('mean simmhor1:', s.mean(param_values[:, 4]))
-print('mean simmhor2:', s.mean(param_values[:, 5]))
-print('mean pvertup1:', s.mean(param_values[:, 6]))
-print('mean pvertup2:', s.mean(param_values[:, 7]))
-print('mean pvertdown1:', s.mean(param_values[:, 8]))
-print('mean pvertdown2:', s.mean(param_values[:, 9]))
-print('mean phor1:', s.mean(param_values[:, 10]))
-print('mean phor2:', s.mean(param_values[:, 11]))
-print('mean psup:', s.mean(param_values[:, 12]))
-print('mean psub:', s.mean(param_values[:, 13]))
-print('mean pnorm:', s.mean(param_values[:, 14]))
-print('mean threshold:', s.mean(param_values[:, 15]))
-print('mean num:', s.mean(param_values[:, 16]))
-print('mean p:', s.mean(param_values[:, 17]))
+print('mean simmvertup:', s.mean(param_values[:, 0]))
+print('mean simmvertdown:', s.mean(param_values[:, 1]))
+print('mean simmhor:', s.mean(param_values[:, 2]))
+print('mean vertup:', s.mean(param_values[:, 3]))
+print('mean vertdown:', s.mean(param_values[:, 4]))
+print('mean hor:', s.mean(param_values[:, 5]))
+print('mean psup:', s.mean(param_values[:, 6]))
+print('mean psub:', s.mean(param_values[:, 7]))
+print('mean pnorm:', s.mean(param_values[:, 8]))
+print('mean threshold:', s.mean(param_values[:, 9]))
+print('mean num:', s.mean(param_values[:, 10]))
+print('mean p:', s.mean(param_values[:, 11]))
 
-print('quantiles simmvertup1:', s.quantiles(param_values[:, 0]))
-print('quantiles simmvertup2:', s.quantiles(param_values[:, 1]))
-print('quantiles simmvertdown1:', s.quantiles(param_values[:, 2]))
-print('quantiles simmvertdown2:', s.quantiles(param_values[:, 3]))
-print('quantiles simmhor1:', s.quantiles(param_values[:, 4]))
-print('quantiles simmhor2:', s.quantiles(param_values[:, 5]))
-print('quantiles pvertup1:', s.quantiles(param_values[:, 6]))
-print('quantiles pvertup2:', s.quantiles(param_values[:, 7]))
-print('quantiles pvertdown1:', s.quantiles(param_values[:, 8]))
-print('quantiles pvertdown2:', s.quantiles(param_values[:, 9]))
-print('quantiles phor1:', s.quantiles(param_values[:, 10]))
-print('quantiles phor2:', s.quantiles(param_values[:, 11]))
-print('quantiles psup:', s.quantiles(param_values[:, 12]))
-print('quantiles psub:', s.quantiles(param_values[:, 13]))
-print('quantiles pnorm:', s.quantiles(param_values[:, 14]))
-print('quantiles threshold:', s.quantiles(param_values[:, 15]))
-print('quantiles num:', s.quantiles(param_values[:, 16]))
-print('quantiles p:', s.quantiles(param_values[:, 17]))
+print('quantiles simmvertup:', s.quantiles(param_values[:, 0]))
+print('quantiles simmvertdown:', s.quantiles(param_values[:, 1]))
+print('quantiles simmhor:', s.quantiles(param_values[:, 2]))
+print('quantiles vertup:', s.quantiles(param_values[:, 3]))
+print('quantiles vertdown:', s.quantiles(param_values[:, 4]))
+print('quantiles hor:', s.quantiles(param_values[:, 5]))
+print('quantiles psup:', s.quantiles(param_values[:, 6]))
+print('quantiles psub:', s.quantiles(param_values[:, 7]))
+print('quantiles pnorm:', s.quantiles(param_values[:, 8]))
+print('quantiles threshold:', s.quantiles(param_values[:, 9]))
+print('quantiles num:', s.quantiles(param_values[:, 10]))
+print('quantiles p:', s.quantiles(param_values[:, 11]))
+
+
