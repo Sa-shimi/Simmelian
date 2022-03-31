@@ -1,3 +1,8 @@
+
+from SALib.util import (scale_samples, read_param_file,
+                    compute_groups_matrix, _check_groups)
+
+import SALib.sample.sobol_sequence as sobol_sequence
 import random
 import SALib.sample.morris
 import networkx as nx
@@ -7,6 +12,11 @@ from random import randrange
 from SALib.analyze.morris import analyze
 import statistics as s
 import numpy as np
+from typing import Dict, Optional
+import math
+import warnings
+
+
 
 
 def test(psimmvertup, psimmvertdown, psimmhor, pvertup,
@@ -282,9 +292,103 @@ problem = {
                ]
 }
 
-param_values = SALib.sample.morris.sample(problem, 2 ** 4)
-Y = np.array([test(*params) for params in param_values])
-si = analyze(problem, param_values, Y, num_resamples=2 ** 4, print_to_console=True)
+def sample(problem: Dict, N: int, calc_second_order: bool = True,
+           skip_values: int = None):
+
+    if not ((N & (N-1) == 0) and (N != 0 and N-1 != 0)):
+        msg = f"""
+        Convergence properties of the Sobol' sequence is only valid if
+        `N` ({N}) is equal to `2^n`.
+        """
+        warnings.warn(msg)
+    if skip_values is None:
+        skip_values = int(2**math.ceil(math.log(N)/math.log(2)))
+        skip_values = max(skip_values, 16)
+    elif skip_values > 0:
+        M = skip_values
+        if not ((M & (M-1) == 0) and (M != 0 and M-1 != 0)):
+            msg = f"""
+            Convergence properties of the Sobol' sequence is only valid if
+            `skip_values` ({M}) is a power of 2.
+            """
+            warnings.warn(msg)
+        n_exp = int(math.log(N, 2))
+        m_exp = int(math.log(M, 2))
+        if n_exp > m_exp:
+            msg = (
+                "Convergence may not be valid as the number of requested samples is"
+                f" > `skip_values` ({N} > {M})."
+            )
+            warnings.warn(msg)
+    elif skip_values == 0:
+        warnings.warn("Duplicate samples will be taken as no points are skipped.")
+    else:
+        assert isinstance(skip_values, int) and skip_values >= 0, \
+            "`skip_values` must be a positive integer."
+    D = problem['num_vars']
+    groups = _check_groups(problem)
+    if not groups:
+        Dg = problem['num_vars']
+    else:
+        G, group_names = compute_groups_matrix(groups)
+        Dg = len(set(group_names))
+    base_sequence = sobol_sequence.sample(N + skip_values, 2 * D)
+    if calc_second_order:
+        saltelli_sequence = np.zeros([(2 * Dg + 2) * N, D])
+    else:
+        saltelli_sequence = np.zeros([(Dg + 2) * N, D])
+    index = 0
+
+    for i in range(skip_values, N + skip_values):
+        for j in range(D):
+            saltelli_sequence[index, j] = base_sequence[i, j]
+        index += 1
+        for k in range(Dg):
+            for j in range(D):
+                if (not groups and j == k) or (groups and group_names[k] == groups[j]):
+                    saltelli_sequence[index, j] = base_sequence[i, j + D]
+                else:
+                    saltelli_sequence[index, j] = base_sequence[i, j]
+            index += 1
+        if calc_second_order:
+            for k in range(Dg):
+                for j in range(D):
+                    if (not groups and j == k) or (groups and group_names[k] == groups[j]):
+                        saltelli_sequence[index, j] = base_sequence[i, j]
+                    else:
+                        saltelli_sequence[index, j] = base_sequence[i, j + D]
+                index += 1
+        for j in range(D):
+            saltelli_sequence[index, j] = base_sequence[i, j + D]
+        index += 1
+    saltelli_sequence = scale_samples(saltelli_sequence, problem)
+
+    return saltelli_sequence
+
+
+param_values = sample(problem, 2 ** 2)
+b=len(param_values)-1
+print(b)
+
+
+
+t=0
+Y=np.array([(test(*param_values[t]))])
+while t!=b:
+    t+=1
+    if (int((t/b)*100))/10 == int((t/b)*10):
+        print(int((t/b)*100),'%')
+    g=np.array([(test(*param_values[t]))])
+    Y=np.append(Y,g)
+
+
+
+    
+        
+
+
+L=np.array([test(*params) for params in param_values])
+si = analyze(problem, param_values, Y, num_resamples=2 ** 2, print_to_console=True)
 
 
 
@@ -347,5 +451,4 @@ print('quantiles pnorm:', s.quantiles(param_values[:, 8]))
 print('quantiles threshold:', s.quantiles(param_values[:, 9]))
 print('quantiles num:', s.quantiles(param_values[:, 10]))
 print('quantiles p:', s.quantiles(param_values[:, 11]))
-
 
