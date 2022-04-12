@@ -1,0 +1,681 @@
+from SALib.sample import morris
+import random
+import networkx as nx
+import pandas as pd
+from itertools import combinations
+from random import randrange
+from SALib.analyze.morris import analyze
+import statistics as s
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+
+
+psimmvertup=10
+psimmvertdown=20
+psimmhor=40
+pvertup=5
+pvertdown=4
+phor=10
+psimmvertup1 = int(psimmvertup-2)
+psimmvertup2 = int(psimmvertup+2)
+psimmvertdown1 = int(psimmvertdown-2)
+psimmvertdown2 = int(psimmvertdown+2)
+psimmhor1 = int(psimmhor-2)
+psimmhor2 = int(psimmhor+2)
+pvertup1 = int(pvertup-2)
+pvertup2 = int(pvertup+2)
+pvertdown1 = int(pvertdown-2)
+pvertdown2 = int(pvertdown+2)
+phor1 = int(phor-2)
+phor2 = int(phor+2)
+
+# willingness to be influenced by, respectively, subordinates, superiors and peers
+psub = 0.3
+# 0.01
+psup = 0.5
+# 0.1
+pnorm = 0.5
+# 0.3
+threshold = 0.4
+# 0.7
+
+p = 3
+num = 500
+F = nx.random_tree(n=num, create_using=nx.DiGraph, )
+G = nx.barabasi_albert_graph(num, p)
+
+def Control_Centrality(F):
+    length = len(F.nodes)
+    i = 1
+
+    def CC(F):
+        pippa = F.out_degree()
+        pippa1 = np.array(pippa)
+        pippa2 = pippa1[pippa1[:, 1] != 0]
+        F = F.subgraph(pippa2[:, 0])
+        return F
+
+    def layer(F):
+        culo = [x for x in F.nodes if x not in CC(F).nodes]
+        banana = [i] * len(culo)
+        results = np.column_stack((culo, banana))
+        return results
+
+    results = layer(F)
+    while len(results) < length:
+        results = np.concatenate([results, layer(F)])
+        results = np.unique(results, axis=0)
+        i += 1
+        F = CC(F)
+        layer(F)
+    return dict(zip(results[:, 0], (results[:, 1])))
+
+BC = Control_Centrality(F)
+cliques = list(nx.enumerate_all_cliques(G))
+
+triads = [i for i in cliques if len(i) == 3]
+
+def combine(arr, s):
+    return list(combinations(arr, s))
+
+simm = []
+for n in triads:
+    for l in combine(n, 2):
+        simm.append(l)
+
+simmelian = []
+for i in simm:
+    if i not in simmelian:
+        simmelian.append(i)
+
+simmelian = np.array(simmelian)
+A = simmelian[:, 0]
+B = simmelian[:, 1]
+df = pd.DataFrame(simmelian)
+
+BCA = []
+for x in (A):
+    for n in (BC):
+        if x == n:
+            BCA.append(BC[n])
+BCB = []
+for y in (B):
+    for n in (BC):
+        if y == n:
+            BCB.append(BC[n])
+
+df['BCA'] = BCA
+df['BCB'] = BCB
+df['AVG'] = (df['BCA'] + df['BCB']) / 2
+df['VAR'] = (((df['BCA'] - df['AVG']) ** 2 + (df['BCB'] - df['AVG']) ** 2) / 2)
+VAR = np.sum(df['VAR'])
+
+sup = []
+for (i, j) in F.edges:
+    sup.append((j, i))
+
+sub = F.edges
+
+
+nx.set_edge_attributes(G, 0, name='theta')
+for n in G.nodes:
+    G.nodes[n]['theta'] = randrange(1,5)/1000
+nx.set_edge_attributes(G, 0, name='ego')
+for n in G.nodes:
+    G.nodes[n]['ego'] = randrange(1,5)/100
+nx.set_node_attributes(G, 0, name='relevance')
+primi = random.sample(range(0, num), 1)
+print(primi)
+for n in primi:
+    G.nodes[n]['relevance'] = 1
+
+
+def steppy(G):
+    K = G.copy()
+    t = 1
+
+    def event(G):
+
+        P = K.copy()
+        for n in K.nodes:
+            global influencejn
+            opchange = []
+            for j in K.neighbors(n):
+                if P.nodes[j]['relevance'] >= threshold:
+                    if (n, j) in sub:
+                        if [n, j] in simmelian:
+                            if BC[n] - BC[j] > 0:
+                                p = randrange(psimmvertup1, psimmvertup2) / 100
+                                if random.random() < p:
+                                    influencejn = ( P.nodes[j]['relevance'])-K.nodes[n]['theta'] * psub
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] < 0:
+                                p = randrange(psimmvertdown1, psimmvertdown2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psub)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psub
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] == 0:
+                                p = randrange(psimmhor1, psimmhor2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psub)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psub
+                                    opchange.append(influencejn)
+                        elif [n, j] not in simmelian:
+                            if BC[n] - BC[j] > 0:
+                                p = randrange(pvertup1, pvertup2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psub)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psub
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] < 0:
+                                p = randrange(pvertdown1, pvertdown2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psub)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psub
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] == 0:
+                                p = randrange(phor1, phor2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psub)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psub
+                                    opchange.append(influencejn)
+                    elif (n, j) in sup:
+                        if [n, j] in simmelian:
+                            if BC[n] - BC[j] > 0:
+                                p = randrange(psimmvertup1, psimmvertup2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psup)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psup
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] < 0:
+                                p = randrange(psimmvertdown1, psimmvertdown2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psup)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psup
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] == 0:
+                                p = randrange(psimmhor1, psimmhor2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psup)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psup
+                                    opchange.append(influencejn)
+                        elif [n, j] not in simmelian:
+                            if BC[n] - BC[j] > 0:
+                                p = randrange(pvertup1, pvertup2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psup)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psup
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] < 0:
+                                p = randrange(pvertdown1, pvertdown2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psup)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psup
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] == 0:
+                                p = randrange(phor1, phor2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - psup)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * psup
+                                    opchange.append(influencejn)
+                    else:
+                        if [n, j] in simmelian:
+                            if BC[n] - BC[j] > 0:
+                                p = randrange(psimmvertup1, psimmvertup2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - pnorm)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * pnorm
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] < 0:
+                                p = randrange(psimmvertdown1, psimmvertdown2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - pnorm)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * pnorm
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] == 0:
+                                p = randrange(psimmhor1, psimmhor2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - pnorm)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * pnorm
+                                    opchange.append(influencejn)
+                        elif [n, j] not in simmelian:
+                            if BC[n] - BC[j] > 0:
+                                p = randrange(pvertup1, pvertup2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - pnorm)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * pnorm
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] < 0:
+                                p = randrange(pvertdown1, pvertdown2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - pnorm)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * pnorm
+                                    opchange.append(influencejn)
+                            elif BC[n] - BC[j] == 0:
+                                p = randrange(phor1, phor2) / 100
+                                if random.random() < p:
+                                    influencejn = (P.nodes[n]['relevance']) * (1 - pnorm)-K.nodes[n]['theta'] + (
+                                        P.nodes[j]['relevance']) * pnorm
+                                    opchange.append(influencejn)
+            if np.size(opchange) == 0:
+                if K.nodes[n]["relevance"] >= threshold:
+                    K.nodes[n]['relevance'] = P.nodes[n]['relevance'] - K.nodes[n]['theta']
+            else:
+                K.nodes[n]["relevance"] =np.average(opchange)
+        return K
+
+    dati=[]
+    while t!=200:
+            t += 1
+            event(K)
+            P=[]
+            for n in K.nodes:
+                if K.nodes[n]['relevance']>=threshold:
+                    P.append(K.nodes[n]['relevance'])
+            dati.append((len(P)/num))
+    print(dati)
+    plt.plot(dati)
+    return dati
+
+
+
+
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+plt.plot(steppy(G))
+
+
+
+
+
+plt.show()
