@@ -294,16 +294,20 @@ def plottare (n):
     for n in dat:
         tot.plot(n)
     lst = []
-    n=198
-    for i in range(n + 1):
+    n=len(steppy(G))
+    for i in range(n + 0):
             lst.append(i)
     minimo=[]
     massimo=[]
     media=[]
+
+
     for l in np.array(lst):
         minimo.append(dat[:,l].min())
         massimo.append(dat[:,l].max())
         media.append(dat[:,l].mean())
+
+
     value.plot(minimo)
     value.plot(massimo)
     value.plot(media)
@@ -314,10 +318,6 @@ plottare(1000)
 plt.show(
 
 )
-
-print(len(steppy(G)))
-
-
 
 
 
