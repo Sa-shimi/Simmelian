@@ -42,7 +42,7 @@ threshold = 0.4
 # 0.7
 
 p = 3
-num = 100
+num = 400
 F = nx.random_tree(n=num, create_using=nx.DiGraph, )
 G = nx.barabasi_albert_graph(num, p)
 
@@ -277,8 +277,7 @@ def steppy(G):
                     P.append(K.nodes[n]['relevance'])
             dati.append((len(P)/num))
     print(dati)
-    plt.plot(dati)
-    print(type(dati))
+
     return dati
 
 
@@ -290,12 +289,35 @@ def plottare (n):
     while m!=n:
         DATONI.append(steppy(G))
         m+=1
-    for m in DATONI:
-        plt.plot(DATONI[m])
+    dat=np.array(DATONI)
+    fig, (tot, value) = plt.subplots(2, 1)
+    for n in dat:
+        tot.plot(n)
+    lst = []
+    n=198
+    for i in range(n + 1):
+            lst.append(i)
+    minimo=[]
+    massimo=[]
+    media=[]
+    for l in np.array(lst):
+        minimo.append(dat[:,l].min())
+        massimo.append(dat[:,l].max())
+        media.append(dat[:,l].mean())
+    value.plot(minimo)
+    value.plot(massimo)
+    value.plot(media)
+    plt.show()
 
-plottare(5)
+plottare(1000)
 
 plt.show(
 
 )
+
+print(len(steppy(G)))
+
+
+
+
 
