@@ -1,0 +1,45 @@
+for n in H.nodes:
+    for j in H.neighbors(n):
+        a=0
+        b=0
+        c=0
+        d=0
+        e=0
+        f=0
+        if (n,j) in simmelian:
+            if (n, j) in sup:
+                d+=1
+            if (n, j) in sub:
+                e+=1
+            else:
+                f+=1
+        else:
+            if (n, j) in sup:
+                a+=1
+            if (n, j) in sub:
+                b+=1
+            else:
+                c+=1
+        supy, normy ,suby, supysimm, normysimm,subysimm = symbols('supy normy suby supysimm normysimm subysimm')
+        eq1=Eq(normy*(1*beta),supy)
+        eq2=Eq(normy,normy)
+        eq3=Eq(normy/(1+beta),suby)
+        eq4=Eq(supy*(1+kappa),supysimm)
+        eq5=Eq(normy*(1+kappa), normysimm)
+        eq6=Eq(normy*(1+kappa),subysimm)
+        eq7=Eq(a*supy+b*suby+c*normy+d*supysimm+e*normysimm+f*subysimm,(1-G.nodes[n]['ego']))
+        sol=solve((eq1,eq2,eq3,eq4,eq5,eq6,eq7),(suby,supy,normy,subysimm,supysimm,normysimm))
+        if (n,j) in simmelian:
+            if (n,j) in sup:
+                H.edges[n,j]['alter']=sol[supysimm]/len(list(G.neighbors(n)))
+            if (n,j) in sub:
+                H.edges[n,j]['alter']=sol[subysimm]/len(list(G.neighbors(n)))
+            else:
+                H.edges[n,j]['alter']=sol[normysimm]/len(list(G.neighbors(n)))
+        else:
+            if (n,j) in sup:
+                H.edges[n,j]['alter']=sol[supy]/len(list(G.neighbors(n)))
+            if (n,j) in sub:
+                H.edges[n,j]['alter']=sol[suby]/len(list(G.neighbors(n)))
+            else:
+                H.edges[n,j]['alter']=sol[normy]/len(list(G.neighbors(n)))
