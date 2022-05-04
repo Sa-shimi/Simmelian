@@ -1,0 +1,100 @@
+import csv
+import pickle
+from sklearn.preprocessing import PowerTransformer, StandardScaler,MinMaxScaler
+
+from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering,DBSCAN
+
+from sklearn import metrics
+from sklearn.metrics import silhouette_samples,silhouette_score
+
+from scipy.spatial.distance import cdist
+from scipy.cluster import hierarchy
+
+from yellowbrick.cluster import silhouette_visualizer
+import inline as inline
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sympy.physics.control.control_plots import matplotlib
+
+import seaborn as sns
+import os.path
+from sklearn import preprocessing
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
+
+from sklearn.metrics import confusion_matrix, classification_report, plot_confusion_matrix
+data_path = '/Users/Dottorandi/Desktop/Robina che Sasha vuole stampare/SLR/'
+df = pd.read_csv(data_path+'SLR_DB.csv')
+df1 = pd.read_csv(data_path+'income_evaluation.csv')
+
+#print(df.info())
+
+#print(df.describe().T)
+#per descrivere variabili non categoriche
+
+
+
+df.describe()
+
+
+"""
+#on python console::
+df.info()
+df.describe().T
+#per descrivere le variabili categoriche
+
+#visualizzare distribution of parameters
+ax=sns.countplot(data['type of tie'])
+
+"""
+
+data = df.copy()
+
+datini=df.iloc[:,:4]
+
+
+sns.heatmap(data.corr(),annot = True,cmap="viridis")
+km=KMeans(n_clusters=5)
+km.fit(data)
+print(km.labels_)
+print(km.n_iter_)
+print(km.inertia_)
+
+inertias=[]
+K= range(2,11)
+for k in K:
+    kmeanModel=KMeans(n_clusters=k).fit(data)
+    cluster_labels=kmeanModel.labels_
+    inertias.append(kmeanModel.inertia_)
+
+
+
+fig,ax =   plt.subplots(1, 1,sharex=False)
+fig.suptitle('Elbow Method')
+ax.plot(K, inertias, 'gs-')
+ax.set(xlabel='Values of K', ylabel='Inertia')
+plt.show()
+
+for i, k in enumerate([2, 3, 4, 5, 6, 7, 8]):
+    print(i)
+    # Run the kmeans sil visualizer
+    visualizer = silhouette_visualizer(KMeans(k, random_state=7), data, colors='yellowbrick')
+
+linkage_matrix= hierarchy.linkage(data, method='ward')
+plt.figure()
+dendrogram = hierarchy.dendrogram(linkage_matrix,p=3)
+plt.xlabel("#iD of paper")
+plt.title("Hierarchical Clustering Dendrogram")
+plt.grid(False)
+plt.show()
+
+
+#sns.pairplot(data, diag_kind='kde')
+#plt.show()
