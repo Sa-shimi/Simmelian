@@ -1,22 +1,26 @@
 import csv
 import pickle
-from sklearn.preprocessing import PowerTransformer, StandardScaler,MinMaxScaler
+from sklearn.preprocessing import PowerTransformer, StandardScaler, MinMaxScaler
 
+import networkx as nx
+#from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
 from sklearn.cluster import KMeans
-from sklearn.cluster import AgglomerativeClustering,DBSCAN
+from sklearn.cluster import AgglomerativeClustering, DBSCAN
 
 from sklearn import metrics
-from sklearn.metrics import silhouette_samples,silhouette_score
-
+from sklearn.metrics import silhouette_samples, silhouette_score
+from kmodes.kmodes import KModes
+import kmodes as km
 from scipy.spatial.distance import cdist
 from scipy.cluster import hierarchy
-
+from sklearn.metrics import pairwise_distances
 from yellowbrick.cluster import silhouette_visualizer
 import inline as inline
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sympy.physics.control.control_plots import matplotlib
+from sklearn.neighbors import NearestNeighbors
 
 import seaborn as sns
 import os.path
@@ -30,19 +34,21 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 
 from sklearn.metrics import confusion_matrix, classification_report, plot_confusion_matrix
+
 data_path = '/Users/Dottorandi/Desktop/Robina che Sasha vuole stampare/SLR/'
-df = pd.read_csv(data_path+'SLR_DB.csv')
-df1 = pd.read_csv(data_path+'income_evaluation.csv')
+df = pd.read_csv(data_path+'SLRultimate.csv')
+df.index = range(len(df))
 
-#print(df.info())
+# df1 = pd.read_csv(data_path+'income_evaluation.csv')
 
-#print(df.describe().T)
-#per descrivere variabili non categoriche
+# print(df.info())
 
+# print(df.describe().T)
+# per descrivere variabili non categoriche
 
 
 df.describe()
-
+df['PY'] = df['PY'].astype(int)
 
 """
 #on python console::
@@ -56,27 +62,41 @@ ax=sns.countplot(data['type of tie'])
 """
 
 data = df.copy()
+datoni = df.copy()
+data.dropna()
+datoni=datoni.dropna()
+data = data.loc[:, data.columns != 'Title']
 
-datini=df.iloc[:,:4]
 
-
-sns.heatmap(data.corr(),annot = True,cmap="viridis")
-km=KMeans(n_clusters=5)
+data = data.loc[:, data.columns != 'Author(s)']
+data = data.loc[:, data.columns != 'DE']
+data = data.loc[:, data.columns != 'AB']
+km = KMeans(n_clusters=4)
 km.fit(data)
 print(km.labels_)
 print(km.n_iter_)
 print(km.inertia_)
 
-inertias=[]
-K= range(2,11)
+cost = []
+K = range(1, 10)
 for k in K:
-    kmeanModel=KMeans(n_clusters=k).fit(data)
-    cluster_labels=kmeanModel.labels_
+    kmode = KModes(n_clusters=k, init="random", n_init=5, verbose=1)
+    kmode.fit_predict(data)
+    cost.append(kmode.cost_)
+
+plt.plot(K, cost, 'bx-')
+plt.xlabel('No. of clusters')
+plt.ylabel('Cost')
+plt.title('Elbow Method For Optimal k')
+plt.show()
+
+inertias = []
+K = range(1, 11)
+for k in K:
+    kmeanModel = KMeans(n_clusters=k).fit(data)
+    cluster_labels = kmeanModel.labels_
     inertias.append(kmeanModel.inertia_)
-
-
-
-fig,ax =   plt.subplots(1, 1,sharex=False)
+fig, ax = plt.subplots(1, 1, sharex=False)
 fig.suptitle('Elbow Method')
 ax.plot(K, inertias, 'gs-')
 ax.set(xlabel='Values of K', ylabel='Inertia')
@@ -87,14 +107,471 @@ for i, k in enumerate([2, 3, 4, 5, 6, 7, 8]):
     # Run the kmeans sil visualizer
     visualizer = silhouette_visualizer(KMeans(k, random_state=7), data, colors='yellowbrick')
 
-linkage_matrix= hierarchy.linkage(data, method='ward')
+linkage_matrix = hierarchy.linkage(data, method='ward')
 plt.figure()
-dendrogram = hierarchy.dendrogram(linkage_matrix,p=3)
+dendrogram = hierarchy.dendrogram(linkage_matrix, p=3)
 plt.xlabel("#iD of paper")
 plt.title("Hierarchical Clustering Dendrogram")
 plt.grid(False)
 plt.show()
 
+gruppetto1 = []
+gruppetto2 = []
+gruppetto3 = []
+gruppetto4 = []
 
-#sns.pairplot(data, diag_kind='kde')
-#plt.show()
+gruppo1 = np.where(km.labels_ == 0)[0]
+gruppo2 = np.where(km.labels_ == 1)[0]
+gruppo3 = np.where(km.labels_ == 2)[0]
+gruppo4 = np.where(km.labels_ == 3)[0]
+
+banana1 = pd.DataFrame()
+banana2 = pd.DataFrame()
+banana3 = pd.DataFrame()
+banana4 = pd.DataFrame()
+
+for n in gruppo1:
+    banana1 = banana1.append(data.iloc[n,])
+for n in gruppo2:
+    banana2 = banana2.append(data.iloc[n,])
+for n in gruppo3:
+    banana3 = banana3.append(data.iloc[n,])
+for n in gruppo4:
+    banana4 = banana4.append(data.iloc[n,])
+
+cluster1 = banana1.describe().T
+cluster2 = banana2.describe().T
+cluster3 = banana3.describe().T
+cluster4 = banana4.describe().T
+
+
+def media(cluster):
+    clusterino = cluster.copy()
+    for n in range(len(clusterino)):
+        if clusterino['mean'][n] >= 0.5:
+            clusterino['mean'][n] = 1
+        elif clusterino['mean'][n] <= 0.6:
+            clusterino['mean'][n] = 0
+    return clusterino['mean']
+
+
+rough_diff = pd.concat([media(cluster1), media(cluster2), media(cluster3), media(cluster4)],
+                       axis=1)
+fine_diff = pd.concat([cluster1['mean'], cluster2['mean'], cluster3['mean'], cluster4['mean']],
+                      axis=1)
+
+centroids = km.cluster_centers_
+
+distances = pairwise_distances(centroids, data, metric='euclidean')
+ind = [np.argpartition(i, 1)[:1] for i in distances]
+centroide1 = ind[0][0]
+centroide2 = ind[1][0]
+centroide3 = ind[2][0]
+centroide4 = ind[3][0]
+
+archetipo1 = df.iloc[[centroide1]].T
+archetipo2 = df.iloc[[centroide2]].T
+archetipo3 = df.iloc[[centroide3]].T
+archetipo4 = df.iloc[[centroide4]].T
+
+wcgruppo1 = pd.DataFrame()
+wcgruppo2 = pd.DataFrame()
+wcgruppo3 = pd.DataFrame()
+wcgruppo4 = pd.DataFrame()
+
+for n in gruppo1:
+    wcgruppo1 = wcgruppo1.append(df.iloc[[n]])
+
+for n in gruppo2:
+    wcgruppo2 = wcgruppo2.append(df.iloc[[n]])
+
+for n in gruppo3:
+    wcgruppo3 = wcgruppo3.append(df.iloc[[n]])
+for n in gruppo4:
+    wcgruppo4 = wcgruppo4.append(df.iloc[[n]])
+
+# WORDCLOUD ANALYSIS
+
+
+# TITLES
+
+"""
+text = " ".join(df['Title'])
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Title entire sample")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo1['Title'])
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Title 1st cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo2['Title'])
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Title 2nd cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo3['Title'])
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Title 3rd cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo4['Title'])
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Title 4th cluster")
+plt.axis("off")
+plt.show()
+
+# ABSTRACTS
+
+text = " ".join(df['AB'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Abstracts entire sample")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo1['AB'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Abstracts 1st cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo2['AB'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Abstracts 2nd cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo3['AB'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Abstracts 3rd cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo4['AB'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Abstracts 4th cluster")
+plt.axis("off")
+plt.show()
+
+# Keywords
+
+
+text = " ".join(df['DE'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Keywords entire sample")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo1['DE'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Keywords 1st cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo2['DE'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Keywords 2nd cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo3['DE'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Keywords 3rd cluster")
+plt.axis("off")
+plt.show()
+
+text = " ".join(wcgruppo4['DE'].dropna())
+text = text.replace('NETWORKS', '')
+text = text.replace('NETWORK', '')
+text = text.replace('INTERORGANIZATIONAL', '')
+text = text.replace('INTERORGANIZATION', '')
+text = text.replace('ORGANIZATIONAL', '')
+text = text.replace('ORGANIZATIONS', '')
+text = text.replace('ORGANIZATION', '')
+text = text.replace('SOCIAL', '')
+word_cloud = WordCloud(collocations=False, background_color='white', width=800,
+                       height=800).generate(text)
+plt.imshow(word_cloud, interpolation='bilinear')
+plt.title("Wordcloud Keywords 4th cluster")
+plt.axis("off")
+plt.show()
+"""
+
+
+def common(lst1, lst2):
+    return list(set(lst1) & set(lst2))
+
+plt.figure()
+G=nx.Graph()
+
+indice=list(datoni.index)
+
+i=0
+for n in indice:
+    G.add_node(n,title=datoni['Title'][n])
+    i+=1
+
+nx.set_edge_attributes(G,0,'weightkw')
+
+
+for i in G.nodes:
+    weight = 0
+    for j in G.nodes:
+        if i!=j:
+            weight=len(common(datoni['DE'][(i)].split(),datoni['DE'][(j)].split()))
+            if weight>0:
+                G.add_edge(i,j)
+                G.edges[(i,j)]['weightkw']=weight/10
+
+labels={}
+for node in G.nodes():
+    if nx.eigenvector_centrality_numpy(G,weight='weight')[node]/max(nx.eigenvector_centrality_numpy(G,weight='weight').values()) >0.9:
+        labels[node] = '%.12s' % G.nodes[node]['title']
+
+
+
+
+
+esmall1 = [(u, v) for (u, v, d) in G.edges(data=True) if d["weightkw"] >= 0.9]
+esmall2 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.8 <= d["weightkw"] < 0.9]
+esmall3 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.7 <= d["weightkw"] < 0.8]
+esmall4 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.6 <= d["weightkw"] < 0.7]
+esmall5 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.5 <= d["weightkw"] < 0.6]
+esmall6 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.4 <= d["weightkw"] < 0.5]
+esmall7 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.3 <= d["weightkw"] < 0.4]
+esmall8 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.2 <= d["weightkw"] < 0.3]
+esmall9 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.1 <= d["weightkw"] < 0.2]
+esmall10 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.0 <= d["weightkw"] < 0.1]
+
+
+
+
+
+pos = nx.spring_layout(G)
+
+
+nx.draw_networkx_edges(G, pos, edgelist=esmall1, width=1, alpha=1)
+nx.draw_networkx_edges(G, pos, edgelist=esmall2, width=1, alpha=0.9)
+nx.draw_networkx_edges(G, pos, edgelist=esmall3, width=1, alpha=0.94)
+nx.draw_networkx_edges(G, pos, edgelist=esmall4, width=1, alpha=0.7)
+nx.draw_networkx_edges(G, pos, edgelist=esmall5, width=1, alpha=0.07)
+nx.draw_networkx_edges(G, pos, edgelist=esmall6, width=1, alpha=0.05)
+nx.draw_networkx_edges(G, pos, edgelist=esmall7, width=1, alpha=0.02)
+nx.draw_networkx_edges(G, pos, edgelist=esmall8, width=1, alpha=0.02)
+nx.draw_networkx_edges(G, pos, edgelist=esmall9, width=1, alpha=0.02)
+
+nx.draw_networkx_labels(G,pos,labels,font_size=8,font_color='r')
+ax = plt.gca()
+ax.margins(0.08)
+plt.axis("off")
+plt.tight_layout()
+plt.title('newtork of keywords')
+plt.show()
+
+
+
+
+G=nx.Graph()
+plt.figure()
+indice=list(datoni.index)
+
+i=0
+for n in indice:
+    G.add_node(n,title=datoni['Title'][n])
+    i+=1
+nx.set_edge_attributes(G,0,'weightab')
+
+for i in G.nodes:
+    weight = 0
+    for j in G.nodes:
+        if i!=j:
+            weight=len(common(datoni['AB'][(i)].split(),datoni['AB'][(j)].split()))
+            if weight>0:
+                G.add_edge(i,j)
+                G.edges[(i,j)]['weightab']=weight/50
+
+
+esmall1 = [(u, v) for (u, v, d) in G.edges(data=True) if d["weightab"] >= 0.9]
+esmall2 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.8 <= d["weightab"] < 0.9]
+esmall3 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.7 <= d["weightab"] < 0.8]
+esmall4 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.6 <= d["weightab"] < 0.7]
+esmall5 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.5 <= d["weightab"] < 0.6]
+esmall6 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.4 <= d["weightab"] < 0.5]
+esmall7 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.3 <= d["weightab"] < 0.4]
+esmall8 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.2 <= d["weightab"] < 0.3]
+esmall9 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.1 <= d["weightab"] < 0.2]
+esmall10 = [(u, v) for (u, v, d) in G.edges(data=True) if 0.0 <= d["weightab"] < 0.1]
+
+
+
+
+nx.draw_networkx_edges(G, pos, edgelist=esmall1, width=1, alpha=1)
+nx.draw_networkx_edges(G, pos, edgelist=esmall2, width=1, alpha=0.5)
+nx.draw_networkx_edges(G, pos, edgelist=esmall3, width=1, alpha=0.2)
+nx.draw_networkx_edges(G, pos, edgelist=esmall4, width=1, alpha=0.02)
+
+
+labels={}
+for node in G.nodes():
+    if nx.eigenvector_centrality_numpy(G,weight='weight')[node]/max(nx.eigenvector_centrality_numpy(G,weight='weight').values()) >0.9:
+        labels[node] = '%.12s' % G.nodes[node]['title']
+
+
+nx.draw_networkx_labels(G,pos,labels,font_size=8,font_color='r')
+
+
+
+
+
+
+ax = plt.gca()
+ax.margins(0.08)
+plt.axis("off")
+plt.tight_layout()
+plt.show()
+
+
