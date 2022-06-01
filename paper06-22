@@ -99,4 +99,190 @@
 	
 	\begin{equation} \label{eqn}
 		\dfrac{f(t)}{1-F(t)}=p+qF(t)
+	\end{equation}
 
+	where $f(t)$ is the probability of adoption at time $t$, $F(t)$ is the cumulative distribution function of adoptions at time $t$, $p$ is a parameter indicating external influence and, finally, $q$ indicates the number of previous adopters, $i.e.$ the internal influence.
+	We earlier said that models inspired by the Bass model assume that the population is homogeneous. However, there are some researches that tried to take into account the potential heterogeneity of the population under analysis. Van den Bulte and Stremersch (2004) have, for example, tried to consider different national cultures - defined through the Hofstede's (2001) dimensions -  and different income levels and their relationship with a $\dfrac{q}{p}$ ratio. Other studies have, also, tried to consider a segmented population (Goldenberg et al., 2002-riding the saddle).
+	Nevertheless, these streams have focused on the willingness of a subject to be "infected" or to adopt - and consequently to spread. In this paper, however, our claim is that specific structural characteristics (vertically spanning Simmelian ties) should favor the spread and transfer of information throughout a group. An interesting solution has been proposed by Sinha and Chandrashekaran (1992) who have proposed a "split" version of the bass model dividing the population in two parts: the one who will never adopt and the ones who are still willing to adopt. As we can see, the homogeneity assumption has been dropped even though some degree of simplification is still guaranteed. We, therefore, should focus on the interpersonal source of influence and, considering the fact that we're adopting an aggregate approach, should focus on an index that is able to tell us the distribution of vertically spanning simmelian ties within a group.
+	In substance, we should find something similar to:
+	\begin{equation} \label{eqn}
+	\dfrac{f(t)}{1-(F(t)+G(t))}=p+qF(t)+gG(t)
+	\end{equation}
+	where, as before $f(t)$ is the probability of adoption at time $t$, $F(t)$ is the cumulative distribution function of adoptions at time $t$, $p$ is a parameter indicating external influence and, finally, $q$ indicates the number of previous adopters, $i.e.$ the internal influence. Differently from before we're also taking into consideration the share of subjects that are linked through a Vertically spanning Simmelian ties and that have already adoptedXXXXXforseeliminareilverticallyhereoppureaggiungereitieverticaliconvaloreminore. bisogna riguardarlo bene.
+	The key idea is that by including also the share of population that are connected through specific ties (here Simmelian ones) we can discern the role that a higher or lower share of these play in the transfer o information throughout a group.
+	In this case, however, we need to find an index that is able not only to portray the distribution of vertically spanning simmelian ties, but also whether they're connecting hierarchically distant or closer subjects. 
+	
+	Differently from Tortoriello and Krackhardt, we propose to consider the role of Vertically spanning triadsin the transfer of information within an organization. In order to do so, we will utilize the information obtained from two networks:
+	\begin{itemize}
+		\item The formal network, which represents the structural organization of a company, \emph{i.e.} the hierarchical relationships between superiors and subordinates. Such network is represented by an undirected tree-like graph (Hunter, 2016);
+		\item The informal network, which represents the personal relationship between employees of a company. In this paper we represent such network by utilising different random network generation models (see \emph{infra}).
+	\end{itemize}
+	
+	Let $G(N,R^*)$ be the informal network composed by $N$ members and $R^\ast$ ties and let $F(N,E)$ be the formal network composed by $N$ members and $E$ ties.
+	
+	XXX trovare un modo per dire che \emph{i = a i'}
+	
+	Previous researchers have pointed out several aspects that must be considered when it comes to friendship networks as people tend to simplify and bias their relationship in order to achieve a sort of “cognitive simplicity” (Kilduff and Lee, 2020). On the one hand, people tend to perceive their relationships as “balanced", meaning that they prefer to find reciprocity even when there’s none (Heider, 1958). On the other hand, there’s a tendency for the recreation of a “small world” when there is a cognitive fallacy, meaning that in case of lacking information regarding the relationship within a given group, the members of such group will tend to consider the network as more connected than it actually is (Kilduff et al. 2008).
+	In order to tackle this issue, we will take into consideration what Krackhardt (1992) has termed as “Actual Networks”. Actual Networks are indirect networks in which an edge between two subject exists only if both of them declare its existence. Better put, an edge between i and j exists if:
+	
+	\begin{equation} \label{eqn1}
+		R_{i,j}^* = \begin{cases} 1 & \mbox{if } R_{i,j}^i=R_{i,j}^j=1 \\ 0 & \mbox{otherwise}  \end{cases}
+	\end{equation}
+	
+	Where $R_{i,j}^i$ is the acknowledgement of the existence of the edge $R_{i,j}$ by $i$ and $R_{i,j}^j$ is the acknowledgement of the existence of the edge $R_{i,j}$ by $j$. Only if both subjects declare the existence of such tie we will have the “actual” tie $R_{i,j}^\ast$.
+	Having defined the basic unit of analysis that we want to consider, we must now define an additional element that is crucial for the analysis that this paper aims to carry on, i.e. Simmelian Ties. There are different ways to individuate Simmelian ties. We will follow the methodology proposed by Krackhardt (1998). According to the author, a generic tie, $R_{i,j}^\ast$, is a Simmelian tie if the following conditions are satisfied: 
+	
+	\begin{enumerate}
+		\item $\begin{aligned}[t]
+			R_{i,j}^\ast=R_{j,i}^*=1\
+		\end{aligned}$
+		\item $\begin{aligned}[t]
+			R_{i,k}^\ast{=R}_{k,i}^\ast{=R}_{j,k}^\ast{=R}_{k,j}^\ast=1 
+		\end{aligned}$
+	\end{enumerate}
+	The first condition expresses the necessity for symmetry between the two subjects connected by the tie. The second condition, on the other hand, expresses the necessity of the tie to be situated in a triad, the members of which are connected through actual ties.
+	
+	Eventualy we will obtain:
+	
+	\begin{equation} \label{eqn}
+		t_k= \begin{cases} 1 & \exists~k \mid R_{m,n}^*=R_{m,k}^*=R_{n,k}^*=1 \\ 0 & \mbox{otherwise}  \end{cases}
+	\end{equation}
+	
+	where $t_k$ is the \emph{k}th triad in $G$ within the interval  [$1,2\dots k\dots K$]\footnote{
+		
+		Where
+		$\begin{aligned}
+			t_k \in \{t_1, t_2\dots t_k, \dots, t_ K\}
+		\end{aligned}$
+	}.
+	
+	Having defined the unit of analysis and the way in which we’re going to individuate it, it is now time to discuss the way in which we are going to characterize a vertical Simmelian tie. 
+	We will measure the verticality of a tie utilizing information of the structure of the formal network $F$ but we will refer to connections $R^*$ formed in the informal network $G$.  In order to do so, we will individuate all the triads $G$ (see \emph{Figure} 1) of a company. After having done that, we will project these triads on the formal network of the same company (see \emph{Figures} 2 and 3).
+	
+
+	Before individuating the verticality of a Simmelian tie, we need to measure the hierarchy of each subject $i^\prime$ in the formal network. In order to do so, we will follow Freeman’s (1977) suggestion. For instance, the author considered the measurement of Betweenness Centrality as a good indicator for measuring the hierarchical level of a worker within the company if we assume that the organizational structure of a company resembles a tree network (Hunter, 2016) (see \emph{Figure 3}).
+	
+	\begin{equation}
+		{C_{i^\prime}}=\frac{2}{n^2-3n+2}\sum_{k^\prime,n^\prime\neq i^\prime}\frac{{\ b}_{k^\prime n^\prime }^{i^\prime}}{b_{k^\prime n^\prime}}
+	\end{equation}
+		
+		
+		In which ${\ b}_{k^\prime n^\prime }^{i^\prime}$ indicates the number of geodesic paths (shortest path between two nodes) between the nodes $k^\prime$ and $n^\prime$ (that are different from m) that pass through the node $i^\prime$, while ${b_{k^\prime n^\prime}}$ indicates the number of geodesic paths between $k^\prime$ and $n^\prime$. $\frac{2}{n^2-3n+2}$ is a normalization factor (Freeman, 1977).
+		It is now time to tackle the issue of Verticality within a triad. In order to do so, we will calculate the variance of the measurement $C_m$ measured on the formal network for each node in a triad formed in the informal network $t_k$.
+		
+		\begin{equation}
+			{V}_{t_k}=\frac{\sum_{i=1}^3\left({C_i}-{\overline{C}}_k\right)^2}{n_t}
+		\end{equation}
+		
+		
+		Where ${C_i}$ is the betweenness centrality of a node in the formal network while $\overline{C}$ is the average of the betweenness centrality of the nodes (of the triad) in the formal network. Ultimately, $n_t$ indicates the amount of nodes considered in the calculations of the variance. Nevertheless, as long as we’re taking into consideration only triads, $n_t$ will always be equal to 3. Let us recall that we will need to take into consideration the verticality of all the potential triads within the network.
+		In substance, $\nu$ indicates the average variance  of the betweenness centrality calculated on the formal structure but within triads that have previously been individuated in the informal structure.
+		\begin{equation}
+			\nu=\sum_{k=1}^{K}\frac{{V}_{t_k}}{K}
+		\end{equation}
+		Where $V_{t_k}$ is the variance of \emph{Betweenness Centrality} (calculated as in Formula 4) in the formal network of triads individuated in the informal network ($t_i$, defined as in \emph{Formula 7}). 
+		As we argued earlier, following Freeman (1977), we utilize betweenness centrality as a proxy of hierarchy. $\nu$, therefore, indicates the average variance of hierarchy within informal triads in a population, i.e. the variance of Hierarchy 
+		The higher $\nu$ is, the higher the degree of Verticality of the Simmellian ties within a given network.
+		
+		In order to make sure that the measurement of the distributionXXXX of vertical simmelian ties within a company is not affected by other factors such as the amount $N$ of subject in the organization or other peculiar aspects, we propose to normalize our $\nu$ with a measurement that takes into consideration all the possible triads within a network. Such value is calculated as:
+		
+		\begin{equation}
+			\rho=\frac{\sum_{t=1}^{T}V_{t_T}}{T}
+		\end{equation}
+		
+		Where ${V}_{t_T}$ represents the variance within a generic triad and $T$ is the total amount of possible triads in a given network.
+		$\rho$ indicates the average $V$ of all the potential triads. Such value is entirely detached from the parameters of the informal network. The value of $\rho$, by being the average $V$ of all the potential triads, is the $\nu$ representing all the potential triads. At the same time, however, getting back to the probabilistic game approach, $\rho$ represents the expected value that we would obtain if we draw a “card” or a set of “cards”. $\rho$, therefore, indicates the value of $\nu$ that a group should have, given its formal network. $\rho$, thus, represents an independent characteristic of the formal network of a company or organization. 
+		
+		By comparing $\nu$ with $\rho$, we acknowledge whether our sample can be considered as more  or less vertically connected given the formal network that it is associated with. More clearly, when compared with $\nu$, it allows to account for diverse structural characteristics that might . 
+		More clearly, be $\phi$ calculated as follows:
+		
+		\begin{equation}
+			\phi=\frac{\frac{\sum_{t=1}^{K}V_{t_K}}{K}}{\frac{\sum_{t=1}^{T}V_{t_T}}{T}}
+		\end{equation}
+		
+		In a more simplified way:
+		\begin{equation}
+			\phi=\frac{\nu}{\rho}
+		\end{equation}
+		
+		$\phi$ indicates the comparison of the \emph{actual verticality} of all the  Simmelian ties of the informal network compared to the \emph{expected verticality} of all the possible combinations Simmelian ties. If $\phi$ is higher than 1, it means that the informal network we have in front of us is more vertically spanning than a hypothetical (or randomly generated) network could be. If, on the other hand, $\phi$ is lower than 1, it means that the informal network we have in front of us is less vertically spanning than a hypothetical (or randomly generated network could be). 
+		
+		XXXXXquisottotagliarecortoe includere phi nel modello di sopra.
+		
+		
+		But what type of values of $\phi$ we should expect? Considering what we've said earlier regarding the way in which $\phi$ is obtained, its possible value depends on the way we obtain the information of the formal and informal networks. If the networks are generated through random network generation methods, we are most likely, on average, obtain values that is extremely close to 1. Such conviction is sustained by the fact that as we said above, the value of $\phi$ is not affected by the random informal network and, on the other side, $\rho$ accounts for the structural peculiarity of a given formal network.
+		On the other hand, if we consider \emph{observed network} (Robins et al. 2007), \emph{i.e.} the network that the researcher build by gathering the data from the field, we would obtain a result different from 1. This is so because  \emph{observed networks} are characterized by peculiar structural characteristics that are the result of "local social processes" (Robins et al., 2007, p. 175). Having this been said, we hypothesise that the value of $\phi$ is not affected by the random networks we generate.
+		
+		\bigskip
+		\emph{H1. The value of $\phi$ is not affected by the structural characteristics of randomly generated informal networks.}
+		\bigskip
+		
+		
+		
+		XXXXforseinseriresotto in appendix
+		In order to further proof the independence of $\phi$ from the structural characteristics of randomly generated informal networks we want to carry out our analysis taking into consideration different random network generation methods, which are the Barabasi-Albert (1999), the Erdős-Rényi (1960) and the Watts-Strogatz (1998). We picked these methods as they allow us to obtain random networks with sufficiently different structural characteristics. In particular, we expect triads to be differently distributed in the informal network depending on the random generation process. Despite such differences, we expect to have negligible differences in the impacts that the structural characteristics of the different types of network have on $\phi$.
+		
+		\bigskip
+		\emph{H2. The choice of random network generation methodology doesn't impact the effect that structural characteristics of randomly generated informal networks have on $\phi$}.
+		\bigskip
+		
+		If both hypotheses prove to be right, we could conclude that $\phi$ is able to signal the specific social process that we earlier addressed, \emph{i.e.} the vertical distribution of Simmelian ties within a given organization. If $\phi$ is not affected by the structural characteristics of the randomly generated informal network - regardless the methodology adopted to generate it - it means that it can only be affected by phenomena that are not randomized but that are associated with the social and institutional environment. As a consequence, our index could be used to properly tackle the issues that, as we have highlighted in the previous chapters, have been overlooked by the extant literature: the effect that vertically spanning strong ties can have on vertical knowledge diffusion and which social contexts can facilitate the formation of such ties. 
+		
+		The remainder of the paper is structured as follows. In the next chapter we will explain in detail how we designed the analysis, the input parameters that we wanted to analyse and, eventually, how we carried out the analysis. Eventually, some final considerations are drawn and the potential weaknesses and implications are highlighted.
+		
+		\subsection{The DeGroot Model}
+		In the previous chapter we explored the Bass model and a potential adaptation for its application for our research question. However, regardless such adaptation, we still lack a precise description of the dynamics that come into play and that drive the transfer of information. 
+		We earlier mentioned the utilization of the DeGroot model for predicting the diffusion of innovations (Assenova, 2018). However, it is relevant to mention that the DeGroot model has been initially developed with the aim of studying how a the opinion of subjects within an organization changes depending on their starting opinion, the opinion of the others and the relationship we have with the others.
+		For instance, let us consider the same sample as before, represented by the two networks Let $G(N,R^*)$ the informal one and  $F(N,E)$, the formal one. Let us now assume that such group have diverse opinions regarding a specific topic represented by a vector of probabilities $p(0)=(p_0(0),...p_n(0),...p_N(0))$. Each generic $p_i(0)$ lies within the interval [0,1] (see DeGroot, 1974). Differently from before, the opinion of each subject depends on the interaction with her direct connections and not on the distribution of the opinion on the overall sample. For instance, if there is no tie between \textit{i} and \textit{j}, \textit{i} neither of the two will affect the other. However, the novelty proposed by DeGroot consists in weighting the capability of person \textit{j} to influence person \textit{i} or, as DeGroot puts itXXXXXcheck, the trust that subject \textit{i} places on the belief of subject \textit{j}. The matrix {\bf{T}}, represents the overall set of "trust" ties within the sample. 
+		
+		The beliefs of the sample are updated at each time period so that:
+		\begin{equation}
+			p(t)={\bf{T}}p(t-1)
+		\end{equation}
+		and for single subjects:
+		\begin{equation}
+			p_i(t)=\sum_{j=1}^{N}T_{i,j}p_j(t-1)
+		\end{equation}
+	where $T_{i,j}$ represents the trust that \textit{i} places on all her \textit{j}th's belief, $j(t-1)$ is \textit{j}th's belief at time $t-1$.
+	Now, after having briefly discussed the main relevant characteristics of the DeGroot model, we must discuss the way in which we should adapt it in order to utilize it for answering our research question.
+	For instance, trust is not only relevant for opinion dynamics, but also for the transfer of knowledge (Tsai and Goshal, 1998; Rutten et al., 2016). Also, some studies have highlighted the importance of trust and perceived leadership in the active search for information (Yale and Gilly, 1995, see also Khvatova et al., 2016).
+	
+	More recently, Assenova (2018) has tried to model the diffusion of innovation by adapting the DeGroot model. For instance, instead of expressing a generic opinion, in the model of Assenova $p_i(\nu)$ indicates the value that subject \textit{i} attributes to the good $\nu$. As it happens with the DeGroot model, the value that a person attributes to the good $\nu$ is updated at each time step and depends on the value that her neighbors attribute to the good $\nu$. The value that subject \textit{i} attributes to the good $\nu$ at time \textit{t} is:
+		\begin{equation}
+		p^t_i(\nu)=\sum_{j=1}^{N}s_{i,j}p^{(t-1)}_j(\nu)
+		\end{equation}
+	where $s_{i,j}$ represents the trust that \textit{i} places on all her \textit{j}th's belief, $p^{(t-1)}_j(\nu)$ is the value that the \textit{j}th's attributes to the good $\nu$. However, it is relevant to notice that being influenced by her neighbor do not automatically the subject to adopt. The author, in fact, poses as a condition that:
+		\begin{equation}
+	p^t_i(\nu)\geq\nu_i
+		\end{equation}
+	where $\nu_i$ is her threshold of adoption. 
+	
+	Differently from the basic Bass model that we described earlier, the model that Assenova proposes accepts the possibility that subject stops to adopt an innovation if the value that she attributes to the good reaches a level below her adoption level due to interaction with her neighbors. 
+	
+	Having this been said, we now want to suggest few modifications in order to adapt it to our own case. As long as the DeGroot model is an agent based model, we must put asideXXXX the index developed on the previous section and try to find a different way to include the role that vertical Simmelian ties play in the diffusion of information throughout an organization from a network perspective. 
+	
+	First of all, we will consider perception of the relevance of a given information $p_i$ as the value that the subject attributes to such information. 
+	
+	Secondly, instead of considering adoption, we will consider the transformation from a passive actor to an active one, \textit{i.e.}, after having achieved a given threshold $\nu_i$.
+	
+	Eventually, one of our assumptions was that subjects from different hierarchical level could are less prone to interact and to trust each other's belief (see Khmatova et al., 2016; Rutten et al., 2016). We, therefore, will still keep using the Trust matrix proposed by DeGroot and its characteristics (see DeGrootXXXXyear). In order to do so, we will simply adapt the {\bf{T}} matrix making sure that the trust relationship between two subjects belonging to two different hierarchical positions byXXXXXusare un $\theta$??
+	On the other side, however, we should take into consideration that the assumption that having a relationship with someone, does not automatically imply that at time \textit{t} that person will communicate with us and that it will communicate a given information. Considering that sharing information can be considered as information episodes (yue and gillyXXXX) and that interactions with people connected through a Simmelian tie temd to have more frequent interactions (Krackhardt, 1999). We, therefore, need to include one to the DeGroot model as revised by Assenova (2018), \textit{i.e.}, a matrix {\bf{B(t)}} that represents the collective whether two persons will interact at the generic time step \textit{t} depending on specific probabilities.
+	
+	For instance, considering the mentioned modification, each subject \textit{i} will update her perception regarding the relevance of an information according to:
+	\begin{equation}
+		p_i(t)=\sum_{j=1}^{N}B_{i,j}(t-1)s_{i,j}p_j(t-1)
+	\end{equation}
+	where $B_{i,j}(t-1)$ expresses whether the subjects \textit{i} and \textit{j} have interacted at the time step $t-1$, $s_{i,j}$ represents the trust that subject \textit{i} places on \textit{j}'s beliefs and, eventually, $p_j(t-1)$ is the relevance of the information for subject $j$ at time $t-1$.
+	
+	Before proceeding it is relevant to stress few implications of the new aspects that have been included.
+	First of all, as for Assenova (2018), if $p_j(t-1)$ is below $j$'s threshold, its value
+		\subsection{Contagion Models}
+		
+	\section{cose daricordare}		
+	specificare un $\theta$ per le 
+	\section{References}
+		
+		
+		
+	\end{document}
+	
