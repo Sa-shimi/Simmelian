@@ -274,15 +274,51 @@
 	\end{equation}
 	where $B_{i,j}(t-1)$ expresses whether the subjects \textit{i} and \textit{j} have interacted at the time step $t-1$, $s_{i,j}$ represents the trust that subject \textit{i} places on \textit{j}'s beliefs and, eventually, $p_j(t-1)$ is the relevance of the information for subject $j$ at time $t-1$.
 	
-	Before proceeding it is relevant to stress few implications of the new aspects that have been included.
-	First of all, as for Assenova (2018), if $p_j(t-1)$ is below $j$'s threshold, its value
+	Before proceeding, it is relevant to stress few implications of the new aspects that have been included.
+	First of all, differently Assenova (2018), if $p_j(t-1)$ is below $j$'s threshold, it's value is equal to $0$. More precisely:
+	\begin{equation} \label{condition1}
+		p_j(t)= \begin{dcases}
+   	p_j(t) & \text{if } p_j(t)\geq \nu_j \\0 & \text{otherwise}
+		\end{dcases}	
+	\end{equation}
+	where $p_j(t)$ is the perception of the relevance of the information at any generic time $t$ and $\nu_j$ is the threshold necessary for $j$ to start spreading the information. If the $j$th subject is not convinced that the information is sufficiently relevant, \textit{i.e.}  is not above her threshold, she will not share her opinion with $i$. 
+	
+	This condition has several implications. The first one is that it includes in the model the whether the \textit{alter} considers the information sufficiently relevant in order to share it. The second implication regards the fact that subject $i$'s perception regarding the information is not affected by $j$'s perception if $j$ is not sharing the information. 
+	
+	Additionally, we wanted to introduce a Bernoulli variable $B_{i,j}$ which indicates whether $i$ receives the information from $j$ and assumes the following values:
+	\begin{equation} \label{condition2}
+		B= \begin{dcases}
+   	1 & \text{with probability } \xi \\0 & \text{with probability} \ 1-\xi
+		\end{dcases}	
+	\end{equation}
+	where $\xi$ is a probability. By including this variable, we are taking into consideration the fact that $i$ and $j$ are connected doesn't mean that they're always communicating and that, in particular, the first will receive the information by the second.
+	It is important to stress that, due to the way in which we designed our model, subject $i$ can be informed by her $j$th neighbor if and only if both conditions expressed in \eqref{condition1} and in \eqref{condition2} are true; if one of the two conditions is not satisfied, \textit{i.e.} $p_j(t)$ or $B$ is equal to $0$, subject $i$ does not receive the information by her $j$th neighbor. Eventually, this means that subject $i$ updates her perception regarding the information taking into consideration those neighbours that are convinced and that, at the same time, happen to interact with her. 
+	Setting these conditions allows us to discern different groups within an hypothetical sample, \textit{i.e.} the subjects connected through a Simmelian tie and the ones that are connected through a normal tie. Additionally, we can distinguish between transfer of information that go "upward", \textit{i.e.} when a subordinate shares an information with her superior and \textit{viceversa}. We will be able to assign different probabilities to each possible combination with the aim of highlighting the role that Simmelian ties could potentially play. This will be further explained in the next chapter as we will use them also for the contagion model.
+	
+	
+
+
+
+	
 		\subsection{Contagion Models}
+		
+		
+		\begin{equation} \label{eqn}
+		p_i(t)={s_i}p_i(t-1)+(1-s_i)1/N\sum_{j=1}^{N}p_j(t-1)B_{i,j}(t-1)
+		\end{equation}
+
+		
 		
 	\section{cose daricordare}		
 	specificare un $\theta$ per le 
+	\Simulations
+		\begin{equation} \label{eqn}
+		\xi= \begin{dcases}
+   	1 & \text{with probability } \xi \\0 & \text{with probability} \ 1-\xi
+		\end{dcases}	
+	\end{equation}
 	\section{References}
 		
 		
 		
 	\end{document}
-	
