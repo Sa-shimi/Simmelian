@@ -1,0 +1,314 @@
+from SALib.sample import morris
+import random
+import networkx as nx
+import pandas as pd
+from itertools import combinations
+from random import randrange
+from SALib.analyze.morris import analyze
+import statistics as s
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
+
+
+p = 3
+num = 50
+F = nx.random_tree(n=num, create_using=nx.DiGraph, )
+G = nx.barabasi_albert_graph(num, p)
+def plottare(q,steps):
+    m = 0
+
+    def tutto():
+        psimmvertup = 5
+        psimmvertdown = 10
+        psimmhor = 20
+        pvertup = 50
+        pvertdown = 6
+        phor = 10
+        psimmvertup1 = int(psimmvertup - 2)
+        psimmvertup2 = int(psimmvertup + 2)
+        psimmvertdown1 = int(psimmvertdown - 2)
+        psimmvertdown2 = int(psimmvertdown + 2)
+        psimmhor1 = int(psimmhor - 2)
+        psimmhor2 = int(psimmhor + 2)
+        pvertup1 = int(pvertup - 2)
+        pvertup2 = int(pvertup + 2)
+        pvertdown1 = int(pvertdown - 2)
+        pvertdown2 = int(pvertdown + 2)
+        phor1 = int(phor - 2)
+        phor2 = int(phor + 2)
+
+        # willingness to be influenced by, respectively, subordinates, superiors and peers
+        psub = 0.4
+        # 0.01
+        psup = 0.5
+        # 0.1
+        pnorm = 0.5
+        # 0.3
+        threshold = 0.3
+
+        # 0.7
+
+        def foo(s1):
+            return '{}'.format(s1)
+
+        def Control_Centrality(F):
+            length = len(F.nodes)
+            i = 1
+
+            def CC(F):
+                pippa = F.out_degree()
+                pippa1 = np.array(pippa)
+                pippa2 = pippa1[pippa1[:, 1] != 0]
+                F = F.subgraph(pippa2[:, 0])
+                return F
+
+            def layer(F):
+                culo = [x for x in F.nodes if x not in CC(F).nodes]
+                banana = [i] * len(culo)
+                results = np.column_stack((culo, banana))
+                return results
+
+            results = layer(F)
+            while len(results) < length:
+                results = np.concatenate([results, layer(F)])
+                results = np.unique(results, axis=0)
+                i += 1
+                F = CC(F)
+                layer(F)
+            return dict(zip(results[:, 0], (results[:, 1])))
+
+        BC = Control_Centrality(F)
+
+        def find_simmelian(G):
+            cliques = list(nx.enumerate_all_cliques(G))
+
+            triads = [i for i in cliques if len(i) == 3]
+
+            def combine(arr, s):
+                return list(combinations(arr, s))
+
+            simm = []
+            for n in triads:
+                for l in combine(n, 2):
+                    simm.append(l)
+
+            simmelian = []
+            for i in simm:
+                if i not in simmelian:
+                    simmelian.append(i)
+            return (simmelian)
+
+        simmelian = np.array(find_simmelian(G))
+        A = simmelian[:, 0]
+        B = simmelian[:, 1]
+        df = pd.DataFrame(simmelian)
+
+        BCA = []
+        for x in (A):
+            for n in (BC):
+                if x == n:
+                    BCA.append(BC[n])
+        BCB = []
+        for y in (B):
+            for n in (BC):
+                if y == n:
+                    BCB.append(BC[n])
+
+        df['BCA'] = BCA
+        df['BCB'] = BCB
+        df['AVG'] = (df['BCA'] + df['BCB']) / 2
+        df['VAR'] = (((df['BCA'] - df['AVG']) ** 2 + (df['BCB'] - df['AVG']) ** 2) / 2)
+        VAR = np.sum(df['VAR'])
+
+        sup = []
+        for (i, j) in F.edges:
+            sup.append((j, i))
+
+        sub = F.edges
+
+        nx.set_edge_attributes(G, 0, name='theta')
+        for n in G.nodes:
+            G.nodes[n]['theta'] = randrange(1, 10) / 1000
+        nx.set_edge_attributes(G, 0, name='ego')
+        for n in G.nodes:
+            G.nodes[n]['ego'] = randrange(1, 5) / 100
+        nx.set_node_attributes(G, 0, name='relevance')
+        primi = random.sample(range(0, num), 4)
+        print(primi)
+        for n in primi:
+            G.nodes[n]['relevance'] = 1
+
+        nx.set_edge_attributes(G, 0, name='threshold')
+        for n in G.nodes:
+            G.nodes[n]['threshold'] = abs((BC[n] / BC[0]) - 1)
+
+        influence_matrix = np.matrix(np.zeros((num, num)))
+        for i in G.nodes:
+            for j in G.nodes:
+                if i == j:
+                    influence_matrix[i, j] = 1
+                elif i != j:
+                    if j in G.neighbors(i):
+                        if BC[i] - BC[j] < 0:
+                            influence_matrix[i, j] = psub
+                        elif BC[i] - BC[j] > 0:
+                            influence_matrix[i, j] = psup
+                        elif BC[i] - BC[j] == 0:
+                            influence_matrix[i, j] = pnorm
+
+        probability_matrix = np.matrix(np.zeros((num, num)))
+        for i in G.nodes:
+            for j in G.nodes:
+                if i == j:
+                    probability_matrix[i, j] = 1
+                elif i != j:
+                    if [i, j] in simmelian:
+                        if BC[i] - BC[j] > 0:
+                            probability_matrix[i, j] = randrange(psimmvertup1, psimmvertup2) / 100
+                        elif BC[i] - BC[j] < 0:
+                            probability_matrix[i, j] = randrange(psimmvertdown1, psimmvertdown2) / 100
+                        elif BC[i] - BC[j] == 0:
+                            probability_matrix[i, j] = randrange(psimmhor1, psimmhor2) / 100
+                    elif [i, j] not in simmelian:
+                        if BC[i] - BC[j] > 0:
+                            probability_matrix[i, j] = randrange(pvertup1, pvertup2) / 100
+                        elif BC[i] - BC[j] < 0:
+                            probability_matrix[i, j] = randrange(pvertdown1, pvertdown2) / 100
+                        elif BC[i] - BC[j] == 0:
+                            probability_matrix[i, j] = randrange(phor1, phor2) / 100
+
+        def contagion(G):
+            K = G.copy()
+            t = 1
+
+            def event(G):
+                P = K.copy()
+                for i in K.nodes:
+                    opchange = []
+                    for j in K.neighbors(i):
+                        if K.nodes[j]['relevance'] >= K.nodes[j]['threshold']:
+                            if random.random() < probability_matrix[i, j]:
+                                opchange.append(influence_matrix[i, j])
+
+                    if np.size(opchange) == 0:
+                        if K.nodes[i]["relevance"] >= threshold:
+                            K.nodes[i]['relevance'] = P.nodes[i]['relevance'] - K.nodes[i]['theta']
+                    else:
+                        K.nodes[i]["relevance"] = np.average(opchange)
+
+                return K
+
+            dati = []
+            while t != steps:
+                t += 1
+                event(K)
+                P = []
+                for n in K.nodes:
+                    if K.nodes[n]['relevance'] >= threshold:
+                        P.append(K.nodes[n]['relevance'])
+                dati.append((len(P) / num))
+            print(dati)
+
+            return dati
+
+
+
+        def degroot(G):
+            K = G.copy()
+            t = 1
+
+            def event(G):
+                P = K.copy()
+                for i in K.nodes:
+                    opchange = []
+                    for j in K.neighbors(i):
+                        if K.nodes[j]['relevance'] >= K.nodes[j]['threshold']:
+                            if random.random() < probability_matrix[i, j]:
+                                opchange.append(influence_matrix[i, j])
+
+                    if np.size(opchange) == 0:
+                        K.nodes[i]['relevance'] = P.nodes[i]['relevance'] - K.nodes[i]['theta']
+
+                        if K.nodes[i]['relevance'] <= 0:
+                            K.nodes[i]['relevance'] = 0
+                    else:
+                        opchange.append(P.nodes[i]['relevance'])
+                        K.nodes[i]["relevance"] = np.average(opchange)
+
+                return K
+
+            dati = []
+            while t != steps:
+                t += 1
+                event(K)
+                P = []
+                for n in K.nodes:
+                    if K.nodes[n]['relevance'] >= threshold:
+                        P.append(K.nodes[n]['relevance'])
+                dati.append((len(P) / num))
+            return dati
+
+        return [degroot(G),contagion(G)]
+    print('banana',tutto()[1])
+    DATONIdegroot = []
+    DATONIcontagion=[]
+
+    while m!= q:
+        m += 1
+    DATONIdegroot.append(tutto()[0])
+    dat = np.array(DATONIdegroot)
+    fig, (tot, value) = plt.subplots(2, 1)
+    for n in dat:
+        tot.plot(n, 'k', alpha=0.05)
+    lst = []
+    n = len(tutto()[0])
+    for i in range(n + 0):
+        lst.append(i)
+    minimo = []
+    massimo = []
+    media = []
+    mediana = []
+
+    for l in np.array(lst):
+        minimo.append(dat[:, l].min())
+        massimo.append(dat[:, l].max())
+        media.append(dat[:, l].mean())
+        mediana.append(np.median(dat[:, l], axis=0))
+
+    value.plot(minimo)
+    value.plot(massimo)
+    value.plot(media)
+    value.plot(mediana, 'r--')
+
+    DATONIcontagion.append(tutto()[1])
+
+    datoni = np.array(DATONIcontagion)
+    fig, (tot, value) = plt.subplots(2, 1)
+    for n in datoni:
+        tot.plot(n, 'k', alpha=0.05)
+    lst1 = []
+    n = len(tutto()[1])
+    for i in range(n + 0):
+        lst1.append(i)
+    minimo = []
+    massimo = []
+    media = []
+    mediana = []
+    print(datoni)
+    for l in np.array(lst1):
+        minimo.append(datoni[:, l].min())
+        massimo.append(datoni[:, l].max())
+        media.append(datoni[:, l].mean())
+        mediana.append(np.median(datoni[:, l], axis=0))
+
+    value.plot(minimo)
+    value.plot(massimo)
+    value.plot(media)
+    value.plot(mediana, 'r--')
+    plt.show()
+
+###todo
+# rendere linee dim, cos
+
+plottare(10,200)
