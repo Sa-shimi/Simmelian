@@ -138,37 +138,85 @@ def plottare (q):
         return [bass(G)]
 
 
-    DATONI=[]
+        DATONIdegroot = []
+        DATONIcontagion=[]
+        DATONIbass=[]
 
-    while m!=q:
-        DATONI.append(tutto())
-        m+=1
-    dat=np.array(DATONI)
-    fig, (tot, value) = plt.subplots(2, 1)
-    for n in dat:
-        tot.plot(n, 'k',alpha=0.05)
-        print(type(n))
-    lst = []
-    n=len(tutto())
-    for i in range(n + 0):
+        while m!= q:
+            m += 1
+            DATONIdegroot.append(tutto()[0])
+            DATONIcontagion.append(tutto()[1])
+            DATONIbass.append(tutto()[2])
+        dat = np.array(DATONIdegroot)
+        fig, (tot, value) = plt.subplots(2, 1)
+        for n in dat:
+            tot.plot(n, 'k', alpha=0.05)
+        lst = []
+        n = len(tutto()[0])
+        for i in range(n + 0):
             lst.append(i)
-    minimo=[]
-    massimo=[]
-    media=[]
-    mediana=[]
+        minimo = []
+        massimo = []
+        media = []
+        mediana = []
+
+        for l in np.array(lst):
+            minimo.append(dat[:, l].min())
+            massimo.append(dat[:, l].max())
+            media.append(dat[:, l].mean())
+            mediana.append(np.median(dat[:, l], axis=0))
+
+        value.plot(minimo)
+        value.plot(massimo)
+        value.plot(media)
+        value.plot(mediana, 'r--')
 
 
-    for l in np.array(lst):
-        minimo.append(dat[:,l].min())
-        massimo.append(dat[:,l].max())
-        media.append(dat[:,l].mean())
-        mediana.append(np.median(dat[:,l], axis=0))
-        
-        
+        datcontagion = np.array(DATONIcontagion)
+        fig, (tot, value) = plt.subplots(2, 1)
+        for n in datcontagion:
+            tot.plot(n, 'k', alpha=0.05)
+        lstcontagion = []
+        n = len(tutto()[1])
+        for i in range(n + 0):
+            lstcontagion.append(i)
+        minimo = []
+        massimo = []
+        media = []
+        mediana = []
+        print(datcontagion)
+        for l in np.array(lstcontagion):
+            minimo.append(datcontagion[:, l].min())
+            massimo.append(datcontagion[:, l].max())
+            media.append(datcontagion[:, l].mean())
+            mediana.append(np.median(datcontagion[:, l], axis=0))
 
+        value.plot(minimo)
+        value.plot(massimo)
+        value.plot(media)
+        value.plot(mediana, 'r--')
+        datbass = np.array(DATONIbass)
+        fig, (tot, value) = plt.subplots(2, 1)
+        for n in datbass:
+            tot.plot(n, 'k', alpha=0.05)
+        lstbass = []
+        n = len(tutto()[2])
+        for i in range(n + 0):
+            lstbass.append(i)
+        minimo = []
+        massimo = []
+        media = []
+        mediana = []
 
-    value.plot(minimo)
-    value.plot(massimo)
-    value.plot(media)
-    value.plot(mediana,'r+')
-    plt.show()
+        for l in np.array(lstbass):
+            minimo.append(datbass[:, l].min())
+            massimo.append(datbass[:, l].max())
+            media.append(datbass[:, l].mean())
+            mediana.append(np.median(datbass[:, l], axis=0))
+
+        value.plot(minimo)
+        value.plot(massimo)
+        value.plot(media)
+        value.plot(mediana, 'r--')
+
+        plt.show()
