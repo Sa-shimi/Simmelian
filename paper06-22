@@ -252,24 +252,19 @@
 		as expressed by (12). Therefore, we need to adjust our model in order to allow subject i to keep her
 		opinion in case there is no interaction at time t. We, thus, propose:
 		
-		\begin{equation}% \label{ourcontagion}
+		\begin{equation}\label{ourcontagion}
 			p_i(t)={\sum_{ j=1}^{N} T_{i,j}p_i(t-1)(1-\beta_{i,j}(t))+ \sum_{ j=1}^{N} T_{i,j}p_j(t-1)\beta_{i,j}(t)} .
 		\end{equation}
 		
-		which, can simplified as:
-		\begin{equation}% \label{ourcontagions}
+		As it can be seen, the model is divided in two parts. The one on the right represents the influence that subject \textit{j} has on \textit{i} if there is an interaction between the two and if the former considers the information to be sufficiently relevant (when $\beta_{i,j}(t)=1$). On the left side, we have the relevance regarding the information in \textit{i}'s opinion. By inserting $(1-\beta_{i,j}(t))$ we make sure that if there is no interaction between \textit{i} and \textit{j}, the former will keep the opinion she had at time $t-1$ weighted with the trust she poses on \textit{j}'s opinion. Such arrangement makes sure that the missed interactions won't weight on \textit{i}'s opinion regarding the relevance of the information. As a matter of fact, if subject $i$ is not influenced by anyone at any generic time step $t$, she will keep the same perception regarding the relevance of the information under discussion. 
+		
+		
+		Eventually the model as in \eqref{ourcontagion}, can simplified as:
+		\begin{equation}\label{ourcontagions}
 			p_i(t)=\sum_{j=1}^{N} T_{i,j}[\beta_{i,j}(p_j-p_i)+p_i] .
 		\end{equation}
 		
-		Using $\beta_{i,j}(t)$ as the exponential of $(1-T_{i,j})$, \textit{i.e}, the trust that subject $i$ places on her own opinion, makes sure that the value of $p_i(t)$ is not affected by the absence of interaction. In substance, if $i$ has no interaction at time $t$, her opinion remains the one she had at time $t-1$. As a matter of fact, if subject $i$ is not influenced by anyone at any generic time step $t$, she will keep the same perception regarding the relevance of the information under discussion. 
-		
-		However, left as it is, \eqref{ourcontagions} implies that, eventually, every subject in the sample will be aware of the information and also willing to share it. At the same time, however, we know that as time passes, the relevance of an information decreases for people. We, therefore, should also take into consideration a recovery process that might depend on time (Fan et al., 2020), which can be done by adding a deadening factor $\vartheta$, which can acquire a value between 0 and 1:
-		
-		\begin{equation} \label{ourcontagionss}
-			p_i(t)=-\vartheta+{1/N\sum_{i\neq j}^{N}p_i(t-1)(1-T_{i,j})^{\beta_{i,j}(t)}+T_{i,j}p_j(t-1)\beta_{i,j}(t)}
-		\end{equation}
-		
-		
+
 		
 		
 		
@@ -694,4 +689,3 @@
 	
 	
 	
-
