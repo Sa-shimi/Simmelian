@@ -259,7 +259,7 @@
 		As it can be seen, the model is divided in two parts. The one on the right represents the influence that subject \textit{j} has on \textit{i} if there is an interaction between the two and if the former considers the information to be sufficiently relevant (when $\beta_{i,j}(t)=1$). On the left side, we have the relevance regarding the information in \textit{i}'s opinion. By inserting $(1-\beta_{i,j}(t))$ we make sure that if there is no interaction between \textit{i} and \textit{j}, the former will keep the opinion she had at time $t-1$ weighted with the trust she poses on \textit{j}'s opinion. Such arrangement makes sure that the missed interactions won't weight on \textit{i}'s opinion regarding the relevance of the information. As a matter of fact, if subject $i$ is not influenced by anyone at any generic time step $t$, she will keep the same perception regarding the relevance of the information under discussion. 
 		
 		
-		Eventually the model as in \eqref{ourcontagion}, can simplified as:
+		Eventually the model as in \eqref{ourcontagion}, can be simplified as:
 		\begin{equation}\label{ourcontagions}
 			p_i(t)=\sum_{j=1}^{N} T_{i,j}[\beta_{i,j}(p_j-p_i)+p_i] .
 		\end{equation}
