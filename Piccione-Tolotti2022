@@ -40,17 +40,17 @@
 	
 	
 	We’re slowly moving toward the “Knowledge Economy”, namely, an economic system that heavily relies on knowledge for the creation of profit and value (Powell and Snellman, 2004). Understanding how knowledge can be transferred, acquired and absorbed, thus, appears to be of crucial importance. The dynamics of communication and, in particular, of knowledge transfer between subjects or organizations have been addressed in plenty of streams of literature and it is out of the scope of this article to review such a broad topic. For some recent surveys, we refer the reader to (Haas, 2015; Kilduff and Lee, 2020).	
-	What we are mostly interested in is a specific segment of such vast literature trying to complement the classical theories of knowledge transfer with the study of network and their properties (Hansen, 1999; Tortoriello and Krackhardt, 2010). Some of the main aspects that emerged in this field are, among the others, the understanding of how specific structural characteristics of a network could favor or impede the acquisition of knowledge by one subject (e.g. Granovetter, 1973; Burt, 1992; Krackhardt 1998; Wang, 2016), the way in which knowledge is transferred within a group (Tasselli and Caimo, 2019), the transfer of knowledge across different groups (Tortoriello et al., 2012), the ability to absorb the knowledge acquired (Tortoriello and Krackhardt 2010; Lissoni, 2001) and to exploit it by replication/imitation (Chen et al., 2014; Wang et al. 2020).	
+	What we are, mostly, interested in is a specific segment of such vast literature trying to complement the classical theories of knowledge transfer with the study of network and their properties (Hansen, 1999; Tortoriello and Krackhardt, 2010). Some of the main aspects that emerged in this field are, among the others, the understanding of how specific structural characteristics of a network could favor or impede the acquisition of knowledge by one subject (e.g. Granovetter, 1973; Burt, 1992; Krackhardt 1998; Wang, 2016), the way in which knowledge is transferred within a group (Tasselli and Caimo, 2019), the transfer of knowledge across different groups (Tortoriello et al., 2012), the ability to absorb the knowledge acquired (Tortoriello and Krackhardt 2010; Lissoni, 2001) and to exploit it by replication/imitation (Chen et al., 2014; Wang et al. 2020).	
 	Also the typology of network considered may play a role in the causation of the above-mentioned divergences. As a matter of fact, are we considering a friendship network (Gibbons, 2004)? An advice network (Krackhardt, 1987)? Additionally, it is quite complex to define and assess the degree of friendship between two subjects (see Krackhardt 1987; Krackhardt and Brass, 1994) or even the intensity of the relationship.
 	
-	Having this been said, we are of the opinion that the stream of literature that analyses social networks with the aim of understanding how knowledge is transferred, acquired and absorbed  might be overlooking some additional aspects that are related to the social forces individuals are experiencing due to their peculiar role and position in a complex net of formal and informal relationships.. More precisely, we found a gap in the research regarding vertical transfer of knowledge within a company. By vertical and heterarchical communication (and transfer of knowledge) we intend the communication (and the transfer) between one employee and its supervisor (or subordinate) (Bartels et al. 2010; Simpson, 1959). Focusing on such a specific knowledge and information transfer it appears crucial to take into account the difficulties of trust between the two social parties (\textit{i.e.}, superior and subordinates) (Jirjhan and Pfeifer, 2009; Bramucci and Zanfei, 2015). Even though knowledge transfer has to be seen as a process that is strongly embedded in a socio-cultural context (Giuliani, 2007), it appears to be overlooked.
+	Having this been said, we are of the opinion that the stream of literature that analyses social networks with the aim of understanding how knowledge is transferred, acquired and absorbed  might be overlooking some additional aspects that are related to the social forces individuals are experiencing due to their peculiar role and position in a complex net of formal and informal relationships. More precisely, we found a gap in the research regarding vertical transfer of knowledge within a company. By vertical and heterarchical communication (and transfer of knowledge) we intend the communication (and the transfer) between one employee and its supervisor (or subordinate) (Bartels et al. 2010; Simpson, 1959). Focusing on such a specific knowledge and information transfer it appears crucial to take into account the difficulties of trust between the two social parties (\textit{i.e.}, superior and subordinates) (Jirjhan and Pfeifer, 2009; Bramucci and Zanfei, 2015). Even though knowledge transfer has to be seen as a process that is strongly embedded in a socio-cultural context (Giuliani, 2007), the latter appears to be overlooked when it comes to study the former.
 	
 	One interesting aspect that we consider worth studying is the effect that specific structural characteristics can have on the vertical communication, transfer of knowledge and information. Specifically, this paper aims at analyzing the role that strong informal relationships that span vertically across a formal organizational structure may influence the spread of knowledge among individuals. To this aim, we rely on the concept of \textit{Simmelian ties} (Simmel, 1950; Krackhardt, 1998), \textit{i.e.}, ties within a triad, which have often been used as signaling the presence of a stronger  relationship. Having to deal with the impact of informal ties on knowledge transfer across a formal organization, we intend to tackle such issue by adopting a multilayer approach(Kivelä et al., 2014) in our analysis. More precisely, we take into consideration the network of personal relationship between subjects within a company and the organizational structure of the company itself. 
 	
-	On the other hand, we want to take advantage of theoretical models studying the way in which knowledge (or innovation) may spread in a population of interconnected actors. Following the pioneering works by DeGroot (1974) in the context of opion dynamics and Rogers (1962) and Bass (1969) in the context of diffusion of innovation, the attention of scholars in the field of management science has increased constantly. In this paper, we aim at developing and discussing information diffusion models that allow to understand how knowledge and information can flow within a company taking into account its social and organizational structure. We do so by exploring the two streams of literature and by individuating, on the one hand, which structural characteristic, among the others, can favor the transfer of information at different level of analysis (\textit{i.e.}, from the macro level to the individual level) (Haas, 2015; Rowley et al., 2000; Granovetter, 1973) and, on the other hand, which models can better represent the way in which the transfer of information happen within a group. The scope is to propose a model that, differently from the ones that the extant literature has developed, integrates the structural characteristics that we consider particularly relevant in the transfer of information throughout a network. 
+	On the other hand, we want to take advantage of theoretical models studying the way in which knowledge (or innovation) may spread in a population of interconnected actors. Following the pioneering works by DeGroot (1974) in the context of opinion dynamics  Rogers (1962) and Bass (1969) in the context of diffusion of innovation, the attention of scholars in the field of management science has increased constantly. In this paper, we aim at developing and discussing information diffusion models that allow to understand how knowledge and information can flow within a company taking into account its social and organizational structures. We do so by exploring the two streams of literature and by individuating, on the one hand, which structural characteristic, among the others, can favor the transfer of information at different levels of analysis (\textit{i.e.}, from the macro level to the individual level) (Haas, 2015; Rowley et al., 2000; Granovetter, 1973) and, on the other hand, which models can better represent the way in which the transfer of information happen within a group. The scope is to propose a model that, differently from the ones that the extant literature has developed, integrates the structural characteristics that we consider particularly relevant in the transfer of information throughout a network. 
 	Therefore, from a methodological point of view, we propose a new theoretical framework that moves across the management literature studying the role of Simmelian ties in knowledge transfer (Tortoriello and Krackhardt, 2010; Solorzano et al., 2019), the literature on opinion dynamics (DeGroot, 1974; Assenova, 2018) and diffusion of innovation (Bass, 1969; Pastor-Satorras et al., 2015).
-	In a Nutshell, ou primary goal is to study the effects of the shape and properties of complex network structures (\textit{where it happens}) and the way in which information spreads (\textit{how and why it happens}) to emergence of different aggregate knowledge dynamics.
-	The remainder of the paper is structured as follows. In the next chapter, we review the literature in the context of knowledge transfer and network structural properties, with some specific emphasis on Simmelian ties; we also discuss the classical and more recent literature related to opinion dynamics and diffusion of innovation. In Section 3, we discuss the modelling aspects and we introduce some important variables, discussing their role in shaping knowledge transfer. in Section 4, we analyze our model by means of numerical simulations; specifically, for each model, we run sensitivity analysis and, finally, we discuss the main implications of the models proposed. Finally, in Section 5 we conclude with some considerations and implications for future research.
+	In a nutshell, our primary goal is to study the effects of the shape and properties of complex network structures (\textit{where it happens}) and the way in which information spreads (\textit{how and why it happens}) to emergence of different aggregate knowledge dynamics.
+	The remainder of the paper is structured as follows. In the next Section, we review the literature in the context of knowledge transfer and network structural properties, with some specific emphasis on Simmelian ties; we also discuss the classical and more recent literature related to opinion dynamics and diffusion of innovation. In Section 3, we discuss the modelling aspects and we introduce some important variables, discussing their role in shaping knowledge transfer. in Section 4, we analyze our model by means of numerical simulations; specifically, for each model, we run sensitivity analysis and, finally, we discuss the main implications of the models proposed. Finally, in Section 5 we conclude with some considerations and implications for future research.
 	
 	
 	\section{Literature Review}
@@ -89,11 +89,10 @@
 	
 	
 	\subsection{Opinion and diffusion dynamics: how and why it happens}
-	We earlier explored the literature that tried to understand the impact that different structural characteristics have on the diffusion of knowledge within a network. At the same time, however, it is important to consider also the knowledge transfer process per se. Different streams of literature have, in fact, modeled the transfer of information in order to model and explain different phenomena. For instance, on of the most important streams of research is the one that tries to understand how an idea or an information is transferred throughout a group given specific structural characteristics (Assenova, 2018; Centola,2015). There are different approaches to the study of diffusion of innovation and the main differences regard the baseline assumption, the complexity of the technology utilized, and the applicability of the model. One first approach, the more classical one, isusually based on aggregated statistics such as the proportion of adopters; it is based on the assumption that actors are homogeneous in their traits and disregards their actual position on the network (Tanny and Derzko, 1988). The progenitor of this stream of literature can be identified in Bass (1969). The Bass model was derived from contagion models utilized in epidemiology studies (Barlett, 1960) and was initially developed to study the adoption rate of a generic innovation by consumers. As we will see more in details, the models derived along this strand of literature also assume that each actor, when deciding whether to adopt or not, is driven by two complementary traits. The first one is external and it is linked to the reaction to mass media and advertisement; the second one is considered the internal one and represents the imitation behaviour that originates from interpersonal communication between the subjects within the population (Bohlman et al. 2010). Generally, the first one is considered to be less relevant but necessary for the second one (Goldenberg et al. 2002). The advantage of such model lies on the fact that it is easy applicable also to considerably large populations (Bohlman et al. 2010) even though it might be excessively simplistic and inaccurate (Chatterjee and Eliashberg, 1990). 
+	We earlier explored the literature that tried to understand the impact that different structural characteristics have on the diffusion of knowledge within a network. At the same time, however, it is important to consider also the knowledge transfer process per se. Different streams of literature have, in fact, modeled the transfer of information in order to model and explain different phenomena. For instance, on of the most important streams of research is the one that tries to understand how an idea or an information is transferred throughout a group given specific structural characteristics (Assenova, 2018; Centola,2015). There are different approaches to the study of diffusion of innovation and the main differences regard the baseline assumption, the complexity of the technology utilized, and the applicability of the model. One first approach, the more classical one, is usually based on aggregated statistics such as the proportion of adopters; it is based on the assumption that actors are homogeneous in their traits and disregards their actual position on the network (Tanny and Derzko, 1988). The progenitor of this stream of literature can be identified in Bass (1969). The Bass model was derived from contagion models utilized in epidemiology studies and was initially developed to study the adoption rate of a generic innovation by consumers. As we will see more in details, the models derived along this strand of literature also assume that each actor, when deciding whether to adopt or not, is driven by two complementary traits. The first one is external and it is linked to the reaction to mass media and advertisement; the second one is considered the internal one and represents the imitation behaviour that originates from interpersonal communication between the subjects within the population (Bohlmann et al. 2010). Generally, the first one is considered to be less relevant but necessary for the second one (Goldenberg et al. 2002). The advantage of such model lies on the fact that it is easy applicable also to considerably large populations (Bohlmann et al. 2010) even though it might be excessively simplistic and inaccurate (Chatterjee and Eliashberg, 1990). 
 	
-	More recently, new techniques have been proposed with the goal of enticing the adherence to reality, at the cost of a more sophisticated mathematical support. Pastor-Satorras and colleagues (2015) propose a \textit{degree-based approach} which allows o consider the number of neighbours reached by the information in shaping the single agent behavior. In this way, the model is no longer homogeneous and network-related characteristics enter into the diffusion process. Heterogeneity of actors is pushed to the limit in the context of agent based models (ABMs). Researches in this field have proposed agent based models (ABM) that were able to take into account micro-level peculiarities (Kiesling et al., 2011). On the one hand, ABMs allow the relaxation of homogeneity assumptions; on the other hand, they entail worthwhile costs at the computational level (Rahmandad and Sterman, 2008). Within this group, researches have proposed models that were derived from contagion models (Pastor-Satorras et al. 2015; Strang and Soule, 1998).
+	More recently, new techniques have been proposed with the goal of enticing the adherence to reality, at the cost of a more sophisticated mathematical support. Pastor-Satorras and colleagues (2015) propose a \textit{degree-based approach} which allows to consider the number of neighbours reached by the information in shaping the single agent behavior. In this way, the model is no longer homogeneous and network-related characteristics enter into the diffusion process. Heterogeneity of actors is pushed to the limit in the context of agent based models (ABMs). Researches in this field have proposed agent based models (ABM) that were able to take into account micro-level peculiarities (Kiesling et al., 2011). On the one hand, ABMs allow the relaxation of homogeneity assumptions; on the other hand, they entail worthwhile costs at the computational level (Rahmandad and Sterman, 2008). Within this group, researches have proposed models that were derived from contagion models (Pastor-Satorras et al. 2015; Strang and Soule, 1998).
 	Each of the above-mentioned models has its own advantages and drawbacks and is, reasonably, more or less suitable depending on the focus of this paper. Having this been said, in this paper we want to explore each of the main models here listed and try to understand which one is better suited for our own research question.
-	\mt{ Se hai tempo, andrebbe fatto un  paragrafo su DeGroot e sui 3/4 principali paper che lo generalizzano recentemente. Se non riesci per il 17, lo faremo piu' avanti.}	
 	
 	\section{Modelling information/opinion dynamics}
 	In this section we want to discuss the two models that we previously introduced, \textit{i.e.}, the Bass model (1969) and the DeGroot model (1974). Our aim is to understand how the mechanisms behind such approaches can be enriched with the structural characteristics of the networks considered.
@@ -128,10 +127,10 @@
 	\end{enumerate}
 	The first condition expresses the necessity for symmetry between the two subjects connected by the tie. The second condition, on the other hand, expresses the necessity of the tie to be situated in a triad, the members of which are connected through actual ties. The set of $R_{i,k}^\ast,{R}_{j,k}^\ast{=R}_{k,j}^\ast$ form a triad. We numbered all such triads as $t_1 ...t_k...t_K$.
 	Having defined the unit of analysis and the way in which we’re going to individuate it, it is now time to discuss the way in which we are going to characterize a heterarchical Simmelian tie. 
-	We measure the verticality of a tie utilizing information of the structure of the formal network $F$ but we  refer to connections $R^*$ formed in the informal network $G^I$. In order to do so, we individuate all the triads (see Figure 1) of a company. After having done that, we  project these triads on the formal network of the same company (see Figures 2 and 3).
+	We measure the verticality of a tie utilizing information of the structure of the formal network $F$ but we  refer to connections $R^*$ formed in the informal network $G^I$. In order to do so, we individuate all the triads of a company. After having done that, we  project these triads on the formal network of the same company.
 	
 	
-	Before individuating the verticality of a Simmelian tie, we need to find a way to evaluate the hierarchical level of each subject $i$ in the formal network. In order to do so, we follow Freeman’s (1977) suggestion. For instance, the author considered the measurement of Betweenness Centrality as a good indicator for measuring the hierarchical level of a worker within the company if we assume that the organizational structure of a company resembles a tree network (Hunter, 2016) (see Figure 3).
+	Before individuating the verticality of a Simmelian tie, we need to find a way to evaluate the hierarchical level of each subject $i$ in the formal network. In order to do so, we follow Freeman’s (1977) suggestion. For instance, the author considered the measurement of Betweenness Centrality as a good indicator for measuring the hierarchical level of a worker within the company if we assume that the organizational structure of a company resembles a tree network (Hunter, 2016).
 	
 	\begin{equation}
 		{C_{i}}=\frac{2}{n^2-3n+2}\sum_{k,n\neq i}\frac{{b}_{k,n}^{i}}{b_{k,n}},
@@ -142,11 +141,11 @@
 	It is now time to tackle the issue of Verticality within a triad. In order to do so, we calculate the variance of the measurement $C_m$ measured on the formal network for each node in a triad $t_k$ formed in the informal network .
 	
 	\begin{equation}
-		{V}_{t_k}=\frac{\sum_{i=1}^3\left({C_i}-{\overline{C}}_k\right)^2}{3},
+		{V}_{k}=\frac{\sum_{i=1}^3\left({C_i}-{\overline{C}}_k\right)^2}{3},
 	\end{equation}
 	
 	
-	Where ${C_i}$ is the betweenness centrality of a node in the formal network while $\overline{C}$ is the average of the betweenness centrality of the nodes (of the triad) in the formal network. Let us recall that we need to take into consideration the verticality of all the potential triads within the network.
+	Where ${C_i}$ is the betweenness centrality of a node in the formal network while $\overline{C_k}$ is the average of the betweenness centrality of the nodes (of the triad) in the formal network. Let us recall that we need to take into consideration the verticality of all the potential triads within the network.
 	In substance, we define $\nu$ as the average variance  of the betweenness centrality calculated on the formal structure but within triads that have previously been individuated in the informal structure.
 	\begin{equation}
 		\nu=\frac{1}{K}\sum_{k=1}^{K}{V}_k.
@@ -184,7 +183,7 @@
 	\end{equation}
 	Here,  $f(t)$ is the probability of adoption at time $t$, $F(t)$ is the cumulative share of adopters at time $t$, $p$ is a parameter indicating external influence and, finally, $q$ is a parameter that models the impact that the imitation component has, $i.e.$ the internal influence. It is relevant to notice that $p$ captures the effects of all the external factors, whereas the second term, $q F(t)$, quantifies the importance of word of mouth and explicitly involves the fraction of population already adopting the good (Goldenberg et al., 2000). 
 	
-	Even though the model has different drawbacks in terms of predictive capability (Van den Bulte and Lilien, 1997), the model has been used and adapted without particular changes to its main characteristics (Mahajan et al., 1990). In the last years, several studies have proposed a relaxation of the strict homogeneity assumptions. Among the others, Van den Bulte and Stremersch (2004) considered different  national cultures - defined through Hofstede's (2001) dimensions -  and different income levels, thus introducing different ${q}/{p}$ ratios. Similarly, other studies consider a segmented population (see for example, Goldenberg et al., 2002). Differently, Pastor-Satorras et al. (2015) proposed to integrate contagion models with the inclusion of characteristics of the network such as the average degree of the network. This idea gave rise to the so-called \emph{degree-based} approach (Newmann, 2018).
+	Even though the model has different drawbacks in terms of predictive capability (Van den Bulte and Lilien, 1997), the model has been used and adapted without particular changes to its main characteristics (Mahajan et al., 1990). In the last years, several studies have proposed a relaxation of the strict homogeneity assumptions. Among the others, Van den Bulte and Stremersch (2004) considered different  national cultures - defined through Hofstede's (2001) dimensions -  and different income levels, thus introducing different ${q}/{p}$ ratios. Similarly, other studies consider a segmented population (see for example, Goldenberg et al., 2002). Differently, Pastor-Satorras et al. (2015) proposed to integrate contagion models with the inclusion of characteristics of the network such as the average degree of the network. This idea gave rise to the so-called \emph{degree-based} approach (Newman, 2018).
 	
 	A common denominator of all these studies, however, is the focus on the propensity of a single subject to adopt, which is the only \emph{micro-motive} giving rise to the spread of the innovation. Differently, in our paper, we claim that some specific structural characteristics (e.g., the presence of heterarchical Simmelian ties) should favor the spread and facilitate transfer of information throughout a group. Put differently, our interest is not only on the single individual but rather on the state and type of her Ego network and friendships.  In this respect, an interesting modelling solution can be found in Sinha and Chandrashekaran (1992) who proposed a "split" version of the Bass model dividing the population in two parts: the one who will never adopt and the ones who are still willing to adopt. Suppose that all my friends, although aware of the innovation, are not willing to adopt it; then, the chance I am going to adopt diminishes as well. This example shows the importance of focusing on the \emph{interpersonal nature of the social influence}; on the other hand, in order to stick with a tractable model, we  focus on an index that is able to tell us the distribution of heterarchical Simmelian ties within a group. Following Melnik et al. (2013), we consider two subpopulations characterized by a higher or lower capability to spread a message. Rephrasing this idea into our multilayer setting, we suggest to consider two separate populations, \textit{i.e.}, the ones that are linked by at least one Simmelian tie and the ones that are not. The scope of such subdivision is to allow the model to account for a population that is more likely to spread (as the ego subject is more likely to imitate). Therefore, by integrating a model \textit{à la} Bass through a characterization of the parameters $q$ and $p$ with $\varphi$, we would be able to discern the role that a higher or lower share of heterarchical Simmelian ties plays in the transfer o information throughout a group. 
 	
@@ -234,7 +233,7 @@
 		where $\xi_{ij}$ is a probability, depending on the characteristis of the tie between $i$ and $j$. More precisely,, we identify two main families of ties and information transfer depending on whether the link between $i$ and $j$ is a simmelian tie (\textit{infra}) or whether the information flow is going upward (from subordinate to superior) or downward. By including $\beta_{i,j}$, we are taking into consideration the fact that $i$ and $j$ are connected it des not necessarily mean that they are always communicating and that, in particular, the first will receive the information by the second.
 		In particular, in order to be \textit{ambassador} of the innovation, agent $j$ must overpass the threshold $\varepsilon_{j}$. In terms of the classical DeGroot Model, it is \textit{as if} $p_j(t-1)$ is switched on only if its value is above the threshold and is zero otherwise.
 		
-		It is important to stress that, due to the way in which we designed our model, subject $i$ can be informed by her $j$th neighbor if and only if both conditions expressed in \eqref{condition1} and in \eqref{condition2} are true; eventually, this means that subject $i$ updates her perception regarding the information taking into consideration those neighbors that are convinced and that, at the same time, happen to interact with her. 
+		It is important to stress that, due to the way in which we designed our model, subject $i$ can be informed by her $j$th neighbor if and only if both conditions expressed in \eqref{condition1} are true; eventually, this means that subject $i$ updates her perception regarding the information taking into consideration those neighbors that are convinced and that, at the same time, happen to interact with her. 
 		Setting these conditions allows us to discern different groups within an hypothetical sample, \textit{i.e.} the subjects connected through a Simmelian tie and the ones that are connected through a normal tie. Additionally, we can distinguish between transfer of information that go "upward", \textit{i.e.} when a subordinate shares an information with her superior and \textit{viceversa}. In the next section, we will see how to assign different probabilities $\xi_{ij}$ to each possible combination of such traits, with the aim of highlighting the role that Simmelian ties could play in the transfer of knowledge.
 		
 		
@@ -245,7 +244,7 @@
 		
 		More similarly to contagion models (see Melnik et al., 2013; Iacopini et al., 2019), we consider only people that achieved a specific threshold to be actively able to influence other people. This is because knowing something is not sufficient in order to influence the others; there must be an active interaction between the two subjects (sender and receiver) and the sender has to decide what to send (see Yale and Gilly, 1995). We, therefore, not only consider the relational structure behind a population, but also the fact that influence \textit{à la} DeGroot regarding the perception of an information can happen only if there is an "information episode" (Yale and Gilly, 1995 p.225), \textit{i.e.} when the source sends an information to the receiver.
 		
-		However, we are of the opinion that also the DeGroot model, as modified in \eqref{ourDeGroot}, might have some drawbacks when it comes to modeling the diffusion of an information throughout a network. For instance, the DeGroot model allows subjects to influence others to change opinion, also to returning to the initial one, the same applies for the model suggested by Assenova. On the contrary, one person can't convince another person that an information is not relevant without informing the receiver. It is the receiver that decides how important the opinion of the source is (Yale and Gilly, 1995) and, at the same time, information sharing processes are characterized by a cumulative process (Bao et al., 2013; see Centola and Macy; 2007). At the same time, however, we have to take into consideration that an information will not circulate endlessly and that it will eventually dissipate. However, such dissipation should not be dependent on the perception of the relevance of others but on other factors, such as time or other structural characteristics (Iacopini et al. 2019).
+		However, we are of the opinion that also the DeGroot model, as modified in \eqref{ourDeGroot}, might have some drawbacks when it comes to modeling the diffusion of an information throughout a network. For instance, the DeGroot model allows subjects to influence others to change opinion, also to returning to the initial one, the same applies for the model suggested by Assenova. On the contrary, one person can't convince another person that an information is not relevant without informing the receiver. It is the receiver that decides how important the opinion of the source is (Yale and Gilly, 1995) and, at the same time, information sharing processes are characterized by a cumulative process (Bao et al., 2013; see Centola and Macy, 2007). At the same time, however, we have to take into consideration that an information will not circulate endlessly and that it will eventually dissipate. However, such dissipation should not be dependent on the perception of the relevance of others but on other factors, such as time or other structural characteristics (Iacopini et al. 2019).
 		Following these intuitions, our suggestion is to focus once more on contagion models similar to the ones proposed by Iacopini and colleagues (2019) but also by Karsai et al. (2014). Differently from Karsai et al. (2014), we're not taking into consideration the presence of external influence (\textit{e.g.}, mass media, advertisement etc.). 
 		
 		Having this been said, we need to slightly correct \eqref{ourDeGroot} to avoid that, if at time t an interaction between $i$ and her $j$th neighbor does not happen because either $\beta_{i,j} (t) = 0$ either $p_j(t) < \varepsilon_{j}$ , the opinion of subject $i$ should not be affected as it would happen in the classical DeGroot model or in our model
@@ -274,7 +273,7 @@
 		
 		In this section we carry out several simulations with the aim of understanding how the measurement $\varphi$ and the model \eqref{ourcontagions} that we proposed behave. This will be done by carrying out a sensitivity analysis.
 		In particular for what regards the measurement of $\varphi$ as defined in (6), we want to see whether some unrelated structural characteristics of the network might affect its value. On the other hand, concerning the proposed model, we decided to compare the way in which an information spreads within a network utilising each of the discussed models. The aim of this process is to qualitatively understand the main differences.
-		Due to the complexity of the analysis we were about to carry out, we decided not to rely on a specific software (such as Ucinet or Gephi) but preferred to develop our own program that would allow us to fully customize the process. We, therefore, opted to develop our own Python script which would allow us to generate random and non-random networks, to apply our model on them and to extract the variables that we considered to be interesting. We also developed our own Python code to carry out the sensitivity analysis\footnote{All the Python scripts are available at the following permanent link: https://github.com/Sa-shimi/Simmelian}. A detailed description of the functioning of the Python script can be found in the \emph{Appendix}.
+		Due to the complexity of the analysis we were about to carry out, we decided not to rely on a specific software (such as Ucinet or Gephi) but preferred to develop our own program that would allow us to fully customize the process. We, therefore, opted to develop our own Python script which would allow us to generate random and non-random networks, to apply our model on them and to extract the variables that we considered to be interesting. We also developed our own Python code to carry out the sensitivity analysis\footnote{All the Python scripts are available at the following permanent link: https://github.com/Sa-shimi/Simmelian/blob/main/totale}. A detailed description of the functioning of the Python script can be found in the \emph{Appendix}.
 		
 		\subsection{Sensitivity analysis}
 		In order to understand which parameters might affect our measure, we decided to generate a considerable number of random samples. 
@@ -448,7 +447,7 @@
 		In the results of the Morris analysis we can quickly discern one aspect that is common to every group: all the values of $\mu$ are particularly close to 0. Even though there are some parameters that maintain a higher magnitude than the other parameters, if compared with their respective $\mu*$, they are all virtually insignificant. The difference between $\mu$ and $\mu*$ indicates that the parameters still play a minor role which, however, on average, is almost null. 
 		Having this been said, there is also a considerable probability that, differently from the results of the Morris analysis on the model of $\nu$, the signs of the results of the Morris analysis on the model of $\varphi$ would change. Better put, we’re of the opinion that, if we’d repeat the Morris analysis on the model of $\varphi$, the signs of the results would be random.
 		
-		The insignificance of the considered parameters on $\varphi$ is also signaled by another aspect, which is the distribution of $\varphi$. Regardless the methodology adopted for the generation of random network, in fact, $\phi$ is, on average equal to 1 and its distribution is nearly normal (except for some minor outliers) . Additionally, a considerably large share of samples are close to 1 (see quantiles in \emph{Tables10-11}. On the other hand, we cannot find such a similarity in the samples of $\nu$ (Compare \emph{Tables} 5-6 with 10-11). 
+		The insignificance of the considered parameters on $\varphi$ is also signaled by another aspect, which is the distribution of $\varphi$. Regardless the methodology adopted for the generation of random network, in fact, $\phi$ is, on average equal to 1 and its distribution is nearly normal (except for some minor outliers). Additionally, a considerably large share of samples are close to 1 (see quantiles in \emph{Tables12-14}. On the other hand, we cannot find such a similarity in the samples of $\nu$ (Compare \emph{Tables} 9-11 with 12-14). 
 		An interesting aspect that can be noticed is that there are differences in terms of width of the distribution of $\varphi$ between the different groups of samples. For instance, the minimum and the maximum output are closer in the group of networks generated with the Erdős-Rényi method than in the group of networks generated with the Barabasi-Albert method.  Again, such aspect is related not to the way in which the informal networks are generated but to the numbers of triads that can be found in a given network. The lower the amount of triads that are individuated in an informal network, the higher the variance of the value of $\varphi$. 
 		
 		
@@ -457,14 +456,14 @@
 		Differently from before, for what regards the informal network, we decided to carry out the simulations utilising only the Barabasi-Albert random graph generation method as it resulted to be the one that generates networks that allowed for a higher variation of $\varphi$ (see Table 12). On the other hand, for what concerns the formal network we generated tree-like random graphs as before.
 		For the simulations, we utilised networks composed by 400 nodes and fixed the parameter $m$ as defined in Section 4.1 to 3.
 		For each simulation, a set composed by one informal graph and one formal graph was generated. A single subject was, then, randomly chosen to be the first "infected" or, put differently, with $p_i(t_0)=1$.
-		After that, all three models \eqref{bass}, \eqref{ourDeGroot} and \eqref{ourcontagionss} were run with the same starting conditions (same network and same starting node). For each time-step, we registered the amount of "infected" and the cumulative amount of "infected" subjects. Eventually, at the end of each sampling process, we also considered the maximum, the minimum, the average and the median amount of subject that were "infected" at each time step in the simulations.
+		After that, all three models \eqref{bass}, \eqref{ourDeGroot} and \eqref{ourcontagions} were run with the same starting conditions (same network and same starting node). For each time-step, we registered the amount of "infected" and the cumulative amount of "infected" subjects. Eventually, at the end of each sampling process, we also considered the maximum, the minimum, the average and the median amount of subject that were "infected" at each time step in the simulations.
 		In Figure , we can see the results of the simulations. In the first row of each panel we can see the actual adoption rate (as a percentage) of the population within the sample. In the second row we can see the cumulative adoption rate of the population within the sample at a each time step. Eventually on the bottom row, we can see the highest, the lowest, the mean and median adoption rate at each time step. 
 		
 		In Panel (a), we can see the representation of the simulations of the Bass model. Due to the fact that the Bass model does not allow subjects to stop adopting (or being infected), the actual amount of adopting subjects does not diminish.  Additionally, the actual adoption curve has the traditional S shape.
 		
 		In Panel (b). we can see the simulations of the DeGroot model as in \eqref{ourDeGroot}. Differently from before we can notice that the adoption rate growth follows a different pattern and additionally, for small periods, it declines. This means that in some cases, subjects are able to stop sustaining the information sharing. It is interesting to notice the divergences between the cumulative adoption rate and the actual adoption rate. The fact that, in same cases, the cumulative adoption rate is higher then the actual adoption rate, indicates that, information is circulating and that, the "adopters" are changing but not increasing.
 		
-		Finally, in Panel (c) we can see the representation of the simulations of the model we proposed as in \eqref{ourcontagionss}. The first thing to notice is that the simulations can be divided in two groups. The first one is represented by those cases in which the entire population stops sustaining the information or the innovation. On the other hand, we can see that the other group is represented by those cases in which sooner or later the entire population is informed and willing to inform others. There is another thing that, in our opinion, is relevant to notice. There are in some cases in which an "on set" period, during which the share of "infected" subjects remains within a specific range. After a while, such share of "infected" subjects either grows either decreases. 
+		Finally, in Panel (c) we can see the representation of the simulations of the model we proposed as in \eqref{ourcontagions}. The first thing to notice is that the simulations can be divided in two groups. The first one is represented by those cases in which the entire population stops sustaining the information or the innovation. On the other hand, we can see that the other group is represented by those cases in which sooner or later the entire population is informed and willing to inform others. There is another thing that, in our opinion, is relevant to notice. There are in some cases in which an "on set" period, during which the share of "infected" subjects remains within a specific range. After a while, such share of "infected" subjects either grows either decreases. 
 		Finally, it is relevant to notice, in plot at the bottom of the panel, the considerable difference between the mean and the median (dashed line) of the adoption rate.
 		
 		
@@ -474,19 +473,19 @@
 			\centering
 			\includegraphics[width=5cm]{~/Desktop/plottini/BASS400+.png}\hfill
 			\includegraphics[width=5cm]{~/Desktop/plottini/DEGROOT400.png}\hfill
-			\includegraphics[width=5cm]{~/Desktop/plottini/CONTAGION400+.png}
-			\caption{Simulations with Bass (left), DeGroot (middle) and our own model}
+			\includegraphics[width=5cm]{~/Desktop/plottini/model3.png}
+			\caption{Simulations with Bass (left), DeGroot (middle) and our own model (right)}
 		\end{figure}
 		
 		\section{Final Considerations}
 		In this paper we aimed at furthering the discussion regarding the utilization of models for the comprehension of diffusion of knowledge and information throughout a network.
 		More specifically, after reviewing the literature regarding the role that structural characteristics of a network play in the transfer of knowledge and the one regarding innovation diffusion and opinion dynamics, we proposed a couple of integration to the classic contagion and opinion dynamics models with the aim of including the characteristics of the relationships between the subjects in the sample. Additionally, with the aim of accounting for social forces that might characterize the transfer of information and knowledge within a company, we adopted a multilayer network approach and, in fact, considered the informal network (composed by the personal relationships) and the formal network (the organizational structure of a company). 
-		Eventually, we proposed a model that, differently from the ones discussed, includes not only the structural characteristics of the network(s) that characterize the sample analyzed; the proposed models considers also the fact that the information episode (Yale and Gilly) is composed by the willingness of two subjects, the receiver and the sender. Accepting the existence of the fact that also the sender has to be willing to transfer the information increases the complexity of the model.
+		Eventually, we proposed a model that, differently from the ones discussed, includes not only the structural characteristics of the network(s) that characterize the sample analyzed; the proposed models considers also the fact that the information episode (Yale and Gilly, 1995) is composed by the willingness of two subjects, the receiver and the sender. Accepting the existence of the fact that also the sender has to be willing to transfer the information increases the complexity of the model.
 		As a matter of fact, as it can be seen from Figure 1, the simulations of the model that we proposed is are particularly different from the other two even thought they have been carried out on the same networks.
 		
-		There are, indeed, some limitations in this research. The first one is, that this research limits itself to a theoretical discussion and, as a consequence, does not provide any concrete managerial implication. Nevertheless, the novelty that this paper brings regards the theoretical and methodological approach when it comes to studying knowledge transfer within a network. Additionally, the proposed model needs to go through further tests, in particular taking into consideration its complexity.
+		There are, indeed, some limitations in this research. The first one is that this research limits itself to a theoretical discussion. Therefore, in order to suggest clearer and more solid managerial implications, we need a more solid analysis and an empirical study that can corroborate our theoretical results here reported. Nevertheless, the novelty that this paper brings regards the theoretical and methodological approach when it comes to studying knowledge transfer within a network. Additionally, the proposed model needs to go through further tests, in particular taking into consideration its complexity.
 		
-		Another issue is that the proposed index, $\varphi$, has regards the choice of \textit{Betweenness Centrality} as a measurement for the hierarchical level of a given subject. We opted to utilize such measurement following Freeman's suggestion regarding the relationship between the control one can exercise over the network it belongs to and the \textit{Betweenness Centrality} its position in the network is characterized by. Future research might take into consideration the \textit{Centrality} measurement proposed by Liu et al. (2012), \textit{i.e.}, \textit{Control Centrality}, which to measure the control that a single node exercises in a weighted and directed network.
+		Another issue that the proposed index, $\varphi$, has regards the choice of \textit{Betweenness Centrality} as a measurement for the hierarchical level of a given subject. We opted to utilize such measurement following Freeman's suggestion regarding the relationship between the control one can exercise over the network it belongs to and the \textit{Betweenness Centrality} its position in the network is characterized by. Future research might take into consideration the \textit{Centrality} measurement proposed by Liu et al. (2012), \textit{i.e.}, \textit{Control Centrality}, which has been developed to measure the control that a single node exercises in a weighted and directed network.
 		Despite these limitations and weaknesses, we are of the opinion that in this paper we have provided sufficient argumentation to prove the relevance of the integration of structural characteristics into opinion dynamics and innovation diffusion models.
 		In conclusion, the paper, provides, other than a model, an insight on the possible methodology that can be used in order to enrich contagion and opinion dynamics models with the structural characteristics of the network that underlies the sample that observed. Exploiting all the potential combination that a multilayer approach allows to create might foster our understanding of particularly complex social mechanism that can influence the transfer of knowledge.
 		
@@ -537,10 +536,10 @@
 		\subsection{The Python Script}
 		Below here you can find a flowchart that schematizes the way in which the Python script that we developed works. The steps are followed one at a time and in the exact order we placed them in the chart. The colours of the boxes signify:
 		\begin{itemize}
-			\item The colour Purple indicates all those steps that we set arbitrarily and that do not affect the rest of the script;
-			\item The colour Turquoise indicates all those steps that utilize the information gathered from the Formal Network;
-			\item The colour Yellow indicates all those steps that utilize the information gathered from the Informal Network;
-			\item The colour Green indicates all those steps that utilize the information gathered from both the Formal and the Informal Networks
+			\item The colour grey with dots indicates all those steps that we set arbitrarily and that do not affect the rest of the script;
+			\item The colour white indicates all those steps that utilize the information gathered from the Formal Network;
+			\item The colour black indicates all those steps that utilize the information gathered from the Informal Network;
+			\item The colour grey indicates all those steps that utilize the information gathered from both the Formal and the Informal Networks
 		\end{itemize}
 		
 		Each time we wanted to carry out a test, we set specific boundary parameters - such as number of nodes, number of edges - to make sure that the script runs smoothly. After having set such parameters, the program will generate a Formal Network and then an Informal one. We had to add additional controls on the networks in order to avoid issues in the following steps. In this phase the program would make sure that the were no disconnected parts and that the number of triads would be, at least, equal to 1. 
@@ -549,13 +548,13 @@
 		
 		After having found $\nu$, the program would individuate all the possible triads. However, finding all the triads is a complex and particularly time consuming process (Pardalo and Resende, 1999). We, thus, decided to bypass the issue by generating a list of triads each of which contained one of the possible combinations of 3 nodes. After having obtained the list with all the possible triads, the program would repeat the same process it carried earlier, \emph{i.e.}, labelling the nodes within each triad. $\phi$ is, then, calculated.
 		
-		Finally, the program would evaluate \emph{Hierarchy} as calculated in \emph{Formula 7} and \emph{Average Clustering Coefficient (11)}, \emph{Density (16)} and \emph{Eccentricity (17)}.
+		Finally, the program would evaluate \emph{Hierarchy} as calculated in \emph{Formula 7} and \emph{Average Clustering Coefficient} as in (17), \emph{Density} as in (21) and \emph{Eccentricity }as in (22).
 		
 		Eventually, all the information are stored and the program would generate a new Formal Network and a new Informal one. Such process is repeated $n$ amount of time, depending on how many samples we wanted for our Sensitivity Analysis. After $n$ samples are obtained, the sensitivity analysis would be carried out and, eventually, we would have our results.
 		
 		\begin{figure}[h]
 			\centering
-			\includegraphics[width=15cm]{~/Desktop/plottini/flow.png}
+			\includegraphics[width=23cm]{~/Desktop/plottini/flow1.png}\hfill
 			\caption{Flowchart of the Python script}
 		\end{figure}
 		
@@ -564,128 +563,201 @@
 		
 		\begin{hangparas}{.25in}{1}
 			
-			
-			Antonelli C. (2018). Knowledge exhaustibility and Schumpeterian growth. The Journal of Technology Transfer, Vol. 43: 779-791.
-			
-			Barabasi A. and Albert R. (1999). Emergence of Scaling in Random Networks. Science, Vol. 286(5439): 509-512.
-			
-			Bramucci A and Zanfei A. (2015). The governance of offshoring and its effects at home. The role of codetermination in the international organization of German firms. Economia e Politica Industriale, Vol. 42(2): 217-244.
-			
-			Burt R. S. (2015). Reinforced Structural Holes. Social Networks, Vol. 43: 149-161.
-			
-			Burt R. S. (1992). The social structure of competition. In N. Nohria \& R. Eccles (Eds.), Networks and orga- nizations: Structure, form, and action (pp. 57-91). Boston, MA: Harvard Business School Press. 
-			
-			Burt R. S., Kilduff M. and Tasselli S. (2013). Social Network Analysis: Foundations and Frontiers on Advantage. Annual review of Psychology, Vol. 64: 527-547.
-			
-			Burt R. S. and Knez M. (1996). A further note on the network structure of trust: reply to Krackhardt. Rationality and Society, Vol. 8(1): 117-120.
-			
-			Campolongo F. and  Saltelli A. (1997). Sensitivity analysis of an environmental model: an application of different analysis methods. Reliability Engineering and System Safety, Vol. 57: 49-69.
-			
-			Chen C., Hsiao Y. and Chu M. (2014). Transfer mechanisms and knowledge transfer: The cooperative competency perspective. Journal of Business Research, Vol. 67(12): 2531-2541.
-			
-			Erdős P. and Rényi A. (1960). On the evolution of random graphs. Publications of the Mathematical Institute of the Hungarian Academy of Sciences, Vol. 5:17-60.
-			
-			Faems D., Janssenss M. and van Looy B. (2007). The Initiation and Evolution of Interfirm Knowledge Transfer in R\&D Relationships. Organization Studies, Vol. 28(11): 1699-1728.
-			
-			Freeman L. C. (1977). A set of measures of Centrality based on Betweenness. Sociometry, Vol. 40(1): 35-41.
-			
-			Friedkin N. E. (1982). Information Flow Through Strong and Weak Ties in lntraorganizational Social Networks. Social Networks, Vol. 3: 273-285. 
-			
-			Fritsch M. and Kauffeld-Monz M. (2010). The impact of network structure on knowledge transfer: an application of social network analysis in the context of regional innovation networks. Annual Regional Science, Vol. 44: 21-38.
-			
-			Gargiulo M., Ertug G. and Galunic C. (2009). The Two Faces of Control: Network Closure and Individual Performance among Knowledge Workers. Administrative Science Quarterly, Vol. 54: 299-333.
-			
-			Giuliani E. (2007). The selective nature of knowledge networks in clusters: evidence from the wine industry. Journal of Economic Geography, Vol. 7: 139-168.
-			
-			Granovetter M. S. (1973). The Strength of Weak Ties. American Journal of Sociology, Vol. 78(6): 1360-1380.
-			
-			Hansen M. T. (1999). The Search-Transfer Problem:The Role of Weak Ties in Sharing Knowledge across OrganizationSubunit. Administrative Science Quarterly, Vol. 44: 82-111. 
-			
-			Heider F. (1958). The psychology of interpersonal relations. New York, NY: Wiley.
-			
-			Huggins R. and Johnston A. (2010). Knowledge flow and inter-firm networks: The influence of network resources, spatial proximity and firm size. Entrepreneurship  Regional Development, Vol. 22(5): 457-484.
-			
-			Kilduff M. and Lee J. W. (2020). The Integration of People and Networks. Annual Review of Organizational Psychology and Organizational Behavior, Vol. 7: 155-179.
-			
-			Kotabe M., Dunlap-Hinkler D., Parente R. and Mishra H. A. (2007). Determinants of Cross-National Knowledge Transfer and Its Effect on Firm Innovation. Journal of International Business Studies, Vol. 38(2): 259-282.
-			
-			Krackhardt D. (1987). Cognitive Social Structure. Social Networks, Vol. 9: 109-134.
-			
-			Krackhardt D. (1998). Simmelian Tie: Super Strong and Sticky. In Roderick Kramer and Margaret Neale (eds.). Power and Influence in Organizations. Thousand Oaks, CA: Sage, pp. 21-38.
-			
-			Krackhardt D. (1999). The ties that torture: Simmelian tie analysis in organizations. Research in the Sociology of Organizations, Vol. 16: 183-210.
-			
-			Krackhardt D. and Brass D. J. (1994). Intraorganizational Networks: The Micro Side. In Stanley Wasserman and Joseph Galaskiewicz (ed.), Advances in the Social and Behavioral Sciences from Social Network Analysis. Beverly Hills: Sage, pp. 209-230.
-			
-			Krackhardt D. and Hanson J. R. (1993). Informal Networks: The Company Behind the Chart. Harvard Business Review, Vol. 71(4), 104:111.
-			
-			Krackhardt D. and Stern R. N. (1988). Informal Networks and Organizational Crises: An Experimental Simulation. Social Psychology Quarterly, Vol. 51(2): 123-140.
-			
-			Jirjhan U. and Pfeifer C. (2009). The Introduction of Works Councils in German Establishments — Rent Seeking or Rent Protection?. British Journal of Industrial Relations. Vol. 47(3): 521-545.
-			
-			Mitton C., Adair C. E., McKenzie E., Patten S. B. and Perry B. W. (2007). Knowledge Transfer and Exchange: Review and Synthesis of the Literature. The Millbank Quarterly, Vol. 85(4): 729-768.
-			
-			Morris M. D. (1991). Factorial sampling plans for preliminary computational experiments. Technometrics, Vol. 332: 161-174.
-			
-			Liebeskind J. P. (1996). Knowledge, Strategy, And the Theory of the Firm. Strategic Management Journal, Vol. 17 (Winter Special Issue): 93:107.
-			
-			Lissoni F. (2001). Knowledge codification and the geography of innovation: the case of Brescia mechanical cluster. Research Policy, Vol. 30: 1479-1500.
-			
-			Marsden P. V. and Campbell K. E. (1984). Measuring Tie Strength. Social Forces, Vol. 63(2): 482-501.
-			
-			McGrath C. and Krackhardt D. (2003). Network Conditions for Organizational Change The Journal of Applied Behavioral Science, Vol. 39(3): 324-336.
-			
-			Morrison A. (2008). Gatekeepers of Knowledge within Industrial Districts: Who They Are, How They Interact, Regional Studies, Vol. 42(6): 817-835.
-			
-			Pardalos J., and Resende M. (1999). On maximum clique problems in very large graphs. Discrete Mathematics and Theoretical Computer Science Vol. 50: 119-130.
-			
-			Pedersen T., Soda G. and Stea D. (2019) Globally networked: Intraorganizational boundary spanning in the global organization. Journal of World Business, Vol. 54(3): 169-180.
-			
-			Powell W. W. and Snellman K. (2004). The Knowledge Economy. Annual Review of Sociology, Vol. 30: 199-220.
-			
-			Reagans R. (2005). Preferences, Identity, and Competition: Predicting Tie Strength from Demographic Data. Management Science, Vol. 51(9): 1374-1383.
-			
-			Reagans R. and McEvily B. (2003). Network Structure and Knowledge Transfer: effects of Cohesion and Range. Administrative Science Quarterly, Vol. 48(2): 240-26.
-			
-			Robins G., Tom Snijders T., Wang P., Handcock M. and Pattison P. (2007). Recent developments in exponential random graph (p*) models for social networks. Social Networks, Vol. 29(2): 192-215.
-			
-			Rodan S. and Galunic C. (2004). More than Network Structure: how Knowledge Heterogeneity influences Managerial Performance and Innovativeness. Strategic Management Journal, Vol. 25: 541-562.
-			
-			Seely Brown J. and Duguid P. (2001), Knowledge and Organization: A Social-Practice Perspective. Organization Science, Vol. 12(2): 198-213.
-			
-			Simmel G. (1950). The Sociology of Georg Simmel. Translated and Edited by Wolff K. H., Collier McMillan, Ontario (Canada).
-			
-			Solorzano M. G., Tortoriello M. and Soda G. (2019). Instrumental and affective ties within the laboratory: The impact of informal cliques on innovative productivity. Strategic Management Journal, Vol. 40: 1593-1609.
-			
-			Song J., Almeida P. and Wu G. (2003). Learning-by-Hiring: When Is Mobility More Likely to Facilitate Interfirm Knowledge Transfer? Management Science, Vol. 49(4): 351-365.
-			
-			Tasselli S. and Caimo A. (2019). Does it take three to dance the Tango? Organizational design, triadic structures and boundary spanning across subunits. Social Networks, Vol. 59: 10-22.
-			
-			Tortoriello M. and Krackhardt D. (2010). Activating Cross-boundary Knowledge: the role of Simmelian Ties in the Generation of Innovations. Academy of Management Journal, Vol. 53(1): 167-181.
-			
-			Tortoriello M., McEvily B. and Krackhardt D. (2015). Being a Catalyst of Innovation: The Role of Knowledge Diversity and Network Closure. Organization Science, Vol. 26(2): 423-438.
-			
-			Tortoriello M., Reagans R. and McEvily B. (2012). Bridging the Knowledge Gap: The Influence of Strong Ties, Network Cohesion, and Network Range on the Transfer of Knowledge Between Organizational Units. Organization Science, Vol. 23(4): 1024-1039.
-			
-			Uzzi B. (1997). Social Structure and Competition in interfirm networks: the paradox of embeddedness. Administrative Science Quarterly, Vol. 42(1): 35-67.
-			
-			Von Hippel E. (1994). “Sticky Information” and the Locus of Problem Solving: Implications for Innovation. Management Science, Vol. 40(4):429-439 
-			
-			Wang J. (2016). Knowledge creation in collaboration networks: Effects of tie configuration. Research Policy, Vol. 45(1): 68-80.
-			
-			Wang C., Rodan S., Fruin M. and Xu X. (2014). Knowledge Networks, Collaboration Networks and Exploratory innovation. Academy of Management Journal, Vol. 57(2): 484-514.
-			
-			Wang J., Yang N. and Guo M. (2020). Ego-network stability and exploratory innovation: the moderating role of knowledge networks. Management Decision, Vol. 59(6): 1406-1420.
-			
-			Watson S. and Hewett K. (2006).A Multi-Theoretical Model of Knowledge Transfer in Organizations: Determinants of Knowledge Contribution and Knowledge Reuse. Journal of Management Studies, Vol. 43(2): 141-173.
-			
-			Watts D. J. and Strogatz H. S. (1998). Collective dynamics of ‘small-world’ networks. Nature, Vol. 393: 440–442.
-			
-			Zappa P. and Lomi A. (2015). The Analysis of Multilevel Networks in Organizations: Models and Empirical Tests. Organizational Research Methods, Vol. 18(3): 542-563.
+Antonelli C. (2018). Knowledge exhaustibility and Schumpeterian growth. The Journal of Technology Transfer, Vol. 43: 779-791.
+
+Assenova V. A. (2018). Modelling the diffusion of complex innovations as a process of opinion formation through social networks. PLoS ONE, Vol. 13(5): 1-18.
+
+Bao P., Shen H., Chen W. and Cheng X. (2013). Cumulative effect in information diffusion> an empirical Study on a Microblogging Network. PLoS ONE, Vol. 8(10): 1-7.
+
+Barabasi A. and Albert R. (1999). Emergence of Scaling in Random Networks. Science, Vol. 286(5439): 509-512.
+
+Bartels J., Peters O., de Jong M., Pruyn A. and van der Molen M. (2010). Horizontal and vertical communication as determinants of professional and organisational identification. Personnel Review, Vol. 39(2): 210-226.
+
+Bass F. M. (1969). A new product growth for model consumer durables. Management Science, Vol. 15: 215-227.
+
+Bohlmann J. D., Calantone R. J. and Zhao, M. (2010). The effects of market network heterogeneity on innovation diffusion: An agent-based modeling approach. Journal of Product Innovation Management, Vol. 27(5): 741–760.
+
+Bramucci A and Zanfei A. (2015). The governance of offshoring and its effects at home. The role of codetermination in the international organization of German firms. Economia e Politica Industriale, Vol. 42(2): 217-244.
+
+Burt R. S. (2015). Reinforced Structural Holes. Social Networks, Vol. 43: 149-161.
+
+Burt R. S. (1992). The social structure of competition. In N. Nohria \& R. Eccles (Eds.), Networks and orga- nizations: Structure, form, and action (pp. 57-91). Boston, MA: Harvard Business School Press.
+
+Burt R. S., Kilduff M. and Tasselli S. (2013). Social Network Analysis: Foundations and Frontiers on Advantage. Annual review of Psychology, Vol. 64: 527-547.
+
+Burt R. S. and Knez M. (1996). A further note on the network structure of trust: reply to Krackhardt. Rationality and Society, Vol. 8(1): 117-120.
+
+Campolongo F. and  Saltelli A. (1997). Sensitivity analysis of an environmental model: an application of different analysis methods. Reliability Engineering and System Safety, Vol. 57: 49-69.
+
+Centola D. (2015). The Social Origins of Networks and Diffusion. American Journal of Sociology. Vol, 120(5):1295-1338.
+
+Centola D. and Macy M. (2007). Complex Contagions and the Weakness of Long Ties. American Journal of Sociology, Vol. 113(3): 702-734.
+
+Chatterjee R. and Eliashberg J. (1990). The innovation diffusion process in the heterogeneous population: a micromodelling approach. Management Science, Vol. 36:1057–1079.
+
+Cohen, W. M. and Levinthal D. A. (1990). Absorptive capacity: A new perspective on learning and innovation. Administrative Science Quarterly, Vol.35: 128–152. 
+
+Coleman J. S. (1988). Social capital in the creation of human capital. American Journal of Sociology, Vol. 94, pp. 95–120. 
+
+Chen C., Hsiao Y. and Chu M. (2014). Transfer mechanisms and knowledge transfer: The cooperative competency perspective. Journal of Business Research, Vol. 67(12): 2531-2541.
+
+DeGroot M.H. (1974). Reaching a Consensus. Journal of the American Statistical Association, Vol. 69(345):118–121.
+
+Erdős P. and Rényi A. (1960). On the evolution of random graphs. Publications of the Mathematical Institute of the Hungarian Academy of Sciences, Vol. 5:17-60.
+
+Faems D., Janssenss M. and van Looy B. (2007). The Initiation and Evolution of Interfirm Knowledge Transfer in R\&D Relationships. Organization Studies, Vol. 28(11): 1699-1728.
+
+Freeman L. C. (1977). A set of measures of Centrality based on Betweenness. Sociometry, Vol. 40(1): 35-41.
+
+Friedkin N. E. (1982). Information Flow Through Strong and Weak Ties in lntraorganizational Social Networks. Social Networks, Vol. 3: 273-285.
+
+Friedman R.A. and Podolny J. (1992), Differentiation of boundary spanning roles: labor negotiations and implications for role conflict. Administrative Science Quarterly, Vol. 37(1), pp. 28-47. 
+
+Fritsch M. and Kauffeld-Monz M. (2010). The impact of network structure on knowledge transfer: an application of social network analysis in the context of regional innovation networks. Annual Regional Science, Vol. 44: 21-38.
+
+Gargiulo M., Ertug G. and Galunic C. (2009). The Two Faces of Control: Network Closure and Individual Performance among Knowledge Workers. Administrative Science Quarterly, Vol. 54: 299-333.
+
+Gibbons D. E. (2004). Friendship and Advice Networks in the Context of Changing Professional Values. Administrative Science Quarterly, Vol. 49(2): 238-262.
+
+Giuliani E. (2007). The selective nature of knowledge networks in clusters: evidence from the wine industry. Journal of Economic Geography, Vol. 7: 139-168.
+
+Goldenberg J., Libai B., Solomon S., Jan N. and Stauffer D. (2000). Marketing percolation. Physica A. Vol. 284 :335–347.
+
+Goldenberg J., Libai B. and Muller E. (2002). Riding the Saddle: How Cross-Market Communications Can Create a Major Slump in Sales. Journal of Marketing, Vol. 66: 1-16.
+
+Granovetter M. S. (1973). The Strength of Weak Ties. American Journal of Sociology, Vol. 78(6): 1360-1380.
+
+Haas A. (2015). Crowding at the frontier: boundary spanners, gatekeepers and knowledge brokers. Journal of Knowledge Management, Vol. 19(5): 1029-1047. 
+
+Hansen M. T. (1999). The Search-Transfer Problem:The Role of Weak Ties in Sharing Knowledge across OrganizationSubunit. Administrative Science Quarterly, Vol. 44: 82-111.
+
+Hansen M. T. (2002). Knowledge Networks: Explaininf Effective Knowledge Sharing in Multiunit Companies. Organization Science, Vol. 13(3): 232-248.
+
+Heider F. (1958). The psychology of interpersonal relations. New York, NY: Wiley.
+
+Huggins R. and Johnston A. (2010). Knowledge flow and inter-firm networks: The influence of network resources, spatial proximity and firm size. Entrepreneurship  Regional Development, Vol. 22(5): 457-484.
+
+Iacopini I., Petri G., Barrat A. and Latora V. (2019). Simplicial models of social contagion. Nature Communications, Vol. 9(2485): 1-9.
+
+Karsai M., Iñiguez G., Kaski K. and Kertesz Janos. (2014). Complex Contagion Process in Spreading of Online Innovation. Journal of the Royal Society Interface, Vol. 11(101): 1-8.
+
+Khvatova T., Block M., Zhukov D. and Lesko S. (2016). How to measure trust: the percolation model applied to intra-organizational knowledge sharing networks. Journal of knowledge Management, Vol. 20(5): 918-935.
+
+Kilduff M. and Lee J. W. (2020). The Integration of People and Networks. Annual Review of Organizational Psychology and Organizational Behavior, Vol. 7: 155-179.
+
+Kivela M., Arenas A., Barthelemy M., Gleeson S. P., Moreno Y. and Porter M. A. (2014). Multilayer networks. Journal of complex networks, Vol. 2(3): 203-271.
+
+Kotabe M., Dunlap-Hinkler D., Parente R. and Mishra H. A. (2007). Determinants of Cross-National Knowledge Transfer and Its Effect on Firm Innovation. Journal of International Business Studies, Vol. 38(2): 259-282.
+
+Krackhardt D. (1987). Cognitive Social Structure. Social Networks, Vol. 9: 109-134.
+
+Krackhardt D. (1998). Simmelian Tie: Super Strong and Sticky. In Roderick Kramer and Margaret Neale (eds.). Power and Influence in Organizations. Thousand Oaks, CA: Sage, pp. 21-38.
+
+Krackhardt D. (1999). The ties that torture: Simmelian tie analysis in organizations. Research in the Sociology of Organizations, Vol. 16: 183-210.
+
+Krackhardt D. and Brass D. J. (1994). Intraorganizational Networks: The Micro Side. In Stanley Wasserman and Joseph Galaskiewicz (ed.), Advances in the Social and Behavioral Sciences from Social Network Analysis. Beverly Hills: Sage, pp. 209-230.
+
+Krackhardt D. and Hanson J. R. (1993). Informal Networks: The Company Behind the Chart. Harvard Business Review, Vol. 71(4), 104:111.
+
+Krackhardt D. and Stern R. N. (1988). Informal Networks and Organizational Crises: An Experimental Simulation. Social Psychology Quarterly, Vol. 51(2): 123-140.
+
+Kreps D. M. (1990). Corporate culture and economic theory. In Alt J. E. and Shepsle K. A. (eds.), Perspectives on Positive Political Economy. Cambridge University Press, New York, pp. 90–143. 
+
+Jirjhan U. and Pfeifer C. (2009). The Introduction of Works Councils in German Establishments — Rent Seeking or Rent Protection?. British Journal of Industrial Relations. Vol. 47(3): 521-545.
+
+Liebeskind J. P. (1996). Knowledge, Strategy, And the Theory of the Firm. Strategic Management Journal, Vol. 17 (Winter Special Issue): 93:107.
+
+Lissoni F. (2001). Knowledge codification and the geography of innovation: the case of Brescia mechanical cluster. Research Policy, Vol. 30: 1479-1500.
+
+Mahajan V., Muller E. and Bass F. M. (1990). New Product Diffusion Models in Marketing: a Review and Directions for Research. Journal of Marketing, Vol. 54(1): 1-26.
+
+Melnik S., Ward J. A., Gleeson J. P. and Porter M. A. (2013). Multi-stage complex contagions. Chaos: An Interdisciplinary Journal of Nonlinear Science, Vol. 23: 1-13.
+
+Mitton C., Adair C. E., McKenzie E., Patten S. B. and Perry B. W. (2007). Knowledge Transfer and Exchange: Review and Synthesis of the Literature. The Millbank Quarterly, Vol. 85(4): 729-768.
+
+Morris M. D. (1991). Factorial sampling plans for preliminary computational experiments. Technometrics, Vol. 332: 161-174.
+
+Marsden P. V. and Campbell K. E. (1984). Measuring Tie Strength. Social Forces, Vol. 63(2): 482-501.
+
+McGrath C. and Krackhardt D. (2003). Network Conditions for Organizational Change The Journal of Applied Behavioral Science, Vol. 39(3): 324-336.
+
+Morrison A. (2008). Gatekeepers of Knowledge within Industrial Districts: Who They Are, How They Interact, Regional Studies, Vol. 42(6): 817-835.
+
+Newman M. (2018). Networks. Oxford University Press, Oxford.
+
+Pardalos J., and Resende M. (1999). On maximum clique problems in very large graphs. Discrete Mathematics and Theoretical Computer Science Vol. 50: 119-130.
+
+Pastor-Satorras R., Castellano C. and Vespignani A. (2015). Epidemic processes in complex networks. Reviews of Modern Physics, Vol. 87(3): 925-979.
+
+Pedersen T., Soda G. and Stea D. (2019) Globally networked: Intraorganizational boundary spanning in the global organization. Journal of World Business, Vol. 54(3): 169-180.
+
+Powell W. W. and Snellman K. (2004). The Knowledge Economy. Annual Review of Sociology, Vol. 30: 199-220.
+
+Rahmandad H and Sterman J. (2008). Heterogeneity and Network Structure in the Dynamics of Diffusion: Comparing Agent-Based and Differential Equation Models. Management Science, Vol. 54(5):998-1014. 
+
+Reagans R. (2005). Preferences, Identity, and Competition: Predicting Tie Strength from Demographic Data. Management Science, Vol. 51(9): 1374-1383.
+
+Reagans R. and McEvily B. (2003). Network Structure and Knowledge Transfer: effects of Cohesion and Range. Administrative Science Quarterly, Vol. 48(2): 240-26.
+
+Rogers E. M. (1962). Diffusion of Innovations. The Free Press of Glencoe, New York.
+
+Robins G., Tom Snijders T., Wang P., Handcock M. and Pattison P. (2007). Recent developments in exponential random graph (p*) models for social networks. Social Networks, Vol. 29(2): 192-215.
+
+Rodan S. and Galunic C. (2004). More than Network Structure: how Knowledge Heterogeneity influences Managerial Performance and Innovativeness. Strategic Management Journal, Vol. 25: 541-562.
+
+Rowley T., Behrens D. and Krackhardt D. (2000). Redundant governance structures: an Analysis of Structural and Relational Embeddedness in the Steel and Semiconductor Industries. Strategic Management Journal, Vol. 21: 269-386.
+
+Rutten W., Blaas-Franken J. and Martin H. (2016). The impact of (low) trust on knowledge sharing. Journal of Knowledge Management, Vol. 20(2): 199-214.
+
+Seely Brown J. and Duguid P. (2001), Knowledge and Organization: A Social-Practice Perspective. Organization Science, Vol. 12(2): 198-213.
+
+Simmel G. (1950). The Sociology of Georg Simmel. Translated and Edited by Wolff K. H., Collier McMillan, Ontario (Canada).
+
+Simpson R. L. (1959). Vertical and Horizontal Communication in Formal Organizations. Administrative Science Quarterly, Vol. 4(2): 188-196.
+
+Sinha R. K. and Chandrashekaran M. (1992). A Split Hazard Model for Analyzing the Diffusion of Innovations. Journal of Marketing Research. Vol. 29(1): 116-127.
+
+Solorzano M. G., Tortoriello M. and Soda G. (2019). Instrumental and affective ties within the laboratory: The impact of informal cliques on innovative productivity. Strategic Management Journal, Vol. 40: 1593-1609.
+
+Song J., Almeida P. and Wu G. (2003). Learning-by-Hiring: When Is Mobility More Likely to Facilitate Interfirm Knowledge Transfer? Management Science, Vol. 49(4): 351-365.
+
+Strang D. and S. Soule. (1998). Diffusion in organizations and social movements from hybrid corn to poison pills. Annual Review Sociology, Vol. 24: 265–290. 
+
+Tanny S. M. and Derzko N. A. (1988). Innovators and imitators in innovation diffusion modelling. Journal of Forecasting, Vol. 7(4): 225-234.
+
+Tasselli S. and Caimo A. (2019). Does it take three to dance the Tango? Organizational design, triadic structures and boundary spanning across subunits. Social Networks, Vol. 59: 10-22.
+
+Tortoriello M. and Krackhardt D. (2010). Activating Cross-boundary Knowledge: the role of Simmelian Ties in the Generation of Innovations. Academy of Management Journal, Vol. 53(1): 167-181.
+
+Tortoriello M., McEvily B. and Krackhardt D. (2015). Being a Catalyst of Innovation: The Role of Knowledge Diversity and Network Closure. Organization Science, Vol. 26(2): 423-438.
+
+Tortoriello M., Reagans R. and McEvily B. (2012). Bridging the Knowledge Gap: The Influence of Strong Ties, Network Cohesion, and Network Range on the Transfer of Knowledge Between Organizational Units. Organization Science, Vol. 23(4): 1024-1039.
+
+Tushman M. 1977. Special boundary roles in the innovation process. Administrative Science Quarterly, Vol. 22: 587–605. 
+
+Uzzi B. (1997). Social Structure and Competition in interfirm networks: the paradox of embeddedness. Administrative Science Quarterly, Vol. 42(1): 35-67.
+
+Van den Bulte C. and Lilien G. L. (1997). Bias and Systematic Change in Parameter Estimates of Macro-Level Diffusion Models. Marketing Science, Vol. 16(4): 338-353.
+
+Von Hippel E. (1994). “Sticky Information” and the Locus of Problem Solving: Implications for Innovation. Management Science, Vol. 40(4):429-439
+
+Wang J. (2016). Knowledge creation in collaboration networks: Effects of tie configuration. Research Policy, Vol. 45(1): 68-80.
+
+Wang C., Rodan S., Fruin M. and Xu X. (2014). Knowledge Networks, Collaboration Networks and Exploratory innovation. Academy of Management Journal, Vol. 57(2): 484-514.
+
+Wang J., Yang N. and Guo M. (2020). Ego-network stability and exploratory innovation: the moderating role of knowledge networks. Management Decision, Vol. 59(6): 1406-1420.
+
+Watson S. and Hewett K. (2006).A Multi-Theoretical Model of Knowledge Transfer in Organizations: Determinants of Knowledge Contribution and Knowledge Reuse. Journal of Management Studies, Vol. 43(2): 141-173.
+
+Watts D. J. and Strogatz H. S. (1998). Collective dynamics of ‘small-world’ networks. Nature, Vol. 393: 440–442.
+
+Yale L. J. and Gilly M. C. (1995). Dyadic Perceptions in Personal Source Information Search. Journal of Business Research, Vol. 32: 225-237.
+
+Zappa P. and Lomi A. (2015). The Analysis of Multilevel Networks in Organizations: Models and Empirical Tests. Organizational Research Methods, Vol. 18(3): 542-563.
+
 			
 		\end{hangparas}
 		
 	\end{document}
-	
-	
-	
+
+
