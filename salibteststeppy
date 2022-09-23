@@ -1,53 +1,84 @@
 
-from SALib.util import (scale_samples, read_param_file,
-                    compute_groups_matrix, _check_groups)
-
-import SALib.sample.sobol_sequence as sobol_sequence
 import random
-import SALib.sample.morris
+from SALib.sample.morris import sample
 import networkx as nx
 import pandas as pd
+from numpy.linalg import eig
 from itertools import combinations
 from random import randrange
 from SALib.analyze.morris import analyze
+from SALib.sample.saltelli import sample
 import statistics as s
 import numpy as np
 from typing import Dict, Optional
 import math
 import warnings
+import matplotlib.pyplot as plt
 
 
 
+seed = [[(0, 6), (0, 10), (0, 22), (0, 29), (0, 30), (0, 37), (0, 38), (0, 41), (0, 49), (1, 4), (1, 9), (1, 17),
+          (1, 21), (1, 23), (1, 30), (1, 32), (1, 36), (1, 37), (1, 45), (1, 46), (2, 8), (2, 11), (2, 14), (2, 16),
+          (2, 18), (2, 19), (2, 24), (2, 27), (2, 33), (2, 40), (2, 45), (3, 8), (3, 9), (3, 12), (3, 15), (3, 24),
+          (3, 26), (3, 44), (4, 6), (4, 10), (4, 14), (4, 15), (4, 19), (4, 23), (4, 37), (4, 46), (5, 10), (5, 19),
+          (5, 41), (6, 11), (6, 20), (6, 29), (6, 34), (6, 36), (6, 48), (7, 8), (7, 15), (7, 17), (7, 24), (7, 25),
+          (7, 27), (7, 29), (7, 31), (7, 34), (7, 35), (7, 38), (7, 39), (7, 40), (8, 9), (8, 12), (8, 22), (8, 26),
+          (8, 32), (8, 36), (8, 37), (8, 43), (8, 48), (9, 10), (9, 21), (9, 24), (9, 25), (9, 42), (9, 47),
+          (9, 49), (10, 14), (10, 22), (10, 24), (10, 25), (10, 26), (10, 31), (10, 32), (10, 38), (10, 49),
+          (11, 20), (11, 27), (11, 28), (11, 43), (11, 45), (11, 47), (12, 18), (12, 23), (12, 35), (12, 42),
+          (12, 44), (12, 46), (13, 19), (13, 21), (13, 24), (13, 30), (13, 32), (13, 34), (13, 36), (13, 39),
+          (13, 42), (14, 23), (14, 24), (14, 27), (14, 28), (14, 32), (14, 35), (14, 36), (14, 41), (14, 42),
+          (14, 44), (14, 47), (15, 26), (15, 34), (15, 35), (15, 38), (15, 47), (16, 20), (16, 21), (16, 42),
+          (17, 18), (17, 22), (17, 26), (17, 29), (17, 31), (17, 32), (17, 41), (17, 47), (18, 25), (18, 26),
+          (18, 29), (18, 30), (18, 41), (18, 47), (18, 48), (19, 21), (19, 26), (19, 27), (19, 31), (19, 33),
+          (19, 39), (19, 41), (19, 45), (20, 25), (20, 29), (20, 31), (20, 33), (20, 34), (20, 49), (21, 22),
+          (21, 24), (21, 26), (21, 27), (21, 35), (21, 39), (21, 40), (21, 42), (21, 43), (21, 47), (21, 49),
+          (22, 24), (22, 42), (22, 46), (22, 47), (23, 31), (23, 42), (23, 43), (23, 45), (23, 47), (24, 26),
+          (24, 29), (24, 38), (24, 44), (25, 29), (25, 33), (25, 35), (25, 37), (25, 44), (27, 35), (27, 41),
+          (27, 43), (27, 45), (27, 47), (27, 49), (28, 29), (28, 32), (28, 36), (28, 40), (29, 32), (29, 34),
+          (29, 45), (30, 34), (30, 35), (30, 37), (30, 43), (30, 49), (31, 35), (31, 41), (31, 47), (31, 49),
+          (32, 33), (32, 47), (32, 48), (34, 39), (34, 43), (34, 48), (35, 39), (35, 42), (35, 43), (35, 44),
+          (35, 46), (35, 47), (36, 38), (36, 42), (36, 46), (36, 48), (36, 49), (37, 38), (37, 42), (37, 46),
+          (37, 49), (38, 43), (39, 48), (39, 49), (40, 41), (40, 45), (42, 43), (42, 48), (42, 49), (43, 45),
+          (43, 49), (45, 48), (46, 47), (47, 49)]
+    , [(0, 23), (0, 28), (0, 4), (2, 37), (3, 11), (4, 2), (4, 43), (5, 8), (5, 15), (5, 18), (9, 6), (9, 20),
+       (9, 49), (10, 46), (11, 36), (12, 1), (12, 45), (13, 24), (14, 48), (16, 26), (16, 30), (16, 41), (16, 47),
+       (17, 21), (19, 40), (21, 32), (21, 44), (21, 12), (22, 39), (25, 42), (29, 14), (30, 5), (32, 7), (33, 16),
+       (34, 13), (35, 34), (35, 17), (39, 27), (39, 3), (39, 38), (39, 9), (40, 33), (43, 22), (44, 25), (45, 19),
+       (46, 31), (47, 10), (47, 29), (49, 35)]
+    , [35]]
 
-def test(psimmvertup, psimmvertdown, psimmhor, pvertup,
-         pvertdown, phor, psup, psub, pnorm, threshold, num, p):
-    psimmvertup1 = int(psimmvertup-10)
-    psimmvertup2 = int(psimmvertup+10)
-    psimmvertdown1 = int(psimmvertdown-10)
-    psimmvertdown2 = int(psimmvertdown+10)
-    psimmhor1 = int(psimmhor-10)
-    psimmhor2 = int(psimmhor+10)
-    pvertup1 = int(pvertup-10)
-    pvertup2 = int(pvertup+10)
-    pvertdown1 = int(pvertdown-10)
-    pvertdown2 = int(pvertdown+10)
-    phor1 = int(phor-10)
-    phor2 = int(phor+10)
 
-    # willingness to be influenced by, respectively, subordinates, superiors and peers
-    psub = psub
-    # 0.01
-    psup = psup
-    # 0.1
-    pnorm = pnorm
-    # 0.3
-    threshold = threshold
-    # 0.7
 
-    p = int(p)
-    num = int(num)
-    F = nx.random_tree(n=num, create_using=nx.DiGraph, )
-    G = nx.barabasi_albert_graph(num, p)
+def opinion_dynamics(pvertup, pvertdown,phor,betavertup, betavertdown, betahor,parameterp, parameterbeta,threshold):
+    steps=500
+
+    thr = threshold
+    G = nx.Graph()
+    G.add_edges_from(seed[0])
+
+    num = len(list(G.nodes))
+
+    ultravertical = nx.DiGraph()
+    ultrahorizontal = nx.DiGraph()
+    for n in range(num):
+        ultravertical.add_edge(n, n + 1)
+
+    for n in range(num):
+        ultrahorizontal.add_edge(n, n + 1)
+        if n == num - 1:
+            ultrahorizontal.add_edge(num, 0)
+
+    F = ultravertical
+    # F = nx.random_tree(n=num, create_using=nx.DiGraph, )
+
+    nx.set_node_attributes(G, 0, name='threshold')
+    for n in G.nodes:
+        G.nodes[n]['threshold'] = thr
+
+
+    def combine(arr, s):
+        return list(combinations(arr, s))
 
     def Control_Centrality(F):
         length = len(F.nodes)
@@ -75,14 +106,15 @@ def test(psimmvertup, psimmvertdown, psimmhor, pvertup,
             layer(F)
         return dict(zip(results[:, 0], (results[:, 1])))
 
-    BC = Control_Centrality(F)
+    BC = nx.betweenness_centrality(F)
+
+    isinstance(BC, dict)
+    list(G.nodes)
+
+    lll = combinations(G.nodes(), 2)
+    lll = np.matrix(list(lll))
     cliques = list(nx.enumerate_all_cliques(G))
-
     triads = [i for i in cliques if len(i) == 3]
-
-    def combine(arr, s):
-        return list(combinations(arr, s))
-
     simm = []
     for n in triads:
         for l in combine(n, 2):
@@ -96,17 +128,19 @@ def test(psimmvertup, psimmvertdown, psimmhor, pvertup,
     simmelian = np.array(simmelian)
     A = simmelian[:, 0]
     B = simmelian[:, 1]
+    A1 = lll[:, 0]
+    B1 = lll[:, 1]
     df = pd.DataFrame(simmelian)
     numsimm = len(simmelian)
 
     BCA = []
-    for x in (A):
-        for n in (BC):
+    for x in A:
+        for n in BC:
             if x == n:
                 BCA.append(BC[n])
     BCB = []
-    for y in (B):
-        for n in (BC):
+    for y in B:
+        for n in BC:
             if y == n:
                 BCB.append(BC[n])
 
@@ -115,340 +149,237 @@ def test(psimmvertup, psimmvertdown, psimmhor, pvertup,
     df['AVG'] = (df['BCA'] + df['BCB']) / 2
     df['VAR'] = (((df['BCA'] - df['AVG']) ** 2 + (df['BCB'] - df['AVG']) ** 2) / 2)
     VAR = np.sum(df['VAR'])
+    V = VAR / numsimm
+    df1 = df[3:4]
+    dff = []
+    for k in G.nodes:
+        for n in BC:
+            if k == n:
+                dff.append(BC[n])
+    T = max(dff)
 
-    sub = []
+    H = pd.DataFrame(dff)
+    H['BCMax'] = T
+    H.rename(columns={0: 'BCentrality'}, inplace=True)
+    H['Hier'] = (H['BCMax'] - H['BCentrality'])
+    Q = np.mean(H['Hier'])
+    v = Q * V
+
+    BC1 = nx.betweenness_centrality(F)
+    isinstance(BC1, dict)
+    df1 = pd.DataFrame(lll)
+    BC1A = []
+    for x in A1:
+        for n in BC1:
+            if x == n:
+                BC1A.append(BC1[n])
+    BC1B = []
+    for y in B1:
+        for n in BC1:
+            if y == n:
+                BC1B.append(BC1[n])
+    df1['BC1A'] = BC1A
+    df1['BC1B'] = BC1B
+    df1['AVG1'] = (df1['BC1A'] + df1['BC1B']) / 2
+    df1['VAR1'] = ((df1['BC1A'] - df1['AVG1']) ** 2 + (df1['BC1B'] - df1['AVG1']) ** 2) / 2
+    V1 = np.mean(df1['VAR1'])
+    dff1 = []
+    for k in G.nodes:
+        for n in BC1:
+            if k == n:
+                dff1.append(BC1[n])
+    T1 = max(dff1)
+    H1 = pd.DataFrame(dff1)
+    H1['BC1Max'] = T1
+    H1.rename(columns={0: 'BCentrality1'}, inplace=True)
+    H1['Hier1'] = (H1['BC1Max'] - H1['BCentrality1'])
+    Vl = V / V1
+
+    sup = []
     for (i, j) in F.edges:
-        sub.append((j, i))
+        sup.append((j, i))
 
-    sup = F.edges
+    sub = F.edges
 
-    nx.set_edge_attributes(G, 0, name='prob')
+    nx.set_edge_attributes(G, 0, name='weight')
     nx.set_node_attributes(G, 0, name='relevance')
-    G.nodes[0]['relevance'] = 1
+    for n in G.nodes:
+        G.nodes[n]['relevance'] = np.random.beta(2, 2)
 
-    def steppy(G):
+
+
+    influence_matrix = np.matrix(np.zeros((num, num)))
+    for i in G.nodes:
+        influence_matrix[i, i] = np.random.beta(5, 5)
+        for j in G.neighbors(i):
+            if [i, j] in simmelian:
+                if BC[i] - BC[j] < 0:
+                    influence_matrix[i, j] = np.random.beta(pvertdown*parameterp, 5)
+                elif BC[i] - BC[j] > 0:
+                    influence_matrix[i, j] = np.random.beta(pvertup*parameterp, 5)
+                elif BC[i] - BC[j] == 0:
+                    influence_matrix[i, j] = np.random.beta(phor*parameterp, 5)
+            elif [i, j] not in simmelian:
+                if BC[i] - BC[j] > 0:
+                    influence_matrix[i, j] = np.random.beta(pvertdown, 5)
+                elif BC[i] - BC[j] < 0:
+                    influence_matrix[i, j] = np.random.beta(pvertup, 5)
+                elif BC[i] - BC[j] == 0:
+                    influence_matrix[i, j] = np.random.beta(phor, 5)
+            if influence_matrix[i, j] < 0:
+                influence_matrix[i, j] = 0
+
+    influence_matrix_correct = np.matrix(np.zeros((num, num)))
+    for i in range(num):
+        for j in range(num):
+            influence_matrix_correct[i, j]=influence_matrix[i, j]/np.sum(influence_matrix[i])
+
+
+
+
+
+
+    probability_matrix = np.matrix(np.zeros((num, num)))
+    for i in G.nodes:
+        for j in G.neighbors(i):
+            if i == j:
+                probability_matrix[i, j] = 1
+            elif i != j:
+                if [i, j] in simmelian:
+                    if BC[i] - BC[j] > 0:
+                        probability_matrix[i, j] = np.random.beta(betavertdown*parameterbeta,5)
+                    elif BC[i] - BC[j] < 0:
+                        probability_matrix[i, j] = np.random.beta(betavertup*parameterbeta, 5)
+                    elif BC[i] - BC[j] == 0:
+                        probability_matrix[i, j] = np.random.beta(betahor*parameterbeta, 5)
+                elif [i, j] not in simmelian:
+                    if BC[i] - BC[j] > 0:
+                        probability_matrix[i, j] = np.random.beta(betavertdown, 5)
+                    elif BC[i] - BC[j] < 0:
+                        probability_matrix[i, j] = np.random.beta(betavertup, 5)
+                    elif BC[i] - BC[j] == 0:
+                        probability_matrix[i, j] = np.random.beta(betahor, 5)
+    def tilde(G):
+        datoni = []
         K = G.copy()
-        t = 1
+        t = 0
 
-        def event(G):
+        def event():
 
             P = K.copy()
-            for n in K.nodes:
-                global influencejn
-                opchange = []
-                for j in K.neighbors(n):
-                    if P.nodes[j]['relevance'] >= threshold:
-                        if (n, j) in sub:
-                            if [n, j] in simmelian:
-                                if BC[n] - BC[j] < 0:
-                                    p = randrange(psimmvertup1, psimmvertup2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
-                                            P.nodes[j]['relevance']) * psub
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] > 0:
-                                    p = randrange(psimmvertdown1, psimmvertdown2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
-                                            P.nodes[j]['relevance']) * psub
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] == 0:
-                                    p = randrange(psimmhor1, psimmhor2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
-                                            P.nodes[j]['relevance']) * psub
-                                        opchange.append(influencejn)
-                            elif [n, j] not in simmelian:
-                                if BC[n] - BC[j] < 0:
-                                    p = randrange(pvertup1, pvertup2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
-                                            P.nodes[j]['relevance']) * psub
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] > 0:
-                                    p = randrange(pvertdown1, pvertdown2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
-                                            P.nodes[j]['relevance']) * psub
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] == 0:
-                                    p = randrange(phor1, phor2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psub) + (
-                                            P.nodes[j]['relevance']) * psub
-                                        opchange.append(influencejn)
-                        elif (n, j) in sup:
-                            if [n, j] in simmelian:
-                                if BC[n] - BC[j] < 0:
-                                    p = randrange(psimmvertup1, psimmvertup2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
-                                            P.nodes[j]['relevance']) * psup
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] > 0:
-                                    p = randrange(psimmvertdown1, psimmvertdown2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
-                                            P.nodes[j]['relevance']) * psup
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] == 0:
-                                    p = randrange(psimmhor1, psimmhor2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
-                                            P.nodes[j]['relevance']) * psup
-                                        opchange.append(influencejn)
-                            elif [n, j] not in simmelian:
-                                if BC[n] - BC[j] < 0:
-                                    p = randrange(pvertup1, pvertup2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
-                                            P.nodes[j]['relevance']) * psup
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] > 0:
-                                    p = randrange(pvertdown1, pvertdown2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
-                                            P.nodes[j]['relevance']) * psup
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] == 0:
-                                    p = randrange(phor1, phor2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - psup) + (
-                                            P.nodes[j]['relevance']) * psup
-                                        opchange.append(influencejn)
+
+            influence_matrix_real = np.matrix(np.zeros((num, num)))
+            influence_matrix_tilde = np.matrix(np.zeros((num, num)))
+            for i in K.nodes:
+                influence_matrix_real[i, i] = influence_matrix[i, i]
+                for j in K.neighbors(i):
+                    if random.random() < probability_matrix[i, j]:
+                        if P.nodes[j]['relevance'] > P.nodes[j]['threshold']:
+                            influence_matrix_real[i, j] = influence_matrix[i, j]
                         else:
-                            if [n, j] in simmelian:
-                                if BC[n] - BC[j] < 0:
-                                    p = randrange(psimmvertup1, psimmvertup2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                            P.nodes[j]['relevance']) * pnorm
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] > 0:
-                                    p = randrange(psimmvertdown1, psimmvertdown2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                            P.nodes[j]['relevance']) * pnorm
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] == 0:
-                                    p = randrange(psimmhor1, psimmhor2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                            P.nodes[j]['relevance']) * pnorm
-                                        opchange.append(influencejn)
-                            elif [n, j] not in simmelian:
-                                if BC[n] - BC[j] < 0:
-                                    p = randrange(pvertup1, pvertup2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                            P.nodes[j]['relevance']) * pnorm
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] > 0:
-                                    p = randrange(pvertdown1, pvertdown2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                            P.nodes[j]['relevance']) * pnorm
-                                        opchange.append(influencejn)
-                                elif BC[n] - BC[j] == 0:
-                                    p = randrange(phor1, phor2) / 100
-                                    if random.random() < p:
-                                        influencejn = (P.nodes[n]['relevance']) * (1 - pnorm) + (
-                                            P.nodes[j]['relevance']) * pnorm
-                                        opchange.append(influencejn)
-                if np.size(opchange) == 0:
-                    K.nodes[n]['relevance'] = P.nodes[n]['relevance']
-                else:
-                    K.nodes[n]["relevance"] = np.average(opchange)
+                            influence_matrix_real[i, j] = 0
+            for i in K.nodes:
+                influence_matrix_tilde[i, i] = influence_matrix_real[i, i] / np.sum(influence_matrix_real[i])
+                for j in K.nodes:
+                    influence_matrix_tilde[i, j] = influence_matrix_real[i, j] / np.sum(influence_matrix_real[i])
+            for i in K.nodes:
+                opchange = [P.nodes[i]['relevance'] * influence_matrix_tilde[i, i]]
+                for j in K.neighbors(i):
+                    opchange.append(influence_matrix_tilde[i, j] * P.nodes[j]['relevance'])
+                K.nodes[i]["relevance"] = np.sum(opchange)
             return K
 
-        K = event(K)
-        for n in K.nodes:
-            while K.nodes[n]['relevance'] <= threshold:
-                t += 1
-                event(K)
-        return float(t)
+        while t != steps:
+            datelli = []
+            datini = []
+            t += 1
+            event()
+            for n in K.nodes:
+                datelli.append(K.nodes[n]['relevance'])
+                if K.nodes[n]['relevance'] > K.nodes[n]['threshold']:
+                    datini.append(n)
+            pd.DataFrame({'x': datelli})
+            datoni.append(datelli)
+        return np.mean(datoni, axis=1)[-1]
 
-    return (steppy(G))
+    return tilde(G)
 
-
-print(test(30,40,50,60,70,80, 0.01, 0.05, 0.3, 0.7, 50, 3))
 
 problem = {
-    'num_vars': 12,
-    'names': ['psimmvertup', 'psimmvertdown', 'psimmhor', 'pvertup', 'pvertdown', 'phor', 'psup', 'psub', 'pnorm',
-              'threshold', 'num', 'p'],
-    'bounds': [[11, 89],
-               [11, 89],
-               [11, 89],
-               [11, 89],
-               [11, 89],
-               [11, 89],
-               [0.1, 0.99],
-               [0.1, 0.99],
-               [0.1, 0.99],
-               [0.3, 0.99],
-               [40, 50],
-               [2, 10]
+    'num_vars': 9,
+    'names': ['pvertup', 'pvertdown', 'phor','betavertup', 'betavertdown', 'betahor','parameterP','parameterBeta','threshold'],
+    'bounds': [[1, 10],
+               [1, 10],
+               [1, 10],
+               [1, 10],
+               [1, 10],
+               [1, 10],
+               [1.00, 1.99],
+               [1.00, 1.99],
+               [0.01,0.99]
                ]
 }
 
-def sample(problem: Dict, N: int, calc_second_order: bool = True,
-           skip_values: int = None):
 
-    if not ((N & (N-1) == 0) and (N != 0 and N-1 != 0)):
-        msg = f"""
-        Convergence properties of the Sobol' sequence is only valid if
-        `N` ({N}) is equal to `2^n`.
-        """
-        warnings.warn(msg)
-    if skip_values is None:
-        skip_values = int(2**math.ceil(math.log(N)/math.log(2)))
-        skip_values = max(skip_values, 16)
-    elif skip_values > 0:
-        M = skip_values
-        if not ((M & (M-1) == 0) and (M != 0 and M-1 != 0)):
-            msg = f"""
-            Convergence properties of the Sobol' sequence is only valid if
-            `skip_values` ({M}) is a power of 2.
-            """
-            warnings.warn(msg)
-        n_exp = int(math.log(N, 2))
-        m_exp = int(math.log(M, 2))
-        if n_exp > m_exp:
-            msg = (
-                "Convergence may not be valid as the number of requested samples is"
-                f" > `skip_values` ({N} > {M})."
-            )
-            warnings.warn(msg)
-    elif skip_values == 0:
-        warnings.warn("Duplicate samples will be taken as no points are skipped.")
-    else:
-        assert isinstance(skip_values, int) and skip_values >= 0, \
-            "`skip_values` must be a positive integer."
-    D = problem['num_vars']
-    groups = _check_groups(problem)
-    if not groups:
-        Dg = problem['num_vars']
-    else:
-        G, group_names = compute_groups_matrix(groups)
-        Dg = len(set(group_names))
-    base_sequence = sobol_sequence.sample(N + skip_values, 2 * D)
-    if calc_second_order:
-        saltelli_sequence = np.zeros([(2 * Dg + 2) * N, D])
-    else:
-        saltelli_sequence = np.zeros([(Dg + 2) * N, D])
-    index = 0
-
-    for i in range(skip_values, N + skip_values):
-        for j in range(D):
-            saltelli_sequence[index, j] = base_sequence[i, j]
-        index += 1
-        for k in range(Dg):
-            for j in range(D):
-                if (not groups and j == k) or (groups and group_names[k] == groups[j]):
-                    saltelli_sequence[index, j] = base_sequence[i, j + D]
-                else:
-                    saltelli_sequence[index, j] = base_sequence[i, j]
-            index += 1
-        if calc_second_order:
-            for k in range(Dg):
-                for j in range(D):
-                    if (not groups and j == k) or (groups and group_names[k] == groups[j]):
-                        saltelli_sequence[index, j] = base_sequence[i, j]
-                    else:
-                        saltelli_sequence[index, j] = base_sequence[i, j + D]
-                index += 1
-        for j in range(D):
-            saltelli_sequence[index, j] = base_sequence[i, j + D]
-        index += 1
-    saltelli_sequence = scale_samples(saltelli_sequence, problem)
-
-    return saltelli_sequence
-
-
-param_values = sample(problem, 2 ** 2)
-b=len(param_values)-1
-print(b)
+param_values = sample(problem, 2**9)
 
 
 
-t=0
-Y=np.array([(test(*param_values[t]))])
-while t!=b:
-    t+=1
-    if (int((t/b)*100))/10 == int((t/b)*10):
-        print(int((t/b)*100),'%')
-    g=np.array([(test(*param_values[t]))])
-    Y=np.append(Y,g)
+b = len(param_values) - 1
+
+t = 0
+Y = np.array([(opinion_dynamics(*param_values[t]))])
+while t != b:
+    t += 1
+    print('{} samples out of {}'.format(t,b))
+    g = np.array([(opinion_dynamics(*param_values[t]))])
+    Y = np.append(Y, g)
+
+si = analyze(problem, param_values, Y, num_resamples=2 ** 9, print_to_console=True)
 
 
 
-    
-        
-
-
-L=np.array([test(*params) for params in param_values])
-si = analyze(problem, param_values, Y, num_resamples=2 ** 2, print_to_console=True)
-
-
-
-print(si)
 print('number of samples:', len(param_values))
+print('min equilibrium:', min(Y))
+print('max equilibrium:', max(Y))
+print('mean equilibrium', s.mean(Y))
+print('quantiles equilibrium:', s.quantiles(Y))
 
-print('min steps:', min(Y))
-print('max steps:', max(Y))
-print('mean steps',s.mean(Y))
-print('quantiles steps:', s.quantiles(Y))
+print('min pvertup:', min(param_values[:, 0]))
+print('min pvertdown:', min(param_values[:, 1]))
+print('min phor:', min(param_values[:, 2]))
+print('min beta:', min(param_values[:, 3]))
+print('min betadown:', min(param_values[:, 4]))
+print('min betahor:', min(param_values[:, 5]))
+print('min parameterP:', min(param_values[:, 6]))
+print('min parameterBeta:', min(param_values[:, 7]))
 
-print('min simmvertup:', min(param_values[:, 0]))
-print('min simmvertdown:', min(param_values[:, 1]))
-print('min simmhor:', min(param_values[:, 2]))
-print('min vertup:', min(param_values[:, 3]))
-print('min vertdown:', min(param_values[:, 4]))
-print('min hor:', min(param_values[:, 5]))
-print('min psup:', min(param_values[:, 6]))
-print('min psub:', min(param_values[:, 7]))
-print('min pnorm:', min(param_values[:, 8]))
-print('min threshold:', min(param_values[:, 9]))
-print('min num:', min(param_values[:, 10]))
-print('min p:', min(param_values[:, 11]))
+print('max pvertup:', max(param_values[:, 0]))
+print('max pvertdown:', max(param_values[:, 1]))
+print('max phor:', max(param_values[:, 2]))
+print('max beta:', max(param_values[:, 3]))
+print('max betadown:', max(param_values[:, 4]))
+print('max betahor:', max(param_values[:, 5]))
+print('max parameterP:', max(param_values[:, 6]))
+print('max parameterBeta:', max(param_values[:, 7]))
 
-print('max simmvertup:', max(param_values[:, 0]))
-print('max simmvertdown:', max(param_values[:, 1]))
-print('max simmhor:', max(param_values[:, 2]))
-print('max vertup:', max(param_values[:, 3]))
-print('max vertdown:', max(param_values[:, 4]))
-print('max hor:', max(param_values[:, 5]))
-print('max psup:', max(param_values[:, 6]))
-print('max psub:', max(param_values[:, 7]))
-print('max pnorm:', max(param_values[:, 8]))
-print('max threshold:', max(param_values[:, 9]))
-print('max num:', max(param_values[:, 10]))
-print('max p:', max(param_values[:, 11]))
+print('mean pvertup:', s.mean(param_values[:, 0]))
+print('mean pvertdown:', s.mean(param_values[:, 1]))
+print('mean phor:', s.mean(param_values[:, 2]))
+print('mean beta:', s.mean(param_values[:, 3]))
+print('mean betadown:', s.mean(param_values[:, 4]))
+print('mean betahor:', s.mean(param_values[:, 5]))
+print('mean parameterP:', s.mean(param_values[:, 6]))
+print('mean parameterBeta:', s.mean(param_values[:, 7]))
 
-print('mean simmvertup:', s.mean(param_values[:, 0]))
-print('mean simmvertdown:', s.mean(param_values[:, 1]))
-print('mean simmhor:', s.mean(param_values[:, 2]))
-print('mean vertup:', s.mean(param_values[:, 3]))
-print('mean vertdown:', s.mean(param_values[:, 4]))
-print('mean hor:', s.mean(param_values[:, 5]))
-print('mean psup:', s.mean(param_values[:, 6]))
-print('mean psub:', s.mean(param_values[:, 7]))
-print('mean pnorm:', s.mean(param_values[:, 8]))
-print('mean threshold:', s.mean(param_values[:, 9]))
-print('mean num:', s.mean(param_values[:, 10]))
-print('mean p:', s.mean(param_values[:, 11]))
+print('quantiles pvertup:', s.quantiles(param_values[:, 0]))
+print('quantiles pvertdown:', s.quantiles(param_values[:, 1]))
+print('quantiles phor:', s.quantiles(param_values[:, 2]))
+print('quantiles beta:', s.quantiles(param_values[:, 3]))
+print('quantiles betadown:', s.quantiles(param_values[:, 4]))
+print('quantiles betahor:', s.quantiles(param_values[:, 5]))
+print('quantiles parameterP:', s.quantiles(param_values[:, 6]))
+print('quantiles parameterBeta:', s.quantiles(param_values[:, 7]))
 
-print('quantiles simmvertup:', s.quantiles(param_values[:, 0]))
-print('quantiles simmvertdown:', s.quantiles(param_values[:, 1]))
-print('quantiles simmhor:', s.quantiles(param_values[:, 2]))
-print('quantiles vertup:', s.quantiles(param_values[:, 3]))
-print('quantiles vertdown:', s.quantiles(param_values[:, 4]))
-print('quantiles hor:', s.quantiles(param_values[:, 5]))
-print('quantiles psup:', s.quantiles(param_values[:, 6]))
-print('quantiles psub:', s.quantiles(param_values[:, 7]))
-print('quantiles pnorm:', s.quantiles(param_values[:, 8]))
-print('quantiles threshold:', s.quantiles(param_values[:, 9]))
-print('quantiles num:', s.quantiles(param_values[:, 10]))
-print('quantiles p:', s.quantiles(param_values[:, 11]))
+
 
