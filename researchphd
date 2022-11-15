@@ -1,0 +1,362 @@
+library(readr)
+library(wrapr)
+library(tidyverse)
+library(sna)
+library(igraph)
+library(ergm)
+library(haven)
+setwd("C:/Users/Manag22/Desktop/R")
+crossdata<-read_dta('datav4.0/Stata Replication/data/cross_sectional.dta')
+#Uploading network attributes
+attributes<- read_dta('datav4.0/Data/Demographics/individual_characteristics.dta')
+attributesselect<-attributes[attributes$village=='51',]
+#Uploading hhnetowrk attributes
+attributesHH<- read_dta('datav4.0/Data/Demographics/household_characteristics.dta')
+attributesHHselect<-attributesHH[attributesHH$village=='51',]
+
+#Uploading and preparing network data
+borrowmoney<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_borrowmoney_vilno_51.csv',header = FALSE)
+#network obj
+borrowmoneynet<-as.network(as.matrix(borrowmoney))
+#graph obj
+borrowmoney.g<-graph.adjacency(as.matrix(borrowmoney))
+#graph obj that is subgraph (each node has an attribute)
+borrowmoney.gmini<-induced.subgraph(borrowmoney.g,attributesselect$adjmatrix_key)
+#network obj that is subnetwork (each node has an attribute)
+borrowmoneynetmini<-as.network.matrix(as_edgelist(borrowmoney.gmini),matrix.type = 'edgelist')
+
+giveadvice<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_giveadvice_vilno_51.csv',header = FALSE)
+giveadvicenet<-as.network(as.matrix(giveadvice))
+giveadvice.g<-graph.adjacency(as.matrix(giveadvice))
+giveadvice.gmini<-induced.subgraph(giveadvice.g,attributesselect$adjmatrix_key)
+giveadvicenetmini<-as.network.matrix(as_edgelist(giveadvice.gmini),matrix.type = 'edgelist')
+
+helpdecision<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_helpdecision_vilno_51.csv',header = FALSE)
+helpdecisionnet<-as.network(as.matrix(helpdecision))
+helpdecision.g<-graph.adjacency(as.matrix(helpdecision))
+helpdecision.gmini<-induced.subgraph(helpdecision.g,attributesselect$adjmatrix_key)
+helpdecisionnetmini<-as.network.matrix(as_edgelist(helpdecision.gmini),matrix.type = 'edgelist')
+
+keroricecome<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_keroricecome_vilno_51.csv',header = FALSE)
+keroricecomenet<-as.network(as.matrix(keroricecome))
+keroricecome.g<-graph.adjacency(as.matrix(keroricecome))
+keroricecome.gmini<-induced.subgraph(keroricecome.g,attributesselect$adjmatrix_key)
+keroricecomenetmini<-as.network.matrix(as_edgelist(keroricecome.gmini),matrix.type = 'edgelist')
+
+keroricego<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_keroricego_vilno_51.csv',header = FALSE)
+keroricegonet<-as.network(as.matrix(keroricego))
+keroricego.g<-graph.adjacency(as.matrix(keroricego))
+keroricego.gmini<-induced.subgraph(keroricego.g,attributesselect$adjmatrix_key)
+keroricegonetmini<-as.network.matrix(as_edgelist(keroricego.gmini),matrix.type = 'edgelist')
+
+lendmoney<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_lendmoney_vilno_51.csv',header = FALSE)
+lendmoneynet<-as.network(as.matrix(lendmoney))
+lendmoney.g<-graph.adjacency(as.matrix(lendmoney))
+lendmoney.gmini<-induced.subgraph(lendmoney.g,attributesselect$adjmatrix_key)
+lendmoneynetmini<-as.network.matrix(as_edgelist(lendmoney.gmini),matrix.type = 'edgelist')
+
+medic<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_medic_vilno_51.csv',header = FALSE)
+medicnet<-as.network(as.matrix(medic))
+medic.g<-graph.adjacency(as.matrix(medic))
+medic.gmini<-induced.subgraph(medic.g,attributesselect$adjmatrix_key)
+medicnetmini<-as.network.matrix(as_edgelist(medic.gmini),matrix.type = 'edgelist')
+
+nonrel<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_nonrel_vilno_51.csv',header = FALSE)
+nonrelnet<-as.network(as.matrix(nonrel))
+nonrel.g<-graph.adjacency(as.matrix(nonrel))
+nonrel.gmini<-induced.subgraph(nonrel.g,attributesselect$adjmatrix_key)
+nonrelnetmini<-as.network.matrix(as_edgelist(nonrel.gmini),matrix.type = 'edgelist')
+
+rel<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_rel_vilno_51.csv',header = FALSE)
+relnet<-as.network(as.matrix(rel))
+rel.g<-graph.adjacency(as.matrix(rel))
+rel.gmini<-induced.subgraph(rel.g,attributesselect$adjmatrix_key)
+relnetmini<-as.network.matrix(as_edgelist(rel.gmini),matrix.type = 'edgelist')
+
+templecompany<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_templecompany_vilno_51.csv',header = FALSE)
+templecompanynet<-as.network(as.matrix(templecompany))
+templecompany.g<-graph.adjacency(as.matrix(templecompany))
+templecompany.gmini<-induced.subgraph(templecompany.g,attributesselect$adjmatrix_key)
+templecompanynetmini<-as.network.matrix(as_edgelist(templecompany.gmini),matrix.type = 'edgelist')
+
+visitcome<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_visitcome_vilno_51.csv',header = FALSE)
+visitcomenet<-as.network(as.matrix(visitcome))
+visitcome.g<-graph.adjacency(as.matrix(visitcome))
+visitcome.gmini<-induced.subgraph(visitcome.g,attributesselect$adjmatrix_key)
+visitcomenetmini<-as.network.matrix(as_edgelist(visitcome.gmini),matrix.type = 'edgelist')
+
+visitgo<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_visitgo_vilno_51.csv',header = FALSE)
+visitgonet<-as.network(as.matrix(visitgo))
+visitgo.g<-graph.adjacency(as.matrix(visitgo))
+visitgo.gmini<-induced.subgraph(visitgo.g,attributesselect$adjmatrix_key)
+visitgonetmini<-as.network.matrix(as_edgelist(visitgo.gmini),matrix.type = 'edgelist')
+
+
+networks<-c(borrowmoney,giveadvice,helpdecision,keroricecome,keroricego,
+            lendmoney,medic,nonrel,rel,templecompany,visitcome,visitgo)
+networksnet<-c(borrowmoneynet,giveadvicenet,helpdecisionnet,keroricecomenet,
+               keroricegonet,lendmoneynet,medicnet,nonrelnet,relnet,
+               templecompanynet,visitgonet,visitgonet)
+networks.g<-c('borrowmoney.g','giveadvice.g','helpdecision.g','keroricecome.g',
+              'keroricego.g','lendmoney.g','medic.g','nonrel.g','rel.g','templecompany.g',
+              'visitcome.g','visitgo.g')
+networks.gmini<-c('borrowmoney.gmini','giveadvice.gmini','helpdecision.gmini','keroricecome.gmini',
+                  'keroricego.gmini','lendmoney.gmini','medic.gmini','nonrel.gmini',
+                  'rel.gmini','templecompany.gmini','visitcome.gmini','visitgo.gmini')
+
+
+#let's see what part of the network we're taking into consideration
+vertexlist<-function(g){
+  bananina=c(0)
+  for(x in as_edgelist(g)){
+    if(!(x %in% bananina)){
+      bananina=append(bananina,x)}
+  }
+  return(bananina[-1])
+}
+
+vertex1=vertexlist(nonrel.g)
+vertex2=vertexlist(nonrel.gmini)
+
+presence=c()
+for(n in vertex1){
+  if(n %in% vertex2){
+    presence=append(presence,1)}
+  if(!(n %in% vertex2)){
+    presence=append(presence,2)
+  }
+}
+idx <- which(vertex1 %in% vertex2)
+
+mygreen <- rgb(127,201,127,maxColorValue = 255)
+myviolet <- rgb(190,174,212,maxColorValue = 255)
+myyellow <- rgb(255,255,153,maxColorValue = 255)
+myblue <- rgb(30,144,255,maxColorValue = 255)
+myred <- rgb(255,99,71,maxColorValue = 255)
+mydarkred<- rgb(139,0,0, maxColorValue = 255)
+
+hh <- attributesselect$hhid
+samehh  <- outer(hh,hh,'==')*1
+colnames(samehh)<-as.vector(vertex2)
+row.names(samehh)<-as.vector(vertex2)
+hhlinks<-graph.adjacency(samehh)
+layhh<-layout.fruchterman.reingold(hhlinks)
+lay=layout.kamada.kawai(rel.g)
+xlim <- range(lay[,1])
+ylim <- range(lay[,2])
+
+plot(rel.g,vertex.label=NA, layout = lay, vertex.size=60,rescale=FALSE,edge.arrow.size=0.00015, xlim = xlim, ylim = ylim,vertex.color=c(mygreen,mydarkred)[banana])
+
+par(mfrow=c(1,2))
+el1 <- apply(get.edgelist(rel.gmini), 1, paste, collapse="-")
+el2 <- apply(get.edgelist(hhlinks), 1, paste, collapse="-")
+E(rel.gmini)$color <- ifelse(el1 %in% el2, "black", "light grey")
+plot(rel.gmini, vertex.label=NA,vertex.size=3,edge.arrow.size=0.0015,vertex.color=c(mygreen,myyellow,myviolet,myblue)[attributesselect$caste])
+el1 <- apply(get.edgelist(nonrel.gmini), 1, paste, collapse="-")
+el2 <- apply(get.edgelist(hhlinks), 1, paste, collapse="-")
+E(nonrel.gmini)$color <- ifelse(el1 %in% el2, "black", "light grey")
+plot(nonrel.gmini, vertex.label=NA,vertex.size=3,edge.arrow.size=0.0015,vertex.color=c(mygreen,myyellow,myviolet,myblue)[attributesselect$caste])
+par(mfrow=c(1,1))
+
+
+#plotting giveadvicenetworkconsidering houses
+#vogliamo vedere se le persone chiedono consiglio alle persone che hanno in casa
+hhlinks<-graph.adjacency(samehh)
+layhh<-layout.fruchterman.reingold(giveadvice.gmini)
+xlim <- range(layhh[,1])
+ylim <- range(layhh[,2])
+el1 <- apply(get.edgelist(giveadvice.gmini), 1, paste, collapse="-")
+el2 <- apply(get.edgelist(hhlinks), 1, paste, collapse="-")
+E(giveadvice.gmini)$color <- ifelse(el1 %in% el2, "black", "red")
+plot(giveadvice.gmini,vertex.label=NA,rescale=FALSE,layout=layhh,vertex.size=50,edge.arrow.size=0.0000000001,xlim = xlim, ylim = ylim,vertex.color=c(mygreen,myyellow,myviolet,myblue)[attributesselect$caste])
+#molte persone chiedono consiglio a chi hanno in casa. Molte case sono "per i fatti propri"
+
+
+
+par(mfrow=c(1,1))
+
+#let's see if the same happens for friends
+relhh=as.matrix(nonrel.gmini)+samehh
+hhlinks<-graph.adjacency(relhh)
+layhh<-layout.fruchterman.reingold(hhlinks)
+xlim <- range(layhh[,1])
+ylim <- range(layhh[,2])
+plot(nonrel.gmini,vertex.label=NA, layout = layhh,rescale=FALSE,vertex.size=100,edge.arrow.size=0.0000000001,xlim = xlim, ylim = ylim, vertex.color=c(mygreen,myyellow,myviolet,myblue)[attributesselect$caste])
+#not that much
+
+
+
+
+
+#the main problem is that we miss some aspects. like in this case.. the selected 
+xlim <- range(lay1[,1])
+ylim <- range(lay1[,2])
+plot(rel.g,vertex.label=NA, layout = lay1, vertex.size=1500,rescale=FALSE,edge.arrow.size=0.00015, xlim = xlim, ylim = ylim,vertex.color=c(mydarkred))
+plot(rel.gmini,vertex.label=NA, layout = lay1[idx,],rescale=FALSE,vertex.size=1000,edge.arrow.size=0.0000000001, vertex.color=c(mygreen),add=TRUE)
+
+
+
+#let's see the co-occurence of edges among different networks
+#jaccard function
+jaccard <- function(graph1, graph2) {
+  banana1<-list()
+  for(n in 1:(length(as_edgelist(graph1))/2)){
+    banana<-c(as_edgelist(graph1)[n,1],as_edgelist(graph1)[n,2])
+    new_banana <- paste(banana, collapse = " ")
+    banana1<-append(banana1,new_banana)
+    
+  }
+  banana2<-list()
+  for(n in 1:(length(as_edgelist(graph2))/2)){
+    banana<-c(as_edgelist(graph2)[n,1],as_edgelist(graph2)[n,2])
+    new_banana <- paste(banana, collapse = " ")
+    banana2<-append(banana2,new_banana)
+  }
+  intersection = length(intersect(banana1, banana2))
+  union = length(banana1) + length(banana2) - intersection
+  return (intersection/union)
+}
+
+#Let's create an empty matrix that will contain the jaccard index for each 
+#couple of networks
+jaccards=matrix(0,length(networks.g),length(networks.g))
+rownames(jaccards)<-(networks.g)
+colnames(jaccards)<-(networks.g)
+
+#calculating jaccard index for each couple of networks
+for(i in 1:12){
+  x=parse(text=networks.g[i])
+  for(j in 1:12){
+    x1=parse(text=networks.g[j])
+    jaccards[i,j]<-jaccard(eval(x),eval(x1))
+    print(networks.g[j])
+  }
+}
+
+#calculating jaccard index for each couple of networks (for inducedsubnetworks)
+for(i in 1:12){
+  x=parse(text=networks.gmini[i])
+  for(j in 1:12){
+    x1=parse(text=networks.gmini[j])
+    jaccards[i,j]<-jaccard(eval(x),eval(x1))
+    print(networks.gmini[j])
+  }
+}
+
+#let's print it out
+jaccards
+
+#checking for transitivity
+trans <- function (x) {summary(x ~ ttriple)}
+simTrans <- cug.test(nonrelnetmini, trans, mode = "digraph", cmode ="edges",
+                     diag = FALSE, reps = 5000)
+plot(simTrans)
+
+
+
+
+
+#trying some hypotheses out
+
+
+caste <- attributesselect$caste
+samecaste <- outer(caste,caste,"==")*1
+
+hh <- attributesselect$hhid
+samehh  <- outer(hh,hh,'==')*1
+
+
+subcaste<-attributesselect$subcaste
+samesubcaste<-outer(subcaste,subcaste,'==')*1
+
+
+age<-attributesselect$age
+agedistance=matrix(0,length(age),length(age))
+
+for(i in 1:length(age)){
+  for(j in 1:length(age)){
+    agedistance[i,j]=abs(age[i]-age[j])
+  }
+}
+
+
+education<-attributesselect$educ
+for(n in 1:length(education)) {if(education[n]== 16) {education[n]<-0}}
+
+
+avgedlevel<-matrix(0,length(education),length(education))
+educdistance<-matrix(0,length(education),length(education))
+
+for(i in 1:length(education)){
+  for(j in 1:length(education)){
+    x1 <- education[i]
+    x1 <- append(x1,education[j])
+    avgedlevel[i,j]=mean(x1)
+    educdistance[i,j]=abs(education[i]-education[j])
+  }
+}
+
+
+zm <- list(samecaste,samesubcaste,agedistance,avgedlevel,educdistance, samehh,nonrelnetmini)
+#zm <- list(senioritySender, seniorityReceiver, sameOffice, sameSchool, friendship)
+
+# Step 2: running the MR-QAP regression
+set.seed(1908) #To reproduce the results 
+permutations <- 1000 # Number of permutations
+nl <- netlogit(borrowmoneynetmini, zm, rep=permutations, nullhyp="qapspp")
+nl$names <- c("intercept","samecaste", "samesubcaste",'agedistance','avgedlevel','educdistance','samehh','nonrel')
+summary(nl)
+
+"
+Network Logit Model
+
+Coefficients:
+  Estimate     Exp(b)      Pr(<=b) Pr(>=b) Pr(>=|b|)
+intercept    -4.233698224  0.01449867 0.000   1.000   0.000    ***
+samecaste     0.266196219  1.30499110 0.988   0.012   0.023    **
+samesubcaste  0.454037171  1.57465653 1.000   0.000   0.000    ***
+agedistance  -0.012303606  0.98777177 0.003   0.997   0.005    ***
+avgedlevel   -0.003660388  0.99634630 0.404   0.596   0.769    
+educdistance -0.006757464  0.99326532 0.262   0.738   0.507    
+samehh        3.451285705 31.54091858 1.000   0.000   0.000    ***
+"
+
+
+#todo
+"
+cose da fare
+*capire se considerare nell'household che adotta come tutti adottanti e provare ad utilizzare altri indicatori. magari usare 1/nabitanti
+*provare a vedere se dall'household possiamo generalizzare le charatteristiche
+*inserire gli altri network nella mrquap
+
+"
+
+
+
+
+#setting networks attributes
+borrowmoneynetmini %e% 'caste'<-as.numeric(attributesselect$caste)
+borrowmoneynetmini %v% 'religion'<-as.numeric(attributesHH6$subcaste)
+
+
+
+
+
+edgeintersection <- function(graph1, graph2) {
+  banana1<-list()
+  for(n in 1:(length(as_edgelist(graph1))/2)){
+    banana<-c(as_edgelist(graph1)[n,1],as_edgelist(graph1)[n,2])
+    new_banana <- paste(banana, collapse = " ")
+    banana1<-append(banana1,new_banana)
+    
+  }
+  banana2<-list()
+  for(n in 1:(length(as_edgelist(graph2))/2)){
+    banana<-c(as_edgelist(graph2)[n,1],as_edgelist(graph2)[n,2])
+    new_banana <- paste(banana, collapse = " ")
+    banana2<-append(banana2,new_banana)
+  }
+  return (intersect(banana1,banana2))
+}
+
+
