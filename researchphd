@@ -5,7 +5,7 @@ library(sna)
 library(igraph)
 library(ergm)
 library(haven)
-setwd("C:/Users/Manag22/Desktop/R")
+setwd("C:/Users/Dottorandi/Desktop/R")
 crossdata<-read_dta('datav4.0/Stata Replication/data/cross_sectional.dta')
 #Uploading network attributes
 attributes<- read_dta('datav4.0/Data/Demographics/individual_characteristics.dta')
@@ -30,18 +30,22 @@ giveadvicenet<-as.network(as.matrix(giveadvice))
 giveadvice.g<-graph.adjacency(as.matrix(giveadvice))
 giveadvice.gmini<-induced.subgraph(giveadvice.g,attributesselect$adjmatrix_key)
 giveadvicenetmini<-as.network.matrix(as_edgelist(giveadvice.gmini),matrix.type = 'edgelist')
+add.vertices.network(giveadvicenetmini,1,names=c('V749'))
 
 helpdecision<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_helpdecision_vilno_51.csv',header = FALSE)
 helpdecisionnet<-as.network(as.matrix(helpdecision))
 helpdecision.g<-graph.adjacency(as.matrix(helpdecision))
 helpdecision.gmini<-induced.subgraph(helpdecision.g,attributesselect$adjmatrix_key)
 helpdecisionnetmini<-as.network.matrix(as_edgelist(helpdecision.gmini),matrix.type = 'edgelist')
+add.vertices.network(helpdecisionnetmini,1,names=c('V749'))
+
 
 keroricecome<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_keroricecome_vilno_51.csv',header = FALSE)
 keroricecomenet<-as.network(as.matrix(keroricecome))
 keroricecome.g<-graph.adjacency(as.matrix(keroricecome))
 keroricecome.gmini<-induced.subgraph(keroricecome.g,attributesselect$adjmatrix_key)
 keroricecomenetmini<-as.network.matrix(as_edgelist(keroricecome.gmini),matrix.type = 'edgelist')
+add.vertices.network(keroricecomenetmini,1,names=c('V749'))
 
 keroricego<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_keroricego_vilno_51.csv',header = FALSE)
 keroricegonet<-as.network(as.matrix(keroricego))
@@ -72,12 +76,16 @@ relnet<-as.network(as.matrix(rel))
 rel.g<-graph.adjacency(as.matrix(rel))
 rel.gmini<-induced.subgraph(rel.g,attributesselect$adjmatrix_key)
 relnetmini<-as.network.matrix(as_edgelist(rel.gmini),matrix.type = 'edgelist')
+add.vertices.network(relnetmini,2,names=c('V529','V749'))
+rel.gmini<-graph.adjacency(as.matrix(relnetmini))
 
 templecompany<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_templecompany_vilno_51.csv',header = FALSE)
 templecompanynet<-as.network(as.matrix(templecompany))
 templecompany.g<-graph.adjacency(as.matrix(templecompany))
 templecompany.gmini<-induced.subgraph(templecompany.g,attributesselect$adjmatrix_key)
 templecompanynetmini<-as.network.matrix(as_edgelist(templecompany.gmini),matrix.type = 'edgelist')
+add.vertices.network(templecompanynetmini,3,names=c('V284','V529','V749'))
+
 
 visitcome<-read.csv('datav4.0/Data/Network Data/Adjacency Matrices/adj_visitcome_vilno_51.csv',header = FALSE)
 visitcomenet<-as.network(as.matrix(visitcome))
@@ -126,6 +134,13 @@ for(n in vertex1){
     presence=append(presence,2)
   }
 }
+absence=c()
+for(n in vertex1){
+  if(!(n %in% vertex2)){
+    absence<- append(absence,n)
+  }
+}
+absence
 idx <- which(vertex1 %in% vertex2)
 
 mygreen <- rgb(127,201,127,maxColorValue = 255)
@@ -145,7 +160,7 @@ lay=layout.kamada.kawai(rel.g)
 xlim <- range(lay[,1])
 ylim <- range(lay[,2])
 
-plot(rel.g,vertex.label=NA, layout = lay, vertex.size=60,rescale=FALSE,edge.arrow.size=0.00015, xlim = xlim, ylim = ylim,vertex.color=c(mygreen,mydarkred)[banana])
+plot(rel.g,vertex.label=NA, layout = lay, vertex.size=60,rescale=FALSE,edge.arrow.size=0.00015, xlim = xlim, ylim = ylim,vertex.color=c(mygreen,mydarkred)[presence])
 
 par(mfrow=c(1,2))
 el1 <- apply(get.edgelist(rel.gmini), 1, paste, collapse="-")
@@ -176,23 +191,15 @@ plot(giveadvice.gmini,vertex.label=NA,rescale=FALSE,layout=layhh,vertex.size=50,
 par(mfrow=c(1,1))
 
 #let's see if the same happens for friends
-relhh=as.matrix(nonrel.gmini)+samehh
-hhlinks<-graph.adjacency(relhh)
-layhh<-layout.fruchterman.reingold(hhlinks)
+hhlinks<-graph.adjacency(samehh)
+layhh<-layout.fruchterman.reingold(nonrel.gmini)
 xlim <- range(layhh[,1])
 ylim <- range(layhh[,2])
-plot(nonrel.gmini,vertex.label=NA, layout = layhh,rescale=FALSE,vertex.size=100,edge.arrow.size=0.0000000001,xlim = xlim, ylim = ylim, vertex.color=c(mygreen,myyellow,myviolet,myblue)[attributesselect$caste])
+el1 <- apply(get.edgelist(nonrel.gmini), 1, paste, collapse="-")
+el2 <- apply(get.edgelist(hhlinks), 1, paste, collapse="-")
+E(nonrel.gmini)$color <- ifelse(el1 %in% el2, "black", "red")
+plot(nonrel.gmini,vertex.label=NA,layout=layhh,rescale=FALSE,vertex.size=50,edge.arrow.size=0.0000000001,xlim = xlim, ylim = ylim,vertex.color=c(mygreen,myyellow,myviolet,myblue)[attributesselect$caste])
 #not that much
-
-
-
-
-
-#the main problem is that we miss some aspects. like in this case.. the selected 
-xlim <- range(lay1[,1])
-ylim <- range(lay1[,2])
-plot(rel.g,vertex.label=NA, layout = lay1, vertex.size=1500,rescale=FALSE,edge.arrow.size=0.00015, xlim = xlim, ylim = ylim,vertex.color=c(mydarkred))
-plot(rel.gmini,vertex.label=NA, layout = lay1[idx,],rescale=FALSE,vertex.size=1000,edge.arrow.size=0.0000000001, vertex.color=c(mygreen),add=TRUE)
 
 
 
@@ -297,14 +304,14 @@ for(i in 1:length(education)){
 }
 
 
-zm <- list(samecaste,samesubcaste,agedistance,avgedlevel,educdistance, samehh,nonrelnetmini)
+zm <- list(giveadvicenetmini,samesubcaste,agedistance,avgedlevel,educdistance, samehh,relnetmini,borrowmoneynetmini)
 #zm <- list(senioritySender, seniorityReceiver, sameOffice, sameSchool, friendship)
 
 # Step 2: running the MR-QAP regression
 set.seed(1908) #To reproduce the results 
 permutations <- 1000 # Number of permutations
 nl <- netlogit(borrowmoneynetmini, zm, rep=permutations, nullhyp="qapspp")
-nl$names <- c("intercept","samecaste", "samesubcaste",'agedistance','avgedlevel','educdistance','samehh','nonrel')
+nl$names <- c("intercept","samecaste", "samesubcaste",'agedistance','avgedlevel','educdistance','samehh','rel','borrowmoney')
 summary(nl)
 
 "
@@ -358,5 +365,3 @@ edgeintersection <- function(graph1, graph2) {
   }
   return (intersect(banana1,banana2))
 }
-
-
