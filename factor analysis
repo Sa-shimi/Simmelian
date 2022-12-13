@@ -1,10 +1,12 @@
 import random
 import statistics
-
+import seaborn as sn
 from SALib.sample.morris import sample
 import networkx as nx
 import pandas as pd
 from numpy.linalg import eig
+from numpy.linalg import eig
+import seaborn as sn
 from itertools import combinations
 from random import randrange
 from SALib.analyze.morris import analyze
@@ -15,8 +17,9 @@ from typing import Dict, Optional
 import math
 import warnings
 import matplotlib.pyplot as plt
-
-
+from factor_analyzer import FactorAnalyzer
+from factor_analyzer.factor_analyzer import calculate_kmo
+from sklearn.decomposition import FactorAnalysis
 
 seed = [[(0, 6), (0, 10), (0, 22), (0, 29), (0, 30), (0, 37), (0, 38), (0, 41), (0, 49), (1, 4), (1, 9), (1, 17),
           (1, 21), (1, 23), (1, 30), (1, 32), (1, 36), (1, 37), (1, 45), (1, 46), (2, 8), (2, 11), (2, 14), (2, 16),
@@ -91,15 +94,7 @@ lattice.add_edge(14,19)
 lattice.add_edge(19,24)
 
 
-
-
-
-#nx.draw(lattice, with_labels=True, pos=nx.kamada_kawai_layout(lattice))
-#plt.show()
-
-
-
-
+G=nx.Graph()
 kite = nx.Graph()
 kite.add_edge(0,1)
 kite.add_edge(0,2)
@@ -157,14 +152,15 @@ barb.add_edge(13,14)
 barb.add_edge(13,16)
 barb.add_edge(14,16)
 barb.add_edge(15,16)
-#G.add_edges_from(seed[0])
+G.add_edges_from(seed[0])
 #G=nx.barabasi_albert_graph(30,2)
-#G=nx.fast_gnp_random_graph(10,1)
+#G=nx.fast_gnp_random_graph(20,1)
 #G=barb
-G=kite
+#G=kite
 #G=lattice
 num = len(list(G.nodes))
 samples = 10
+
 #nx.draw(G,with_labels=True)
 #plt.show()
 
@@ -414,10 +410,9 @@ def test(G):
         culo.append(0.25)
         quantiles.append(culo)
     dataset=[]
-    print(mf[0][1])
     datasetmean=[]
     datasetvariance=[]
-    for n in range(len(mf)):
+    for n in range(len(list(G.nodes))):
         datasettino=[]
         for m in range(len(mf)):
             datasettino.append(mf[m][n])
@@ -433,20 +428,34 @@ def test(G):
     for n in range(len(G.nodes())):
         datasetbetweenness.append(nx.betweenness_centrality(G)[n])
         dataseteigen.append(nx.eigenvector_centrality(G)[n])
-        datasetcloseness.append(nx.closeness_centrality(G)[n])
         datasetdegree.append(nx.degree_centrality(G)[n])
         datasetcontrol.append(Control_Centrality(F)[n])
+        datasetcloseness.append(nx.closeness_centrality(G)[n])
     dataset.append(datasetbetweenness)
     dataset.append(dataseteigen)
     dataset.append(datasetcloseness)
     dataset.append(datasetdegree)
     dataset.append(datasetcontrol)
-
-    dataset=pd.DataFrame(dataset)
-
-    cormatrix=dataset.T.corr()
-    print(cormatrix)
-    print(type(dataset))
+    dataset=pd.DataFrame(dataset).T
+    cormatrix=dataset.corr()
+    covmatrix=np.cov(cormatrix)
+    sn.heatmap(covmatrix, fmt='g')
+    plt.show()
+    plt.clf()
+    fa=FactorAnalyzer
+    fact_2c = FactorAnalysis(n_components=2)
+    Factor=fact_2c.fit_transform(dataset)
+    print(datasetdegree)
+    colors=np.array(['lightcoral','indianred','red','orangered','darkorange','gold','yellow','greenyellow','chartreuse','mediumspringgreen','turquoise','aqua','deepskyblue','dodgerblue','royablue','blue','navy'])
+    print(datasetdegree)
+    print(np.array(list(nx.degree_centrality(G))))
+    print(type(datasetdegree))
+    plt.scatter(Factor[:,0],Factor[:,1], c=[datasetcontrol],cmap='cool')
+    plt.axhline(y=0, linewidth=1,ls='--')
+    plt.axvline(x=0, linewidth=1,ls='--')
+    print(Factor)
+    plt.colorbar()
+    plt.show()
 
     fig = plt.figure(figsize=(10, 7))
     ax = fig.add_subplot(111)
