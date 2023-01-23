@@ -141,17 +141,20 @@ barb.add_edge(14,16)
 barb.add_edge(15,16)
 
 exp = nx.Graph()
-exp.add_edge(1,0)
-exp.add_edge(1,2)
-exp.add_edge(1,3)
-exp.add_edge(1,4)
+exp.add_edge(2,0)
+exp.add_edge(2,1)
+exp.add_edge(2,3)
+exp.add_edge(2,4)
+exp.add_edge(3,5)
+exp.add_edge(4,6)
+
 #G.add_edges_from(seed[0])
 #G=nx.watts_strogatz_graph(25,4,0.2)
 #G=nx.fast_gnp_random_graph(10,1)
-G=lattice
-#G=exp
+#G=lattice
+G=exp
 num = len(list(G.nodes))
-samples = 1000
+samples = 10000
 title='Clique Network'
 
 #nx.draw(G,with_labels=True)
@@ -165,7 +168,7 @@ for n in range(num):
 F=ultravertical
 
 
-def test(G,randomness=True,verticality=True):
+def test(G,randomness=True,verticality=True,cr7=True):
     opinionbanana=[]
     initial_opinion = []
     datas = []
@@ -198,7 +201,7 @@ def test(G,randomness=True,verticality=True):
 
     def tildealt(G):
         pl = 0
-        steps = 300
+        steps = 100
         thr = 0
         nx.set_node_attributes(G, 0, name='threshold')
         for n in G.nodes:
@@ -236,7 +239,22 @@ def test(G,randomness=True,verticality=True):
         for i in G.nodes:
             influence_matrix[i, i] = 0.1
             for j in G.neighbors(i):
-                if verticality==True:
+                if cr7==True:
+                    influence_matrix[2, 0] = 0.1
+                    influence_matrix[0, 2] = 0.1
+                    influence_matrix[2, 1] = 0.1
+                    influence_matrix[1, 2] = 0.1
+                    influence_matrix[2, 3] = 0.1
+                    influence_matrix[3, 2] = 0.1
+                    influence_matrix[2, 4] = 0.9
+                    influence_matrix[4, 2] = 0.1
+                    influence_matrix[3, 5] = 0.1
+                    influence_matrix[5, 3] = 0.1
+                    influence_matrix[4, 6] = 0.1
+                    influence_matrix[6, 4] = 0.9
+
+
+                elif verticality==True:
                     if [i, j] in simmelian:
                         if BC[i] - BC[j] < 0:
                             influence_matrix[i, j] = 0.5
@@ -279,22 +297,20 @@ def test(G,randomness=True,verticality=True):
                 if i == j:
                     probability_matrix[i, j] = 1
                 elif i != j:
-                    if randomness==True:
-                        if [i, j] in simmelian:
-                            if BC[i] - BC[j] > 0:
-                                probability_matrix[i, j] = 0.7
-                            elif BC[i] - BC[j] < 0:
-                                probability_matrix[i, j] = 0.2
-                            elif BC[i] - BC[j] == 0:
-                                probability_matrix[i, j] = 0.4
-                        elif [i, j] not in simmelian:
-                            if BC[i] - BC[j] > 0:
-                                probability_matrix[i, j] = 0.7
-                            elif BC[i] - BC[j] < 0:
-                                probability_matrix[i, j] = 0.2
-                            elif BC[i] - BC[j] == 0:
-                                probability_matrix[i, j] = 0.4
-                    else:
+                    if cr7 == True:
+                        probability_matrix[2, 0] = 0.9
+                        probability_matrix[0, 2] = 0.9
+                        probability_matrix[2, 1] = 0.9
+                        probability_matrix[1, 2] = 0.9
+                        probability_matrix[2, 3] = 0.9
+                        probability_matrix[3, 2] = 0.9
+                        probability_matrix[2, 4] = 0.1
+                        probability_matrix[4, 2] = 0.1
+                        probability_matrix[3, 5] = 0.9
+                        probability_matrix[5, 3] = 0.9
+                        probability_matrix[4, 6] = 0.1
+                        probability_matrix[6, 4] = 0.1
+                else:
                         probability_matrix[i, j] = 1
 
         def tilde(G):
@@ -455,7 +471,7 @@ def test(G,randomness=True,verticality=True):
     s = [((s/np.max(size))* 10)**3 for s in size]
     print(fact_2c.components_)
 
-
+    """"
     plt.scatter(Factor[:,0],Factor[:,1], c=[datasetcoefvariation],cmap='winter', s=s)
     plt.title(title)
     plt.axhline(y=0, linewidth=1,ls='--')
@@ -558,7 +574,7 @@ def test(G,randomness=True,verticality=True):
     plt.xlabel('Hierarchical level')
     plt.show()
 
-
+    """
 
     fig = plt.figure(figsize=(10, 7))
     ax = fig.add_subplot(111)
@@ -628,5 +644,5 @@ def test(G,randomness=True,verticality=True):
 
 #test(G,randomness=False,verticality=False)
 #test(G,randomness=False,verticality=True)
-test(G,randomness=True,verticality=False)
+test(G,randomness=True,verticality=False, cr7=True)
 #test(G,randomness=True,verticality=True)
