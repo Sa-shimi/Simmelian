@@ -43,6 +43,7 @@ lattice.add_edge(0,1)
 lattice.add_edge(1,2)
 lattice.add_edge(2,3)
 lattice.add_edge(3,4)
+lattice.add_edge(4,5)
 lattice.add_edge(5,6)
 lattice.add_edge(6,7)
 lattice.add_edge(7,8)
@@ -51,6 +52,7 @@ lattice.add_edge(10,11)
 lattice.add_edge(11,12)
 lattice.add_edge(12,13)
 lattice.add_edge(13,14)
+lattice.add_edge(14,15)
 lattice.add_edge(15,16)
 lattice.add_edge(16,17)
 lattice.add_edge(17,18)
@@ -59,26 +61,164 @@ lattice.add_edge(20,21)
 lattice.add_edge(21,22)
 lattice.add_edge(22,23)
 lattice.add_edge(23,24)
-lattice.add_edge(0,5)
-lattice.add_edge(5,10)
-lattice.add_edge(10,15)
-lattice.add_edge(15,20)
-lattice.add_edge(1,6)
-lattice.add_edge(6,11)
-lattice.add_edge(11,16)
-lattice.add_edge(16,21)
-lattice.add_edge(2,7)
-lattice.add_edge(7,12)
-lattice.add_edge(12,17)
-lattice.add_edge(17,22)
-lattice.add_edge(3,8)
-lattice.add_edge(8,13)
-lattice.add_edge(13,18)
-lattice.add_edge(18,23)
-lattice.add_edge(4,9)
-lattice.add_edge(9,14)
-lattice.add_edge(14,19)
-lattice.add_edge(19,24)
+lattice.add_edge(24,25)
+lattice.add_edge(25,26)
+lattice.add_edge(26,27)
+lattice.add_edge(27,28)
+lattice.add_edge(28,29)
+lattice.add_edge(30,31)
+lattice.add_edge(31,32)
+lattice.add_edge(32,33)
+lattice.add_edge(33,34)
+lattice.add_edge(34,35)
+lattice.add_edge(35,36)
+lattice.add_edge(36,37)
+lattice.add_edge(37,38)
+lattice.add_edge(38,39)
+lattice.add_edge(40,41)
+lattice.add_edge(41,42)
+lattice.add_edge(42,43)
+lattice.add_edge(43,44)
+lattice.add_edge(44,45)
+lattice.add_edge(45,46)
+lattice.add_edge(46,47)
+lattice.add_edge(47,48)
+lattice.add_edge(48,49)
+lattice.add_edge(50,51)
+lattice.add_edge(51,52)
+lattice.add_edge(52,53)
+lattice.add_edge(53,54)
+lattice.add_edge(54,55)
+lattice.add_edge(55,56)
+lattice.add_edge(56,57)
+lattice.add_edge(57,58)
+lattice.add_edge(58,59)
+lattice.add_edge(60,61)
+lattice.add_edge(61,62)
+lattice.add_edge(62,63)
+lattice.add_edge(63,64)
+lattice.add_edge(64,65)
+lattice.add_edge(65,66)
+lattice.add_edge(66,67)
+lattice.add_edge(67,68)
+lattice.add_edge(68,69)
+lattice.add_edge(70,71)
+lattice.add_edge(71,72)
+lattice.add_edge(72,73)
+lattice.add_edge(73,74)
+lattice.add_edge(74,75)
+lattice.add_edge(75,76)
+lattice.add_edge(76,77)
+lattice.add_edge(77,78)
+lattice.add_edge(78,79)
+lattice.add_edge(80,81)
+lattice.add_edge(81,82)
+lattice.add_edge(82,83)
+lattice.add_edge(83,84)
+lattice.add_edge(84,85)
+lattice.add_edge(85,86)
+lattice.add_edge(86,87)
+lattice.add_edge(87,88)
+lattice.add_edge(88,89)
+lattice.add_edge(90,91)
+lattice.add_edge(91,92)
+lattice.add_edge(92,93)
+lattice.add_edge(93,94)
+lattice.add_edge(94,95)
+lattice.add_edge(95,96)
+lattice.add_edge(96,97)
+lattice.add_edge(97,98)
+lattice.add_edge(98,99)
+lattice.add_edge(0,10)
+lattice.add_edge(1,11)
+lattice.add_edge(2,12)
+lattice.add_edge(3,13)
+lattice.add_edge(4,14)
+lattice.add_edge(5,15)
+lattice.add_edge(6,16)
+lattice.add_edge(7,17)
+lattice.add_edge(8,18)
+lattice.add_edge(9,19)
+lattice.add_edge(10,20)
+lattice.add_edge(11,21)
+lattice.add_edge(12,22)
+lattice.add_edge(13,23)
+lattice.add_edge(14,24)
+lattice.add_edge(15,25)
+lattice.add_edge(16,26)
+lattice.add_edge(17,27)
+lattice.add_edge(18,28)
+lattice.add_edge(19,29)
+lattice.add_edge(20,30)
+lattice.add_edge(21,31)
+lattice.add_edge(22,32)
+lattice.add_edge(23,33)
+lattice.add_edge(24,34)
+lattice.add_edge(25,35)
+lattice.add_edge(26,36)
+lattice.add_edge(27,37)
+lattice.add_edge(28,38)
+lattice.add_edge(29,39)
+lattice.add_edge(30,40)
+lattice.add_edge(31,41)
+lattice.add_edge(32,42)
+lattice.add_edge(33,43)
+lattice.add_edge(34,44)
+lattice.add_edge(35,45)
+lattice.add_edge(36,46)
+lattice.add_edge(37,47)
+lattice.add_edge(38,48)
+lattice.add_edge(39,49)
+lattice.add_edge(40,50)
+lattice.add_edge(41,51)
+lattice.add_edge(42,52)
+lattice.add_edge(43,53)
+lattice.add_edge(44,54)
+lattice.add_edge(45,55)
+lattice.add_edge(46,56)
+lattice.add_edge(47,57)
+lattice.add_edge(48,58)
+lattice.add_edge(49,59)
+lattice.add_edge(50,60)
+lattice.add_edge(51,61)
+lattice.add_edge(52,62)
+lattice.add_edge(53,63)
+lattice.add_edge(54,64)
+lattice.add_edge(55,65)
+lattice.add_edge(56,66)
+lattice.add_edge(57,67)
+lattice.add_edge(58,68)
+lattice.add_edge(59,69)
+lattice.add_edge(60,70)
+lattice.add_edge(61,71)
+lattice.add_edge(62,72)
+lattice.add_edge(63,73)
+lattice.add_edge(64,74)
+lattice.add_edge(65,75)
+lattice.add_edge(66,76)
+lattice.add_edge(67,77)
+lattice.add_edge(68,78)
+lattice.add_edge(69,79)
+lattice.add_edge(70,80)
+lattice.add_edge(71,81)
+lattice.add_edge(72,82)
+lattice.add_edge(73,83)
+lattice.add_edge(74,84)
+lattice.add_edge(75,85)
+lattice.add_edge(76,86)
+lattice.add_edge(77,87)
+lattice.add_edge(78,88)
+lattice.add_edge(79,89)
+lattice.add_edge(80,90)
+lattice.add_edge(81,91)
+lattice.add_edge(82,92)
+lattice.add_edge(83,93)
+lattice.add_edge(84,94)
+lattice.add_edge(85,95)
+lattice.add_edge(86,96)
+lattice.add_edge(87,97)
+lattice.add_edge(88,98)
+lattice.add_edge(89,99)
 
 
 G=nx.Graph()
@@ -152,9 +292,9 @@ exp.add_edge(4,6)
 #G=nx.watts_strogatz_graph(25,4,0.2)
 #G=nx.fast_gnp_random_graph(10,1)
 #G=lattice
-G=exp
+G=lattice
 num = len(list(G.nodes))
-samples = 10000
+samples = 1000
 title='Clique Network'
 
 #nx.draw(G,with_labels=True)
@@ -164,11 +304,16 @@ title='Clique Network'
 ultravertical = nx.DiGraph()
 for n in range(num):
     ultravertical.add_edge(n, n + 1)
+groups=[]
+groups += 33 * [1]
+groups += 34 * [2]
+groups += 33 * [3]
+print(groups)
 
 F=ultravertical
 
 
-def test(G,randomness=True,verticality=True,cr7=True):
+def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
     opinionbanana=[]
     initial_opinion = []
     datas = []
@@ -201,7 +346,7 @@ def test(G,randomness=True,verticality=True,cr7=True):
 
     def tildealt(G):
         pl = 0
-        steps = 100
+        steps = 50
         thr = 0
         nx.set_node_attributes(G, 0, name='threshold')
         for n in G.nodes:
@@ -252,8 +397,13 @@ def test(G,randomness=True,verticality=True,cr7=True):
                     influence_matrix[5, 3] = 0.1
                     influence_matrix[4, 6] = 0.1
                     influence_matrix[6, 4] = 0.9
-
-
+                elif bygroups==True:
+                    if groups[i]<groups[j]:
+                        influence_matrix[i,j] = 0.5
+                    elif groups[i]==groups[j]:
+                        influence_matrix[i,j] = 0.4
+                    elif groups[i]>groups[j]:
+                        influence_matrix[i,j] = 0.3
                 elif verticality==True:
                     if [i, j] in simmelian:
                         if BC[i] - BC[j] < 0:
@@ -310,8 +460,8 @@ def test(G,randomness=True,verticality=True,cr7=True):
                         probability_matrix[5, 3] = 0.9
                         probability_matrix[4, 6] = 0.1
                         probability_matrix[6, 4] = 0.1
-                else:
-                        probability_matrix[i, j] = 1
+                    else:
+                            probability_matrix[i, j] = 0.1
 
         def tilde(G):
             datoni = []
@@ -459,7 +609,6 @@ def test(G,randomness=True,verticality=True,cr7=True):
     dataset.append(datasetcloseness)
     dataset.append(datasetdegree)
     dataset.append(datasetcontrol)
-    print(datasetcontrol)
     dataset=pd.DataFrame(dataset).T
     cormatrix=dataset.corr()
     plt.show()
@@ -644,5 +793,5 @@ def test(G,randomness=True,verticality=True,cr7=True):
 
 #test(G,randomness=False,verticality=False)
 #test(G,randomness=False,verticality=True)
-test(G,randomness=True,verticality=False, cr7=True)
+test(G,randomness=True,verticality=False, cr7=False,bygroups=True)
 #test(G,randomness=True,verticality=True)
