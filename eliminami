@@ -39,46 +39,85 @@ seed = [[(0, 6), (0, 10), (0, 22), (0, 29), (0, 30), (0, 37), (0, 38), (0, 41), 
        (46, 31), (47, 10), (47, 29), (49, 35)]
     , [35]]
 lattice = nx.Graph()
-lattice.add_edge(0,1)
-lattice.add_edge(1,2)
-lattice.add_edge(2,3)
-lattice.add_edge(3,4)
-lattice.add_edge(5,6)
-lattice.add_edge(6,7)
-lattice.add_edge(7,8)
-lattice.add_edge(8,9)
-lattice.add_edge(10,11)
-lattice.add_edge(11,12)
-lattice.add_edge(12,13)
-lattice.add_edge(13,14)
+lattice.add_edge(0, 1)
+lattice.add_edge(1, 2)
+lattice.add_edge(2, 3)
+lattice.add_edge(3, 4)
+lattice.add_edge(4, 5)
+lattice.add_edge(6, 7)
+lattice.add_edge(7, 8)
+lattice.add_edge(8, 9)
+lattice.add_edge(9, 10)
+lattice.add_edge(10, 11)
+lattice.add_edge(12, 13)
+lattice.add_edge(13, 14)
+lattice.add_edge(14, 15)
 lattice.add_edge(15,16)
 lattice.add_edge(16,17)
-lattice.add_edge(17,18)
 lattice.add_edge(18,19)
+lattice.add_edge(19,20)
 lattice.add_edge(20,21)
 lattice.add_edge(21,22)
 lattice.add_edge(22,23)
-lattice.add_edge(23,24)
-lattice.add_edge(0,5)
-lattice.add_edge(5,10)
-lattice.add_edge(10,15)
-lattice.add_edge(15,20)
-lattice.add_edge(1,6)
-lattice.add_edge(6,11)
-lattice.add_edge(11,16)
-lattice.add_edge(16,21)
-lattice.add_edge(2,7)
-lattice.add_edge(7,12)
-lattice.add_edge(12,17)
-lattice.add_edge(17,22)
-lattice.add_edge(3,8)
-lattice.add_edge(8,13)
-lattice.add_edge(13,18)
-lattice.add_edge(18,23)
-lattice.add_edge(4,9)
-lattice.add_edge(9,14)
-lattice.add_edge(14,19)
-lattice.add_edge(19,24)
+lattice.add_edge(24,25)
+lattice.add_edge(25,26)
+lattice.add_edge(26,27)
+lattice.add_edge(27,28)
+lattice.add_edge(28,29)
+lattice.add_edge(30,31)
+lattice.add_edge(31,32)
+lattice.add_edge(32,33)
+lattice.add_edge(33,34)
+lattice.add_edge(34,35)
+
+lattice.add_edge(0,6)
+lattice.add_edge(1,7)
+lattice.add_edge(2,8)
+lattice.add_edge(3,9)
+lattice.add_edge(4,10)
+lattice.add_edge(5,11)
+lattice.add_edge(6,12)
+lattice.add_edge(7,13)
+lattice.add_edge(8,14)
+lattice.add_edge(9,15)
+lattice.add_edge(10,16)
+lattice.add_edge(11,17)
+lattice.add_edge(12,18)
+lattice.add_edge(13,19)
+lattice.add_edge(14,20)
+lattice.add_edge(15,21)
+lattice.add_edge(16,22)
+lattice.add_edge(17,23)
+lattice.add_edge(18,24)
+lattice.add_edge(19,25)
+lattice.add_edge(20,26)
+lattice.add_edge(21,27)
+lattice.add_edge(22,28)
+lattice.add_edge(23,29)
+lattice.add_edge(24,30)
+lattice.add_edge(25,31)
+lattice.add_edge(26,32)
+lattice.add_edge(27,33)
+lattice.add_edge(28,34)
+lattice.add_edge(29,35)
+
+lattice.add_edge(5,0)
+lattice.add_edge(11,6)
+lattice.add_edge(17,12)
+lattice.add_edge(23,18)
+lattice.add_edge(29,24)
+lattice.add_edge(35,30)
+lattice.add_edge(30,0)
+lattice.add_edge(31,1)
+lattice.add_edge(32,2)
+lattice.add_edge(33,3)
+lattice.add_edge(34,4)
+lattice.add_edge(35,5)
+
+
+
+
+
 
 
 G=nx.Graph()
@@ -141,44 +180,43 @@ barb.add_edge(14,16)
 barb.add_edge(15,16)
 
 exp = nx.Graph()
-exp.add_edge(2,0)
-exp.add_edge(2,1)
+exp.add_edge(0,1)
+exp.add_edge(0,2)
+exp.add_edge(1,2)
+exp.add_edge(1,3)
 exp.add_edge(2,3)
-exp.add_edge(2,4)
-exp.add_edge(3,5)
-exp.add_edge(4,6)
 
 #G.add_edges_from(seed[0])
 #G=nx.watts_strogatz_graph(25,4,0.2)
 #G=nx.fast_gnp_random_graph(10,1)
 #G=lattice
-G=lattice
+G=exp
 num = len(list(G.nodes))
-samples = 25
+
 
 title='Clique Network'
 
-#nx.draw(G,with_labels=True)
-#plt.show()
+pos = nx.spring_layout(G)
+nx.draw(G,with_labels=True,pos=pos)
+plt.show()
 
 
 ultravertical = nx.DiGraph()
 for n in range(num):
     ultravertical.add_edge(n, n + 1)
 groups=[]
-groups += 8 * [1]
-groups += 9 * [2]
-groups += 8 * [3]
+groups += [1,1,1,2,2,2]
+groups += 3 * [3,3,3,4,4,4]
+groups = [1,1,2,2]
 print(groups)
 
 F=ultravertical
 
 
-def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
+def test(G,randomness=True,verticality=True,cr7=True,bygroups=True,samples=int):
     opinionbanana=[]
     initial_opinion = []
     datas = []
-
     def Control_Centrality(F):
         length = len(F.nodes)
         i = 1
@@ -207,7 +245,7 @@ def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
 
     def tildealt(G):
         pl = 0
-        steps = 50
+        steps = 20
         thr = 0
         nx.set_node_attributes(G, 0, name='threshold')
         for n in G.nodes:
@@ -261,9 +299,9 @@ def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
                 elif verticality==True:
                     if bygroups==True:
                         if groups[i]<groups[j]:
-                            influence_matrix[i,j] = 0.5
+                            influence_matrix[i,j] = 0.9
                         elif groups[i]==groups[j]:
-                            influence_matrix[i,j] = 0.4
+                            influence_matrix[i,j] = 0.6
                         elif groups[i]>groups[j]:
                             influence_matrix[i,j] = 0.3
                     elif bygroups==False:
@@ -271,14 +309,14 @@ def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
                             if BC[i] - BC[j] < 0:
                                 influence_matrix[i, j] = 0.9
                             elif BC[i] - BC[j] > 0:
-                                influence_matrix[i, j] = 0.3
+                                influence_matrix[i, j] = 0.6
                             elif BC[i] - BC[j] == 0:
                                 influence_matrix[i, j] = 0.3
                         elif [i, j] not in simmelian:
                             if BC[i] - BC[j] > 0:
                                 influence_matrix[i, j] = 0.9
                             elif BC[i] - BC[j] < 0:
-                                influence_matrix[i, j] = 0.3
+                                influence_matrix[i, j] = 0.6
                             elif BC[i] - BC[j] == 0:
                                 influence_matrix[i, j] = 0.3
                 elif verticality==False:
@@ -299,7 +337,7 @@ def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
                 if i == j:
                     probability_matrix[i, j] = 1
                 elif i != j:
-                    probability_matrix[i, j] = 0.9
+                    probability_matrix[i, j] = 0.7
 
 
         def tilde(G):
@@ -394,7 +432,7 @@ def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
             pl += 1
             tilde(G)
     tildealt(G)
-    plt.show()
+
 #    eigenCent_sorted = dict(sorted(nx.eigenvector_centrality(G).items(), key=lambda item: item[1], reverse=True))
     betweenCent_sorted = dict(sorted(nx.betweenness_centrality(G).items(), key=lambda item: item[1], reverse=True))
     closenessCent_sorted = dict(sorted(nx.closeness_centrality(G).items(), key=lambda item: item[1], reverse=True))
@@ -450,8 +488,6 @@ def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
     dataset.append(datasetcontrol)
     dataset=pd.DataFrame(dataset).T
     cormatrix=dataset.corr()
-    plt.show()
-    plt.clf()
     fa=FactorAnalyzer
     fact_2c = FactorAnalysis(n_components=2)
     Factor=fact_2c.fit_transform(dataset)
@@ -632,7 +668,7 @@ def test(G,randomness=True,verticality=True,cr7=True,bygroups=True):
 
 #test(G,randomness=False,verticality=False)
 #test(G,randomness=False,verticality=True)
-test(G,randomness=True,verticality=False, cr7=False,bygroups=True)
-test(G,randomness=True,verticality=True, cr7=False,bygroups=True)
-test(G,randomness=True,verticality=True, cr7=False,bygroups=False)
+#test(G,randomness=True,verticality=False, cr7=False,bygroups=True)
+test(G,randomness=True,verticality=True, cr7=False,bygroups=True,samples=100)
+test(G,randomness=True,verticality=True, cr7=False,bygroups=False,samples=1000)
 #test(G,randomness=True,verticality=True)
