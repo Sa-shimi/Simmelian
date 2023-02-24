@@ -1,0 +1,283 @@
+import random
+import statistics
+import networkx as nx
+from sympy import *
+from itertools import combinations
+import numpy as np
+import matplotlib.pyplot as plt
+from factor_analyzer import FactorAnalyzer
+from sklearn.decomposition import FactorAnalysis
+
+#matrice0=[['a','b','c'],['d','e','f'],['g','h','i']]
+
+
+steps=3
+
+G=nx.DiGraph()
+G.add_edge(0,0)
+G.add_edge(0,1)
+G.add_edge(1,0)
+G.add_edge(1,1)
+G.add_edge(1,2)
+G.add_edge(2,1)
+G.add_edge(2,2)
+
+num=len(G.nodes)
+
+matrice0=[]
+for i in range(num):
+    strs = ["" for j in range(num)]
+    matrice0.append(strs)
+for i in range(len(matrice0)):
+    for j in range(len(matrice0)):
+        if (i, j) in G.edges:
+            matrice0[i][j] = ('{}'.format((i, j)))
+        else:
+            matrice0[i][j] = ('none')
+
+
+
+
+elenchi=[]
+for (i,j) in G.edges:
+    neighborsexcl=  [ele for ele in list(G.edges(i)) if ele != (i,i)]
+    if i==j:
+        banana=[((i,i),)+com for sub in range(len(neighborsexcl)) for com in combinations(neighborsexcl, sub + 1)]
+        banana.append(((i,i),))
+    else:
+        banana = [((i,i),)+com for sub in range(len(neighborsexcl)) for com in combinations(neighborsexcl, sub + 1)]
+
+    elenchi.append(banana)
+
+probs=[]
+for n in range(len(elenchi)):
+    prob = []
+    numb = len(list(G.edges(list(G.edges)[n][0])))
+
+    for l in elenchi[n]:
+
+        if list(G.edges)[n] not in l:
+            l= []
+            prob.append('0')
+        else:
+            prob.append('{}*'.format(1 / (len(l))) +'(1-p)**{}'.format(numb-len(l))+'*p**{}'.format(len(l)-1))
+    probs.append(prob)
+
+forsone=[]
+for n in range(len(probs)):
+    stringhetta=probs[n][0]
+    for l in range(len(probs[n])):
+        if l != 0:
+            if probs[n][l]!=0:
+                stringhetta = stringhetta + '+' + probs[n][l]
+    symbols('p')
+    simp=simplify(stringhetta)
+    forsone.append(simp)
+
+
+
+matriceprobs=[]
+for i in range(num):
+    strs = ["" for j in range(num)]
+    matriceprobs.append(strs)
+
+for i in range(len(list(G.edges))):
+    matriceprobs[list(G.edges)[i][0]][list(G.edges)[i][1]]=forsone[i]
+
+
+
+
+
+probslist=[]
+for n in range(num):
+    for l in range(num):
+        if type(matriceprobs[n][l]) is not str:
+            probslist.append(matriceprobs[n][l])
+
+def nonso(matrice):
+    matrice1 = []
+    for i in range(len(matrice)):
+        subbone = []
+        for j in range(len(matrice)):
+            sub=[]
+            for n in range(len(matrice)):
+                sub.append(matrice[i][n] + matrice[n][j])
+            subbone.append(sub)
+        matrice1.append(subbone)
+    return(matrice1)
+
+matrix1=nonso(matrice0)
+
+def mult(matrix,matrice0):
+    matrice1 = []
+    for i in range(len(matrix)):
+        subbone = []
+        for j in range(len(matrix)):
+            sub=[]
+            for n in range(len(matrix)):
+                for l in range(len(matrix[0][0])):
+
+                    sub.append(matrix[i][n][l] + matrice0[n][j])
+            subbone.append(sub)
+        matrice1.append(subbone)
+    return(matrice1)
+
+
+matrix2=mult(matrix1,matrice0)
+matrix3=mult(matrix2,matrice0)
+matrix4=mult(matrix3,matrice0)
+matrix5=mult(matrix4,matrice0)
+matrix6=mult(matrix5,matrice0)
+matrix7=mult(matrix6,matrice0)
+matrix8=mult(matrix7,matrice0)
+matrix9=mult(matrix8,matrice0)
+matrix10=mult(matrix9,matrice0)
+
+
+
+
+
+
+
+
+def matricefrequenze(matrix):
+
+    matricefrequenza=[]
+    for riga in matrix:
+        cellafrequenza=[]
+        for cella in riga:
+            elementiincella=[]
+            for elemento in cella:
+                banana = []
+                for rows in matrice0:
+                    for cells in rows:
+                        if 'none' not in cells:
+                            banana.append(elemento.count(cells))
+                elementiincella.append(banana)
+            cellafrequenza.append(elementiincella)
+        matricefrequenza.append(cellafrequenza)
+    return(matricefrequenza)
+
+
+matricefrequenze(matrix2)
+
+
+influence_matrix = np.matrix(np.zeros((num, num)))
+influence_matrix[0, 0] = 0.1
+influence_matrix[0, 1] = 0.1
+influence_matrix[1, 0] = 0.1
+influence_matrix[1, 1] = 0.1
+influence_matrix[1, 2] = 0.1
+influence_matrix[2, 2] = 0.1
+influence_matrix[0, 2] = 0.1
+influence_matrix[2, 0] = 0.1
+influence_matrix[2, 2] = 0.1
+influence_matrix[2, 1] = 0.1
+
+
+
+#for i in G.nodes:
+#    influence_matrix[i, i] = 0.1
+#    for j in G.neighbors(i):
+#        influence_matrix[i, j] = 0.1
+
+influence_matrix_correct = np.matrix(np.zeros((num, num)))
+for i in range(num):
+    for j in range(num):
+        influence_matrix_correct[i, j] = influence_matrix[i, j] / np.sum(influence_matrix[i])
+
+influence_matrix_correctlist=[]
+for n in range(num):
+    for l in range(num):
+        influence_matrix_correctlist.append(influence_matrix_correct[n,l])
+
+def calcmatrix(matrix):
+
+    def matricefrequenze(matrix):
+
+        matricefrequenza = []
+        for riga in matrix:
+            cellafrequenza = []
+            for cella in riga:
+                elementiincella = []
+                for elemento in cella:
+                    banana = []
+                    for rows in matrice0:
+                        for cells in rows:
+                            if 'none' not in cells:
+                                banana.append(elemento.count(cells))
+                    elementiincella.append(banana)
+                cellafrequenza.append(elementiincella)
+            matricefrequenza.append(cellafrequenza)
+        return (matricefrequenza)
+
+    nonso=matricefrequenze(matrix)
+
+    for row in range(len(nonso)):
+        summedelements=[]
+        for cell in range(len(nonso[row])):
+            multipliedelements=[]
+            for element in range(len(nonso[row][cell])):
+                multiplandelements = []
+                for elementino in range(len(nonso[row][cell][element])):
+
+                    multipliedelements.append(np.prod(multiplandelements))
+                summedelements.append(np.sum(multipliedelements))
+
+        return(summedelements)
+
+
+def calcmatrixprob(matrix):
+
+    def matricefrequenze(matrix):
+
+        matricefrequenza = []
+        for riga in matrix:
+            cellafrequenza = []
+            for cella in riga:
+                elementiincella = []
+                for elemento in cella:
+                    banana = []
+                    for rows in matrice0:
+                        for cells in rows:
+                            if 'none' not in cells:
+                                banana.append(elemento.count(cells))
+                    elementiincella.append(banana)
+                cellafrequenza.append(elementiincella)
+            matricefrequenza.append(cellafrequenza)
+        return (matricefrequenza)
+
+    nonso=matricefrequenze(matrix)
+    for row in range(len(nonso)):
+        summedelements = []
+        for cell in range(len(nonso[row])):
+            multipliedelements = []
+            for element in range(len(nonso[row][cell])):
+                multiplandelements = []
+                for elementino in range(len(nonso[row][cell][element])):
+                    if np.sum(nonso[row][cell][element])==3:
+                        multiplandelements.append('('+str(probslist[elementino]) +')**{}'.format(nonso[row][cell][element][elementino]))
+
+                for qlcs in range(len(multiplandelements)):
+
+                    if qlcs == 0:
+                        multipliedelements.append('+' + multiplandelements[qlcs])
+                    else:
+                        multipliedelements.append('*' + multiplandelements[qlcs])
+            if multipliedelements:
+                stringone=multipliedelements[0]
+                for n in range(len(multipliedelements)):
+                    if n!=0:
+                        stringone=stringone+multipliedelements[n]
+                symbols('p')
+
+                simp = simplify(stringone)
+                summedelements.append(simp)
+        print(summedelements)
+        return(summedelements)
+
+
+calcmatrixprob(matrix2)
+
+
+
