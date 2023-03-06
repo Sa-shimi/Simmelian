@@ -1201,11 +1201,6 @@ banana=test(G)
 
 
 
-ANOVAVARIANCE
-
-
-
-
 import random
 import statistics
 import networkx as nx
@@ -1217,106 +1212,199 @@ from factor_analyzer import FactorAnalyzer
 from sklearn.decomposition import FactorAnalysis
 import scipy.stats as stats
 
+lattice25 = nx.Graph()
+lattice25.add_edge(0, 1)
+lattice25.add_edge(1, 2)
+lattice25.add_edge(2, 3)
+lattice25.add_edge(3, 4)
+lattice25.add_edge(4, 0)
+lattice25.add_edge(5, 6)
+lattice25.add_edge(6, 7)
+lattice25.add_edge(7, 8)
+lattice25.add_edge(8, 9)
+lattice25.add_edge(9, 5)
+lattice25.add_edge(10, 11)
+lattice25.add_edge(11, 12)
+lattice25.add_edge(12, 13)
+lattice25.add_edge(13, 14)
+lattice25.add_edge(14, 10)
+lattice25.add_edge(15, 16)
+lattice25.add_edge(16, 17)
+lattice25.add_edge(17, 18)
+lattice25.add_edge(18, 19)
+lattice25.add_edge(19, 15)
+lattice25.add_edge(20, 21)
+lattice25.add_edge(21, 22)
+lattice25.add_edge(22, 23)
+lattice25.add_edge(23, 24)
+lattice25.add_edge(24, 20)
+lattice25.add_edge(0, 5)
+lattice25.add_edge(1, 6)
+lattice25.add_edge(2, 7)
+lattice25.add_edge(3, 8)
+lattice25.add_edge(4, 9)
+lattice25.add_edge(5, 10)
+lattice25.add_edge(6, 11)
+lattice25.add_edge(7, 12)
+lattice25.add_edge(8, 13)
+lattice25.add_edge(9, 14)
+lattice25.add_edge(10, 15)
+lattice25.add_edge(11, 16)
+lattice25.add_edge(12, 17)
+lattice25.add_edge(13, 18)
+lattice25.add_edge(14, 19)
+lattice25.add_edge(15, 20)
+lattice25.add_edge(16, 21)
+lattice25.add_edge(17, 22)
+lattice25.add_edge(18, 23)
+lattice25.add_edge(19, 24)
+lattice25.add_edge(20, 0)
+lattice25.add_edge(21, 1)
+lattice25.add_edge(22, 2)
+lattice25.add_edge(23, 3)
+lattice25.add_edge(24, 4)
 
-lattice25=nx.Graph()
-lattice25.add_edge(0,1)
-lattice25.add_edge(1,2)
-lattice25.add_edge(2,3)
-lattice25.add_edge(3,4)
-lattice25.add_edge(4,0)
-lattice25.add_edge(5,6)
-lattice25.add_edge(6,7)
-lattice25.add_edge(7,8)
-lattice25.add_edge(8,9)
-lattice25.add_edge(9,5)
-lattice25.add_edge(10,11)
-lattice25.add_edge(11,12)
-lattice25.add_edge(12,13)
-lattice25.add_edge(13,14)
-lattice25.add_edge(14,10)
-lattice25.add_edge(15,16)
-lattice25.add_edge(16,17)
-lattice25.add_edge(17,18)
-lattice25.add_edge(18,19)
-lattice25.add_edge(19,15)
-lattice25.add_edge(20,21)
-lattice25.add_edge(21,22)
-lattice25.add_edge(22,23)
-lattice25.add_edge(23,24)
-lattice25.add_edge(24,20)
-lattice25.add_edge(0,5)
-lattice25.add_edge(1,6)
-lattice25.add_edge(2,7)
-lattice25.add_edge(3,8)
-lattice25.add_edge(4,9)
-lattice25.add_edge(5,10)
-lattice25.add_edge(6,11)
-lattice25.add_edge(7,12)
-lattice25.add_edge(8,13)
-lattice25.add_edge(9,14)
-lattice25.add_edge(10,15)
-lattice25.add_edge(11,16)
-lattice25.add_edge(12,17)
-lattice25.add_edge(13,18)
-lattice25.add_edge(14,19)
-lattice25.add_edge(15,20)
-lattice25.add_edge(16,21)
-lattice25.add_edge(17,22)
-lattice25.add_edge(18,23)
-lattice25.add_edge(19,24)
-lattice25.add_edge(20,0)
-lattice25.add_edge(21,1)
-lattice25.add_edge(22,2)
-lattice25.add_edge(23,3)
-lattice25.add_edge(24,4)
 
-exp = nx.Graph()
-exp.add_edge(2,0)
-exp.add_edge(2,1)
+exp=nx.Graph()
+exp.add_edge(0,1)
+exp.add_edge(1,2)
 exp.add_edge(2,3)
-exp.add_edge(2,4)
-exp.add_edge(3,5)
-exp.add_edge(4,6)
+exp.add_edge(3,4)
+exp.add_edge(4,5)
+exp.add_edge(6,7)
+exp.add_edge(7,8)
+exp.add_edge(8,9)
+exp.add_edge(9,10)
+exp.add_edge(10,11)
+exp.add_edge(12,13)
+exp.add_edge(13,14)
+exp.add_edge(14,15)
+exp.add_edge(15,16)
+exp.add_edge(16,17)
+exp.add_edge(18,19)
+exp.add_edge(19,20)
+exp.add_edge(20,21)
+exp.add_edge(21,22)
+exp.add_edge(22,23)
+exp.add_edge(24,25)
+exp.add_edge(25,26)
+exp.add_edge(26,27)
+exp.add_edge(27,28)
+exp.add_edge(28,29)
+exp.add_edge(30,31)
+exp.add_edge(31,32)
+exp.add_edge(32,33)
+exp.add_edge(33,34)
+exp.add_edge(34,35)
+
+exp.add_edge(0,6)
+exp.add_edge(1,7)
+exp.add_edge(2,8)
+exp.add_edge(3,9)
+exp.add_edge(4,10)
+exp.add_edge(5,11)
+exp.add_edge(6,12)
+exp.add_edge(7,13)
+exp.add_edge(8,14)
+exp.add_edge(9,15)
+exp.add_edge(10,16)
+exp.add_edge(11,17)
+exp.add_edge(12,18)
+exp.add_edge(13,19)
+exp.add_edge(14,20)
+exp.add_edge(15,21)
+exp.add_edge(16,22)
+exp.add_edge(17,23)
+exp.add_edge(18,24)
+exp.add_edge(19,25)
+exp.add_edge(20,26)
+exp.add_edge(21,27)
+exp.add_edge(22,28)
+exp.add_edge(23,29)
+exp.add_edge(24,30)
+exp.add_edge(25,31)
+exp.add_edge(26,32)
+exp.add_edge(27,33)
+exp.add_edge(28,34)
+exp.add_edge(29,35)
+
+exp.add_edge(30,0)
+exp.add_edge(31,1)
+exp.add_edge(34,4)
+exp.add_edge(35,5)
+exp.add_edge(4,33)
+exp.add_edge(3,34)
+exp.add_edge(13,8)
+exp.add_edge(10,23)
+exp.add_edge(11,22)
+exp.add_edge(19,32)
+exp.add_edge(20,31)
+exp.add_edge(21,28)
+exp.add_edge(5,0)
+exp.add_edge(11,6)
+exp.add_edge(17,12)
+exp.add_edge(23,18)
+exp.add_edge(29,24)
+exp.add_edge(35,30)
+
+pos=nx.spring_layout(exp)
+
+
+
+exp.add_edge(30,0)
+exp.add_edge(31,1)
+exp.add_edge(34,4)
+exp.add_edge(35,5)
+exp.add_edge(4,33)
+exp.add_edge(3,34)
+exp.add_edge(13,8)
+exp.add_edge(10,23)
+exp.add_edge(11,22)
+exp.add_edge(19,32)
+exp.add_edge(20,31)
+exp.add_edge(21,28)
+exp.add_edge(5,0)
+exp.add_edge(11,6)
+exp.add_edge(17,12)
+exp.add_edge(23,18)
+exp.add_edge(29,24)
+exp.add_edge(35,30)
+
+
+
+
 
 #G.add_edges_from(seed[0])
 #G=nx.watts_strogatz_graph(25,4,0.2)
 #G=nx.fast_gnp_random_graph(10,1)
 
-G=lattice25
-rewiring=9
+G=exp
+
 num = len(list(G.nodes))
 samples = 250
-title='Clique Network'
+title = 'Clique Network'
 
-coefvariationsimmtop = []
-coefvariationnotsimmtop = []
-coefvariationgenerictop = []
-coefvariationsimmbottom = []
-coefvariationnotsimmbottom = []
-coefvariationgenericbottom = []
+influence=[]
+for n in range(num):
+    influence.append([])
 
 ultravertical = nx.DiGraph()
 for n in range(num):
     ultravertical.add_edge(n, n + 1)
 
-F=ultravertical
+F = ultravertical
+
 
 def bananna(G):
-    dati=0
-    def test(G,randomness=bool,verticality=bool,cr7=True):
+    dati = 0
 
-        G = lattice25.copy()
+    def test(G, randomness=bool, verticality=bool, cr7=True):
+
         l = 0
-        while l != rewiring:
-            i = random.randrange(0, num)
-            j = random.randrange(0, num)
-            if i != j:
-                G.add_edge(i, j)
-            l += 1
-        opinionbanana=[]
+
+        opinionbanana = []
         initial_opinion = []
         datas = []
-
 
         steps = 250
         thr = 0
@@ -1327,8 +1415,6 @@ def bananna(G):
 
         def combine(arr, s):
             return list(combinations(arr, s))
-
-
 
         lll = combinations(G.nodes(), 2)
         cliques = list(nx.enumerate_all_cliques(G))
@@ -1342,48 +1428,10 @@ def bananna(G):
         for i in simm:
             if i not in simmelian:
                 simmelian.append(i)
-        simmeliansubj=[]
-        for n in simmelian:
-            for i in n:
-                if i not in simmeliansubj:
-                    simmeliansubj.append(i)
 
 
-        subjsimmeliantop = []
-        subjsimmelianbottom = []
-        subjnotsimmeliantop = []
-        subjnotsimmelianbottom = []
-        subjgenerictop = []
-        subjgenericbottom = []
 
-        for n in simmeliansubj:
-            if n < 12:
-                if n not in subjsimmeliantop:
-                    subjsimmeliantop.append(n)
-            elif n >= 12:
-                if n not in subjsimmelianbottom:
-                    subjsimmelianbottom.append(n)
 
-        for n in list(nx.degree(G)):
-            if n[1] != 4:
-                if n[0] not in simmeliansubj:
-                    if n[0] < 12:
-                        if n[0] not in subjnotsimmeliantop:
-                            subjnotsimmeliantop.append(n[0])
-                    elif n[0] >= 12:
-                        if n[0] not in subjnotsimmelianbottom:
-                            subjnotsimmelianbottom.append(n[0])
-
-        for n in list(nx.degree(G)):
-            if n[1] == 4:
-                if n[0] not in simmeliansubj:
-                    if n[0] < 12:
-                        if n[0] not in subjgenerictop:
-                            subjgenerictop.append(n[0])
-                    elif n[0] >= 12:
-                        if n[0] not in subjgenericbottom:
-                            subjgenericbottom.append(n[0])
-        print(len(subjsimmeliantop),len(subjsimmelianbottom),len(subjnotsimmeliantop),len(subjnotsimmelianbottom),len(subjgenerictop),len(subjgenericbottom))
         def Control_Centrality(F):
             length = len(F.nodes)
             i = 1
@@ -1413,7 +1461,6 @@ def bananna(G):
         def tildealt(G):
             pl = 0
 
-
             nx.set_node_attributes(G, 0, name='relevance')
 
             for n in G.nodes:
@@ -1424,36 +1471,20 @@ def bananna(G):
             for i in G.nodes:
                 influence_matrix[i, i] = 0.1
                 for j in G.neighbors(i):
-                    if verticality==True:
-                        if [i, j] in simmelian:
-                            if BC[i] - BC[j] < 0:
-                                influence_matrix[i, j] = 0.1
-                            elif BC[i] - BC[j] > 0:
-                                influence_matrix[i, j] = 0.1
-                            elif BC[i] - BC[j] == 0:
-                                influence_matrix[i, j] = 0.1
-                        elif [i, j] not in simmelian:
-                            if BC[i] - BC[j] > 0:
-                                influence_matrix[i, j] = 0.1
-                            elif BC[i] - BC[j] < 0:
-                                influence_matrix[i, j] = 0.1
-                            elif BC[i] - BC[j] == 0:
-                                influence_matrix[i, j] = 0.1
-                    elif verticality==False:
-                        if [i, j] in simmelian:
-                            if BC[i] - BC[j] < 0:
-                                influence_matrix[i, j] = 0.8
-                            elif BC[i] - BC[j] > 0:
-                                influence_matrix[i, j] = 0.8
-                            elif BC[i] - BC[j] == 0:
-                                influence_matrix[i, j] = 0.8
-                        elif [i, j] not in simmelian:
-                            if BC[i] - BC[j] > 0:
-                                influence_matrix[i, j] = 0.8
-                            elif BC[i] - BC[j] < 0:
-                                influence_matrix[i, j] = 0.8
-                            elif BC[i] - BC[j] == 0:
-                                influence_matrix[i, j] = 0.8
+                    if [i, j] in simmelian:
+                        if BC[i] - BC[j] < 0:
+                            influence_matrix[i, j] = 0.1
+                        elif BC[i] - BC[j] > 0:
+                            influence_matrix[i, j] = 0.1
+                        elif BC[i] - BC[j] == 0:
+                            influence_matrix[i, j] = 0.1
+                    elif [i, j] not in simmelian:
+                        if BC[i] - BC[j] > 0:
+                            influence_matrix[i, j] = 0.1
+                        elif BC[i] - BC[j] < 0:
+                            influence_matrix[i, j] = 0.1
+                        elif BC[i] - BC[j] == 0:
+                            influence_matrix[i, j] = 0.1
 
 
             influence_matrix_correct = np.matrix(np.zeros((num, num)))
@@ -1467,8 +1498,7 @@ def bananna(G):
                     if i == j:
                         probability_matrix[i, j] = 1
                     else:
-                        probability_matrix[i,j]=0.9
-
+                        probability_matrix[i, j] = 0.9
             def tilde(G):
                 datoni = []
                 K = G.copy()
@@ -1495,9 +1525,10 @@ def bananna(G):
                         influence_matrix_tilde[i, i] = influence_matrix_real[i, i] / np.sum(influence_matrix_real[i],
                                                                                             axis=1)
                         for j in K.nodes:
-                            influence_matrix_tilde[i, j] = influence_matrix_real[i, j] / np.sum(influence_matrix_real[i],
-                                                                                                axis=1
-                                                                                                )
+                            influence_matrix_tilde[i, j] = influence_matrix_real[i, j] / np.sum(
+                                influence_matrix_real[i],
+                                axis=1
+                                )
                     influence_matrices.append(influence_matrix_tilde)
                     for i in K.nodes:
                         opchange = [P.nodes[i]['relevance'] * influence_matrix_tilde[i, i]]
@@ -1520,7 +1551,7 @@ def bananna(G):
                 """
                 plt.plot(datoni, 'k', alpha=0.1)
                 plt.title('DeGroot (classic)')
-    
+
                 plt.plot(np.mean(datoni, axis=1), 'r--', label='mean')
                 plt.plot(np.median(datoni, axis=1), 'b', label='median')
                 plt.legend()
@@ -1540,60 +1571,56 @@ def bananna(G):
                         tempArr = influence_matrices[i] @ tempArr
                     return tempArr
 
-
-
                 datas.append(np.array(matrixMultt(influence_matrices[0], steps)[1][0]))
-                X_axis = np.arange(len(G.nodes))
+
+
 
 
 
             while pl != samples:
-                print(100*(pl/samples),'%')
                 pl += 1
                 tilde(G)
+
         tildealt(G)
 
-    #    eigenCent_sorted = dict(sorted(nx.eigenvector_centrality(G).items(), key=lambda item: item[1], reverse=True))
-        betweenCent_sorted = dict(sorted(nx.betweenness_centrality(G).items(), key=lambda item: item[1], reverse=True))
-        closenessCent_sorted = dict(sorted(nx.closeness_centrality(G).items(), key=lambda item: item[1], reverse=True))
 
         for n in range(samples):
-            opinionbanana.append(datas[n][0]@ initial_opinion)
-        banana=[]
+            opinionbanana.append(datas[n][0] @ initial_opinion)
+        banana = []
         for n in range(len(datas)):
             banana.append(np.stack(datas[n][0]))
 
         mf = []
         quantiles = []
         for n in range(len(banana)):
-            mf1=[]
+            mf1 = []
             for m in range(len(banana[0])):
                 mf1.append(banana[n][m])
             mf.append(mf1)
         for n in range(len(G.nodes())):
-            culo=[]
+            culo = []
             culo.append(0.75)
             culo.append(0.25)
             quantiles.append(culo)
-        dataset=[]
-        datasetmean=[]
-        datasetmedian=[]
-        datasetvariance=[]
-        datasetcoefvariation=[]
+        dataset = []
+        datasetmean = []
+        datasetmedian = []
+        datasetvariance = []
+        datasetcoefvariation = []
         for n in range(len(list(G.nodes))):
-            datasettino=[]
+            datasettino = []
             for m in range(len(mf)):
                 datasettino.append(mf[m][n])
             datasetmean.append(statistics.mean(datasettino))
             datasetmedian.append(statistics.median(datasettino))
-            datasetcoefvariation.append(np.std(datasettino)/np.mean(datasettino))
+            datasetcoefvariation.append(np.std(datasettino) / np.mean(datasettino))
             datasetvariance.append(statistics.variance(datasettino))
-        #dataset.append(datasetmean)
-        dataseteigen=[]
-        datasetcloseness=[]
-        datasetbetweenness=[]
-        datasetdegree=[]
-        datasetcontrol=[]
+        # dataset.append(datasetmean)
+        dataseteigen = []
+        datasetcloseness = []
+        datasetbetweenness = []
+        datasetdegree = []
+        datasetcontrol = []
         for n in range(len(G.nodes())):
             datasetbetweenness.append(nx.betweenness_centrality(G)[n])
             dataseteigen.append(nx.eigenvector_centrality(G)[n])
@@ -1605,60 +1632,43 @@ def bananna(G):
         dataset.append(datasetcloseness)
         dataset.append(datasetdegree)
         dataset.append(datasetcontrol)
-        dataset=pd.DataFrame(dataset).T
-        cormatrix=dataset.corr()
-        fa=FactorAnalyzer
+        dataset = pd.DataFrame(dataset).T
+        cormatrix = dataset.corr()
+        fa = FactorAnalyzer
         fact_2c = FactorAnalysis(n_components=2)
-        Factor=fact_2c.fit_transform(dataset)
+        Factor = fact_2c.fit_transform(dataset)
         size = datasetmean
-        s = [((s/np.max(size))* 10)**3 for s in size]
+        s = [((s / np.max(size)) * 10) ** 3 for s in size]
 
-
-        for n in subjsimmeliantop:
-            coefvariationsimmtop.append(datasetcoefvariation[n])
-        for n in subjnotsimmeliantop:
-            coefvariationnotsimmtop.append(datasetcoefvariation[n])
-        for n in subjgenerictop:
-            coefvariationgenerictop.append(datasetcoefvariation[n])
-        for n in subjsimmelianbottom:
-            coefvariationsimmbottom.append(datasetcoefvariation[n])
-        for n in subjnotsimmelianbottom:
-            coefvariationnotsimmbottom.append(datasetcoefvariation[n])
-        for n in subjgenerictop:
-            coefvariationgenericbottom.append(datasetcoefvariation[n])
-
-
-        return (coefvariationsimmtop,coefvariationnotsimmtop,coefvariationgenerictop,coefvariationsimmbottom,coefvariationnotsimmbottom,coefvariationgenericbottom)
-
-    while dati!=1000:
-        dati+=1
-        test(G,randomness=False,verticality=False, cr7=False)
+        for i in range(num):
+            influence[i].append(datasetcoefvariation[i])
+    while dati != 1000:
+        print(100 * (dati / 5), '%')
+        dati += 1
+        test(G, cr7=False)
 
 
 
+    # test(G,randomness=False,verticality=False)
+    # test(G,randomness=False,verticality=True)
+
+    # test(G,randomness=True,verticality=
+
+
+banana=bananna(G)
+
+
+dfs = [pd.DataFrame({k: sample}) for k, sample in enumerate(influence)]
 
 
 
-    #test(G,randomness=False,verticality=False)
-    #test(G,randomness=False,verticality=True)
-
-    #test(G,randomness=True,verticality=
-
-bananna(G)
-
-data = []
-data.append(coefvariationsimmtop)
-data.append(coefvariationsimmbottom)
-data.append(coefvariationnotsimmtop)
-data.append(coefvariationnotsimmbottom)
-data.append(coefvariationgenerictop)
-data.append(coefvariationgenericbottom)
+df = pd.concat(dfs, ignore_index=True, axis=1)
+df = df.rename(columns={0: '0', 1: '1', 2:'2',3:'3', 4: '4', 5:'5',6: '6', 7: '7',8: '8', 9: '9',
+                        10:'10',11:'11',12:'12',13:'13',14:'14',15:'15',16:'16',17:'17',18:'18',19:'19',
+                        20:'20',21:'21',22:'22',23:'23',24:'24',25:'25',26:'26',27:'27',28:'28',29:'29',
+                        30:'30',31:'31',32:'32',33:'33',34:'34',35:'35'})
 
 
-dfs = [pd.DataFrame({k: sample}) for k, sample in enumerate(data)]
-df = pd.concat(dfs,  ignore_index=True, axis=1)
-
-fvalue, pvalue = stats.f_oneway(df[0].dropna(), df[1].dropna(), df[2].dropna(), df[3].dropna(), df[4].dropna(), df[5].dropna())
-print(fvalue, pvalue)
+#df.to_excel('variance6x6notvertical.xlsx')
 
 
