@@ -22,96 +22,35 @@ exp=nx.Graph()
 exp.add_edge(0,1)
 exp.add_edge(1,2)
 exp.add_edge(2,3)
-exp.add_edge(3,4)
 exp.add_edge(4,5)
+exp.add_edge(5,6)
 exp.add_edge(6,7)
-exp.add_edge(7,8)
 exp.add_edge(8,9)
 exp.add_edge(9,10)
 exp.add_edge(10,11)
 exp.add_edge(12,13)
 exp.add_edge(13,14)
 exp.add_edge(14,15)
-exp.add_edge(15,16)
-exp.add_edge(16,17)
-exp.add_edge(18,19)
-exp.add_edge(19,20)
-exp.add_edge(20,21)
-exp.add_edge(21,22)
-exp.add_edge(22,23)
-exp.add_edge(24,25)
-exp.add_edge(25,26)
-exp.add_edge(26,27)
-exp.add_edge(27,28)
-exp.add_edge(28,29)
-exp.add_edge(30,31)
-exp.add_edge(31,32)
-exp.add_edge(32,33)
-exp.add_edge(33,34)
-exp.add_edge(34,35)
 
-exp.add_edge(0,6)
-exp.add_edge(1,7)
-exp.add_edge(2,8)
-exp.add_edge(3,9)
-exp.add_edge(4,10)
-exp.add_edge(5,11)
-exp.add_edge(6,12)
-exp.add_edge(7,13)
-exp.add_edge(8,14)
-exp.add_edge(9,15)
-exp.add_edge(10,16)
-exp.add_edge(11,17)
-exp.add_edge(12,18)
-exp.add_edge(13,19)
-exp.add_edge(14,20)
-exp.add_edge(15,21)
-exp.add_edge(16,22)
-exp.add_edge(17,23)
-exp.add_edge(18,24)
-exp.add_edge(19,25)
-exp.add_edge(20,26)
-exp.add_edge(21,27)
-exp.add_edge(22,28)
-exp.add_edge(23,29)
-exp.add_edge(24,30)
-exp.add_edge(25,31)
-exp.add_edge(26,32)
-exp.add_edge(27,33)
-exp.add_edge(28,34)
-exp.add_edge(29,35)
+exp.add_edge(0,4)
+exp.add_edge(1,5)
+exp.add_edge(2,6)
+exp.add_edge(3,7)
+exp.add_edge(4,8)
+exp.add_edge(5,9)
+exp.add_edge(6,10)
+exp.add_edge(7,11)
+exp.add_edge(8,12)
+exp.add_edge(9,13)
+exp.add_edge(10,14)
+exp.add_edge(11,15)
+exp.add_edge(12,0)
+exp.add_edge(13,1)
+exp.add_edge(14,2)
+exp.add_edge(15,3)
 
 
-
-
-
-exp.add_edge(30,0)
-exp.add_edge(31,1)
-exp.add_edge(32,2)
-exp.add_edge(33,3)
-exp.add_edge(34,4)
-exp.add_edge(35,5)
-exp.add_edge(5,0)
-exp.add_edge(11,6)
-exp.add_edge(17,12)
-exp.add_edge(23,18)
-exp.add_edge(29,24)
-exp.add_edge(35,30)
-print(nx.degree(exp))
-
-
-#addedones
-exp.add_edge(1,32)
-exp.add_edge(2,31)
-exp.add_edge(3,5)
-exp.add_edge(7,12)
-exp.add_edge(9,22)
-exp.add_edge(10,21)
-exp.add_edge(14,33)
-exp.add_edge(19,30)
-exp.add_edge(29,34)
-
-
+exp.add_edge(5,10)
 nx.draw(exp,with_labels=True)
 plt.show()
 
@@ -125,7 +64,7 @@ G=exp
 rewiring=9
 num = len(list(G.nodes))
 samples = 5000
-steps=600
+steps=100
 title='Clique Network'
 
 
@@ -134,7 +73,8 @@ for n in range(num):
     influence.append([])
 
 
-
+top=[0,1,2,3,4,5,12,13,14,15,16,17,24,25,26,27,28,29]
+bottom=[6,7,8,9,10,11,18,19,20,21,22,23,30,31,32,33,34,35]
 ultravertical = nx.DiGraph()
 for n in range(num):
     ultravertical.add_edge(n, n + 1)
@@ -224,20 +164,17 @@ def test(G):
             for i in G.nodes:
                 influence_matrix[i, i] = 0.1
                 for j in G.neighbors(i):
-                    if [i, j] in simmelian:
-                        if BC[i] - BC[j] < 0:
-                            influence_matrix[i, j] = 0.8
-                        elif BC[i] - BC[j] > 0:
-                            influence_matrix[i, j] = 0.8
-                        elif BC[i] - BC[j] == 0:
-                            influence_matrix[i, j] = 0.8
-                    elif [i, j] not in simmelian:
-                        if BC[i] - BC[j] > 0:
-                            influence_matrix[i, j] = 0.8
-                        elif BC[i] - BC[j] < 0:
-                            influence_matrix[i, j] = 0.8
-                        elif BC[i] - BC[j] == 0:
-                            influence_matrix[i, j] = 0.8
+                        if i in top:
+                            if j in top:
+                                influence_matrix[i,j] = 0.1
+                            elif j in bottom:
+                                influence_matrix[i,j] = 0.1
+                        elif i in bottom:
+                            if j in top:
+                                influence_matrix[i,j] = 0.1
+                            elif j in bottom:
+                                influence_matrix[i, j] = 0.1
+
 
             influence_matrix_correct = np.matrix(np.zeros((num, num)))
             for i in range(num):
@@ -250,7 +187,7 @@ def test(G):
                     if i == j:
                         probability_matrix[i, j] = 1
                     else:
-                        probability_matrix[i, j] = 0.3
+                        probability_matrix[i, j] = 0.9
 
 
             datoni = []
@@ -380,9 +317,9 @@ df = df.rename(columns={0: '0', 1: '1', 2:'2',3:'3', 4: '4', 5:'5',6: '6', 7: '7
                         10:'10',11:'11',12:'12',13:'13',14:'14',15:'15',16:'16',17:'17',18:'18',19:'19',
                         20:'20',21:'21',22:'22',23:'23',24:'24',25:'25',26:'26',27:'27',28:'28',29:'29',
                         30:'30',31:'31',32:'32',33:'33',34:'34',35:'35'})
-df.to_excel('6x6notverticalx4.xlsx')
+df.to_excel('6x6notverticalminisimm0.95k.xlsx')
 
-df=pd.read_excel('6x6notverticalx4.xlsx')
+
 #df_melt = pd.melt(df.reset_index(), id_vars=['index'], value_vars=['influencesimtop', 'influencesimbottom',
 #test(G,randomness=False,verticality=False)
 #test(G,randomness=False,verticality=True)
@@ -390,35 +327,197 @@ df=pd.read_excel('6x6notverticalx4.xlsx')
 #test(G,randomness=True,verticality=True)
 
 
+df=pd.read_excel('6x6notverticalminisimm0.95k.xlsx')
 
-g4=[0,4,8,11,15,16,17,18,20,23,24,25,26,27,30,33]
-g5=[3,5,9,10,14,19,21,22,35]
-s4=[6,13,28,35]
-s5=[1,2,7,12,29,31,32,34]
+g4=[0,2,3,7,8,12,13,15]
+g4s5=[1,4,11,14]
+s4=[6,9]
+s5=[5,10]
 datig4=[]
-datig5=[]
 datis4=[]
 datis5=[]
+datig4s5=[]
 
-for l in range(36):
+for l in range(16):
+    if l in g4:
+        for n in df['{}'.format(l)]:
+            datig4.append(n)
+    elif l in s5:
+        for n in df['{}'.format(l)]:
+            datis5.append(n)
+    elif l in s4:
+        for n in df['{}'.format(l)]:
+            datis4.append(n)
+    elif l in g4s5:
+        for n in df['{}'.format(l)]:
+            datig4s5.append(n)
+
+
+print('mean g4',np.mean(datig4))
+print('median g4',np.median(datig4))
+print('mean s4',np.mean(datis4))
+print('median s4',np.median(datis4))
+print('mean s5',np.mean(datis5))
+print('median s5',np.median(datis5))
+print('mean s5',np.mean(datig4s5))
+print('median s5',np.median(datig4s5))
+
+
+
+data=[]
+data.append(datig4)
+data.append(datis4)
+data=(pd.DataFrame(data)).T
+data=data.melt(var_name='group',value_name='values')
+model = ols('values ~ C(group)', data=data).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+print(aov_table)
+
+
+data=[]
+data.append(datig4s5)
+data.append(datis4)
+data=(pd.DataFrame(data)).T
+data=data.melt(var_name='group',value_name='values')
+model = ols('values ~ C(group)', data=data).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+print(aov_table)
+
+
+
+
+
+
+
+df=pd.read_excel('6x6notverticalmini0.15k.xlsx')
+df1=pd.read_excel('6x6notverticalminisimm0.15k.xlsx')
+
+
+g4=[1,3,6,9,11,12]
+g4g5=[0,2,5,7,8,10,13,15]
+g5=[4,14]
+datig4=[]
+datig5=[]
+datig4g5=[]
+for l in range(16):
     if l in g4:
         for n in df['{}'.format(l)]:
             datig4.append(n)
     elif l in g5:
         for n in df['{}'.format(l)]:
             datig5.append(n)
-    elif l in s4:
+    elif l in g4g5:
         for n in df['{}'.format(l)]:
-            datis4.append(n)
-    elif l in s5:
-        for n in df['{}'.format(l)]:
-            datis5.append(n)
+            datig4g5.append(n)
+g41=[0,2,3,7,8,12,13,15]
+g4s51=[1,4,11,14]
+s41=[6,9]
+s51=[5,10]
+datig41=[]
+datis41=[]
+datis51=[]
+datig4s51=[]
 
+
+
+for l in range(16):
+    if l in g41:
+        for n in df1['{}'.format(l)]:
+            datig41.append(n)
+    elif l in s51:
+        for n in df1['{}'.format(l)]:
+            datis51.append(n)
+    elif l in s41:
+        for n in df1['{}'.format(l)]:
+            datis41.append(n)
+    elif l in g4s51:
+        for n in df1['{}'.format(l)]:
+            datig4s51.append(n)
+
+print(len(datig4))
+print(len(datig5))
+print(len(datig4g5))
+print(len(datis41))
+print(len(datig41))
+print(len(datis51))
+print(len(datig4s51))
+
+print(np.mean(datig4))
+print(np.mean(datig5))
+print(np.mean(datig4g5))
+print(np.mean(datis41))
+print(np.mean(datig41))
+print(np.mean(datis51))
+print(np.mean(datig4s51))
+
+print(np.median(datig4))
+print(np.median(datig5))
+print(np.median(datig4g5))
+print(np.median(datis41))
+print(np.median(datig41))
+print(np.median(datis51))
+print(np.median(datig4s51))
 
 
 data=[]
-data.append(datig5)
 data.append(datig4)
+data.append(datig41)
+data.append(datig4s51)
+data.append(datig4g5)
+data.append(datig5)
+data.append(datis51)
+data.append(datis41)
+data=(pd.DataFrame(data)).T
+data=data.melt(var_name='group',value_name='values')
+model = ols('values ~ C(group)', data=data).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+print(aov_table)
+
+data=[]
+data.append(datig5)
+data.append(datis51)
+data=(pd.DataFrame(data)).T
+data=data.melt(var_name='group',value_name='values')
+model = ols('values ~ C(group)', data=data).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+print(aov_table)
+
+data=[]
+data.append(datig4)
+data.append(datig41)
+data.append(datis41)
+data.append(datig4g5)
+data.append(datig4s51)
+data=(pd.DataFrame(data)).T
+data=data.melt(var_name='group',value_name='values')
+model = ols('values ~ C(group)', data=data).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+print(aov_table)
+
+
+data=[]
+data.append(datig4)
+data.append(datig41)
+data=(pd.DataFrame(data)).T
+data=data.melt(var_name='group',value_name='values')
+model = ols('values ~ C(group)', data=data).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+print(aov_table)
+
+
+data=[]
+data.append(datis41)
+data.append(datig4g5)
+data.append(datig4s51)
+data=(pd.DataFrame(data)).T
+data=data.melt(var_name='group',value_name='values')
+model = ols('values ~ C(group)', data=data).fit()
+aov_table = sm.stats.anova_lm(model, typ=2)
+print(aov_table)
+
+data=[]
+data.append(datig4g5)
+data.append(datig4s51)
 data=(pd.DataFrame(data)).T
 data=data.melt(var_name='group',value_name='values')
 model = ols('values ~ C(group)', data=data).fit()
