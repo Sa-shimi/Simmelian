@@ -1,0 +1,242 @@
+import random
+import networkx as nx
+import pandas as pd
+from itertools import combinations
+from random import randrange
+import numpy as np
+import matplotlib.pyplot as plt
+from numpy.linalg import eig
+from networkx.drawing.nx_pydot import graphviz_layout
+
+
+steps = 15000
+exp=nx.Graph()
+exp.add_edge(0,1)
+exp.add_edge(1,2)
+exp.add_edge(2,3)
+exp.add_edge(3,4)
+exp.add_edge(4,5)
+exp.add_edge(6,7)
+exp.add_edge(7,8)
+exp.add_edge(8,9)
+exp.add_edge(9,10)
+exp.add_edge(10,11)
+exp.add_edge(12,13)
+exp.add_edge(13,14)
+exp.add_edge(14,15)
+exp.add_edge(15,16)
+exp.add_edge(16,17)
+exp.add_edge(18,19)
+exp.add_edge(19,20)
+exp.add_edge(20,21)
+exp.add_edge(21,22)
+exp.add_edge(22,23)
+exp.add_edge(24,25)
+exp.add_edge(25,26)
+exp.add_edge(26,27)
+exp.add_edge(27,28)
+exp.add_edge(28,29)
+exp.add_edge(30,31)
+exp.add_edge(31,32)
+exp.add_edge(32,33)
+exp.add_edge(33,34)
+exp.add_edge(34,35)
+
+exp.add_edge(0,6)
+exp.add_edge(1,7)
+exp.add_edge(2,8)
+exp.add_edge(3,9)
+exp.add_edge(4,10)
+exp.add_edge(5,11)
+exp.add_edge(6,12)
+exp.add_edge(7,13)
+exp.add_edge(8,14)
+exp.add_edge(9,15)
+exp.add_edge(10,16)
+exp.add_edge(11,17)
+exp.add_edge(12,18)
+exp.add_edge(13,19)
+exp.add_edge(14,20)
+exp.add_edge(15,21)
+exp.add_edge(16,22)
+exp.add_edge(17,23)
+exp.add_edge(18,24)
+exp.add_edge(19,25)
+exp.add_edge(20,26)
+exp.add_edge(21,27)
+exp.add_edge(22,28)
+exp.add_edge(23,29)
+exp.add_edge(24,30)
+exp.add_edge(25,31)
+exp.add_edge(26,32)
+exp.add_edge(27,33)
+exp.add_edge(28,34)
+exp.add_edge(29,35)
+
+exp.add_edge(30,0)
+exp.add_edge(31,1)
+exp.add_edge(34,4)
+exp.add_edge(35,5)
+exp.add_edge(4,33)
+exp.add_edge(3,34)
+exp.add_edge(13,8)
+exp.add_edge(10,23)
+exp.add_edge(11,22)
+exp.add_edge(19,32)
+exp.add_edge(20,31)
+exp.add_edge(21,28)
+exp.add_edge(5,0)
+exp.add_edge(11,6)
+exp.add_edge(17,12)
+exp.add_edge(23,18)
+exp.add_edge(29,24)
+exp.add_edge(35,30)
+G=nx.fast_gnp_random_graph(50,0.04)
+num=len(list(G.nodes))
+Formal = nx.random_tree(n=num, seed=0, create_using=nx.DiGraph, )
+def Control_Centrality(F):
+    length = len(F.nodes)
+    i = 1
+
+    def CC(F):
+        sett = F.out_degree()
+        sett1 = np.array(sett)
+        sett2 = sett1[sett1[:, 1] != 0]
+        F = F.subgraph(sett2[:, 0])
+        return F
+
+    def layer(F):
+        cass = [x for x in F.nodes if x not in CC(F).nodes]
+        banana = [i] * len(cass)
+        results = np.column_stack((cass, banana))
+        return results
+
+    results = layer(F)
+    while len(results) < length:
+        results = np.concatenate([results, layer(F)])
+        results = np.unique(results, axis=0)
+        i += 1
+        F = CC(F)
+        layer(F)
+    return dict(zip(results[:, 0], (results[:, 1])))
+BC = Control_Centrality(Formal)
+triads = [i for i in list(nx.enumerate_all_cliques(G)) if len(i) == 3]
+
+
+def combine(arr, s):
+    return list(combinations(arr, s))
+
+simm = []
+for n in triads:
+    for l in combine(n, 2):
+        simm.append(l)
+
+simmelian = []
+for i in simm:
+    if i not in simmelian:
+        simmelian.append(i)
+
+generic_influence_matrix = np.matrix(np.zeros((num, num)))
+for i in G.nodes:
+    generic_influence_matrix[i, i] = 0.2
+    for j in G.neighbors(i):
+        generic_influence_matrix[i, j] = 0.2
+
+
+nx.set_node_attributes(G, 0, name='relevance')
+for n in G.nodes:
+    G.nodes[n]['relevance'] = np.random.beta(0.1, 0.1)
+
+
+generic_influence_matrix_correct = np.matrix(np.zeros((num, num)))
+for i in range(num):
+    for j in range(num):
+        generic_influence_matrix_correct[i, j]=generic_influence_matrix[i, j]/np.sum(generic_influence_matrix[i])
+
+
+
+influence_matrix = np.matrix(np.zeros((num, num)))
+BC = Control_Centrality(Formal)
+for i in G.nodes:
+    influence_matrix[i, i] = 0.1
+    for j in G.neighbors(i):
+        if [i, j] in simmelian:
+            if BC[i] - BC[j] < 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] > 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] == 0:
+                influence_matrix[i, j] = 0.1
+        elif [i, j] not in simmelian:
+            if BC[i] - BC[j] > 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] < 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] == 0:
+                influence_matrix[i, j] = 0.1
+
+
+influence_matrix_correct = np.matrix(np.zeros((num, num)))
+for i in range(num):
+    for j in range(num):
+        influence_matrix_correct[i, j]=influence_matrix[i, j]/np.sum(influence_matrix[i])
+
+
+probability_matrix = np.matrix(np.zeros((num, num)))
+for i in G.nodes:
+    for j in G.neighbors(i):
+        if i == j:
+            probability_matrix[i, j] = 1
+        else:
+            probability_matrix[i,j] = np.random.beta(1, 20)
+            print(probability_matrix[i,j])
+
+def tildeprobbound(G):
+    print('banana')
+    datoni = []
+    K = G.copy()
+    t = 0
+
+    def event():
+
+        P = K.copy()
+
+        influence_matrix_real = np.matrix(np.zeros((num, num)))
+        influence_matrix_tilde = np.matrix(np.zeros((num, num)))
+        for i in K.nodes:
+            influence_matrix_real[i, i] = influence_matrix[i, i]
+            for j in K.neighbors(i):
+                if random.random() < (1-((abs(K.nodes[i]['relevance']-K.nodes[j]['relevance']))**(probability_matrix[i, j]))):
+                    influence_matrix_real[i, j] = influence_matrix[i, j]
+                else:
+                    influence_matrix_real[i, j] = 0
+        for i in K.nodes:
+            influence_matrix_tilde[i, i] = influence_matrix_real[i, i] / np.sum(influence_matrix_real[i])
+            for j in K.nodes:
+                influence_matrix_tilde[i, j] = influence_matrix_real[i, j] / np.sum(influence_matrix_real[i])
+        for i in K.nodes:
+            opchange = [P.nodes[i]['relevance'] * influence_matrix_tilde[i, i]]
+            for j in K.neighbors(i):
+                opchange.append(influence_matrix_tilde[i, j] * P.nodes[j]['relevance'])
+            K.nodes[i]["relevance"] = np.sum(opchange)
+        return K
+
+    while t != steps:
+        print(t/steps)
+        datelli = []
+        datini = []
+        t += 1
+        event()
+        for n in K.nodes:
+            datelli.append(K.nodes[n]['relevance'])
+        pd.DataFrame({'x': datelli})
+        datoni.append(datelli)
+    plt.title('DeGroot considering probability and organizational hierarchy')
+    plt.plot(datoni, 'k', alpha=0.1)
+    plt.plot(np.mean(datoni, axis=1), 'r--', label='mean')
+    plt.plot(np.median(datoni, axis=1), 'b', label='median')
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+tildeprobbound(G)
