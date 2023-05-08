@@ -1,0 +1,431 @@
+import random
+import networkx as nx
+import pandas as pd
+from itertools import combinations
+from random import randrange
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+
+steps = 1000
+
+topics=3
+beliefsystem=np.zeros((topics,topics))
+numberoftopics=0
+for m in range(len(beliefsystem)):
+    for n in range(len(beliefsystem[m])):
+        if n != m:
+            numberoftopics+=1
+
+
+
+
+line=nx.Graph()
+line.add_edge(0,1)
+line.add_edge(1,2)
+line.add_edge(2,3)
+line.add_edge(3,4)
+line.add_edge(4,5)
+line.add_edge(5,6)
+line.add_edge(6,7)
+line.add_edge(7,8)
+line.add_edge(8,9)
+line.add_edge(9,10)
+line.add_edge(10,11)
+line.add_edge(11,12)
+line.add_edge(12,13)
+line.add_edge(13,14)
+line.add_edge(14,15)
+line.add_edge(15,16)
+line.add_edge(16,17)
+line.add_edge(17,18)
+line.add_edge(18,19)
+line.add_edge(19,20)
+line.add_edge(20,21)
+line.add_edge(21,22)
+line.add_edge(22,23)
+line.add_edge(23,24)
+line.add_edge(24,25)
+line.add_edge(25,26)
+line.add_edge(26,27)
+line.add_edge(27,28)
+line.add_edge(28,29)
+line.add_edge(29,30)
+line.add_edge(30,31)
+line.add_edge(31,32)
+line.add_edge(32,33)
+line.add_edge(33,34)
+line.add_edge(34,35)
+line.add_edge(35,36)
+line.add_edge(36,37)
+line.add_edge(37,38)
+line.add_edge(38,39)
+line.add_edge(39,40)
+line.add_edge(40,41)
+line.add_edge(41,42)
+line.add_edge(42,43)
+line.add_edge(43,44)
+line.add_edge(44,45)
+line.add_edge(45,46)
+line.add_edge(46,47)
+line.add_edge(47,48)
+line.add_edge(48,49)
+line.add_edge(49,50)
+line.add_edge(50,51)
+line.add_edge(51,52)
+line.add_edge(52,53)
+line.add_edge(53,54)
+line.add_edge(54,55)
+line.add_edge(55,56)
+line.add_edge(56,57)
+line.add_edge(57,58)
+line.add_edge(58,59)
+line.add_edge(59,60)
+line.add_edge(60,61)
+line.add_edge(61,62)
+line.add_edge(62,63)
+line.add_edge(63,64)
+line.add_edge(64,65)
+line.add_edge(65,66)
+line.add_edge(66,67)
+line.add_edge(67,68)
+line.add_edge(68,69)
+line.add_edge(69,70)
+line.add_edge(70,71)
+line.add_edge(71,72)
+line.add_edge(72,73)
+line.add_edge(73,74)
+line.add_edge(74,75)
+line.add_edge(75,76)
+line.add_edge(76,77)
+line.add_edge(77,78)
+line.add_edge(78,79)
+line.add_edge(79,80)
+line.add_edge(80,81)
+line.add_edge(81,82)
+line.add_edge(82,83)
+line.add_edge(83,84)
+line.add_edge(84,85)
+line.add_edge(85,86)
+line.add_edge(86,87)
+line.add_edge(87,88)
+line.add_edge(88,89)
+line.add_edge(89,90)
+line.add_edge(90,91)
+line.add_edge(91,92)
+line.add_edge(92,93)
+line.add_edge(93,94)
+line.add_edge(94,95)
+line.add_edge(95,96)
+line.add_edge(96,97)
+line.add_edge(97,98)
+line.add_edge(98,99)
+line.add_edge(99,100)
+
+
+
+exp=nx.Graph()
+exp.add_edge(0,1)
+exp.add_edge(1,2)
+exp.add_edge(2,3)
+exp.add_edge(3,4)
+exp.add_edge(4,5)
+exp.add_edge(6,7)
+exp.add_edge(7,8)
+exp.add_edge(8,9)
+exp.add_edge(9,10)
+exp.add_edge(10,11)
+exp.add_edge(12,13)
+exp.add_edge(13,14)
+exp.add_edge(14,15)
+exp.add_edge(15,16)
+exp.add_edge(16,17)
+exp.add_edge(18,19)
+exp.add_edge(19,20)
+exp.add_edge(20,21)
+exp.add_edge(21,22)
+exp.add_edge(22,23)
+exp.add_edge(24,25)
+exp.add_edge(25,26)
+exp.add_edge(26,27)
+exp.add_edge(27,28)
+exp.add_edge(28,29)
+exp.add_edge(30,31)
+exp.add_edge(31,32)
+exp.add_edge(32,33)
+exp.add_edge(33,34)
+exp.add_edge(34,35)
+
+exp.add_edge(0,6)
+exp.add_edge(1,7)
+exp.add_edge(2,8)
+exp.add_edge(3,9)
+exp.add_edge(4,10)
+exp.add_edge(5,11)
+exp.add_edge(6,12)
+exp.add_edge(7,13)
+exp.add_edge(8,14)
+exp.add_edge(9,15)
+exp.add_edge(10,16)
+exp.add_edge(11,17)
+exp.add_edge(12,18)
+exp.add_edge(13,19)
+exp.add_edge(14,20)
+exp.add_edge(15,21)
+exp.add_edge(16,22)
+exp.add_edge(17,23)
+exp.add_edge(18,24)
+exp.add_edge(19,25)
+exp.add_edge(20,26)
+exp.add_edge(21,27)
+exp.add_edge(22,28)
+exp.add_edge(23,29)
+exp.add_edge(24,30)
+exp.add_edge(25,31)
+exp.add_edge(26,32)
+exp.add_edge(27,33)
+exp.add_edge(28,34)
+exp.add_edge(29,35)
+
+exp.add_edge(30,0)
+exp.add_edge(31,1)
+exp.add_edge(34,4)
+exp.add_edge(35,5)
+exp.add_edge(4,33)
+exp.add_edge(3,34)
+exp.add_edge(13,8)
+exp.add_edge(10,23)
+exp.add_edge(11,22)
+exp.add_edge(19,32)
+exp.add_edge(20,31)
+exp.add_edge(21,28)
+exp.add_edge(5,0)
+exp.add_edge(11,6)
+exp.add_edge(17,12)
+exp.add_edge(23,18)
+exp.add_edge(29,24)
+exp.add_edge(35,30)
+G=nx.watts_strogatz_graph(50,3,0.0)
+num=len(list(G.nodes))
+Formal = nx.random_tree(n=num, seed=0, create_using=nx.DiGraph, )
+def Control_Centrality(F):
+    length = len(F.nodes)
+    i = 1
+
+    def CC(F):
+        sett = F.out_degree()
+        sett1 = np.array(sett)
+        sett2 = sett1[sett1[:, 1] != 0]
+        F = F.subgraph(sett2[:, 0])
+        return F
+
+    def layer(F):
+        cass = [x for x in F.nodes if x not in CC(F).nodes]
+        banana = [i] * len(cass)
+        results = np.column_stack((cass, banana))
+        return results
+
+    results = layer(F)
+    while len(results) < length:
+        results = np.concatenate([results, layer(F)])
+        results = np.unique(results, axis=0)
+        i += 1
+        F = CC(F)
+        layer(F)
+    return dict(zip(results[:, 0], (results[:, 1])))
+BC = Control_Centrality(Formal)
+triads = [i for i in list(nx.enumerate_all_cliques(G)) if len(i) == 3]
+
+
+def combine(arr, s):
+    return list(combinations(arr, s))
+
+simm = []
+for n in triads:
+    for l in combine(n, 2):
+        simm.append(l)
+
+simmelian = []
+for i in simm:
+    if i not in simmelian:
+        simmelian.append(i)
+
+generic_influence_matrix = np.matrix(np.zeros((num, num)))
+for i in G.nodes:
+    generic_influence_matrix[i, i] = 0.2
+    for j in G.neighbors(i):
+        generic_influence_matrix[i, j] = 0.2
+
+
+for topic in range(numberoftopics):
+    nx.set_node_attributes(G, 0, name='relevance{}'.format(topic))
+    lista=[]
+
+    for n in G.nodes:
+        G.nodes[n]['relevance{}'.format(topic)]= np.random.beta(1,1)
+
+
+generic_influence_matrix_correct = np.matrix(np.zeros((num, num)))
+for i in range(num):
+    for j in range(num):
+        generic_influence_matrix_correct[i, j]=generic_influence_matrix[i, j]/np.sum(generic_influence_matrix[i])
+
+
+
+influence_matrix = np.matrix(np.zeros((num, num)))
+BC = Control_Centrality(Formal)
+for i in G.nodes:
+    influence_matrix[i, i] = 0.1
+    for j in G.neighbors(i):
+        if [i, j] in simmelian:
+            if BC[i] - BC[j] < 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] > 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] == 0:
+                influence_matrix[i, j] = 0.1
+        elif [i, j] not in simmelian:
+            if BC[i] - BC[j] > 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] < 0:
+                influence_matrix[i, j] = 0.1
+            elif BC[i] - BC[j] == 0:
+                influence_matrix[i, j] = 0.1
+
+
+influence_matrix_correct = np.matrix(np.zeros((num, num)))
+for i in range(num):
+    for j in range(num):
+        influence_matrix_correct[i, j]=influence_matrix[i, j]/np.sum(influence_matrix[i])
+
+
+probability_matrix = np.matrix(np.zeros((num, num)))
+for i in G.nodes:
+    for j in G.neighbors(i):
+        if i == j:
+            probability_matrix[i, j] = 1
+        else:
+            probability_matrix[i,j] = np.random.beta(1,20)
+
+gamma = np.matrix(np.zeros((num, num)))
+for i in G.nodes:
+    for j in G.neighbors(i):
+        if i == j:
+            gamma[i, j] = 1
+        else:
+            gamma[i, j] = np.random.beta(1,1)
+
+
+def tildeprobbound(G):
+    datoni = []
+    for topic in range(numberoftopics):
+        datoni.append([])
+    K = G.copy()
+    t = 0
+
+    def event():
+        avgopiniondistances=np.zeros((num,num))
+        for i in K.nodes:
+            for j in K.neighbors(i):
+                opiniondistances = []
+                for topic in range(numberoftopics):
+                    opiniondistances.append(1-abs(K.nodes[i]['relevance{}'.format(topic)]-K.nodes[j]['relevance{}'.format(topic)]))
+                avgopiniondistances[i,j]=np.mean(opiniondistances)
+        P = K.copy()
+        for topic in range(numberoftopics):
+            influence_matrix_real = np.matrix(np.zeros((num, num)))
+            influence_matrix_tilde = np.matrix(np.zeros((num, num)))
+            for i in K.nodes:
+                influence_matrix_real[i, i] = influence_matrix[i, i]
+                for j in K.neighbors(i):
+                    if random.random() < (1-((abs(K.nodes[i]['relevance{}'.format(topic)]-K.nodes[j]['relevance{}'.format(topic)]))**(avgopiniondistances[i,j]*gamma[i, j]))):
+                        influence_matrix_real[i, j] = influence_matrix[i, j]
+                    else:
+                        influence_matrix_real[i, j] = 0
+            for i in K.nodes:
+                influence_matrix_tilde[i, i] = influence_matrix_real[i, i] / np.sum(influence_matrix_real[i])
+                for j in K.nodes:
+                    influence_matrix_tilde[i, j] = influence_matrix_real[i, j] / np.sum(influence_matrix_real[i])
+            for i in K.nodes:
+                opchange = [P.nodes[i]['relevance{}'.format(topic)] * influence_matrix_tilde[i, i]]
+                for j in K.neighbors(i):
+                    opchange.append(influence_matrix_tilde[i, j] * P.nodes[j]['relevance{}'.format(topic)])
+                K.nodes[i]['relevance{}'.format(topic)] = np.sum(opchange)
+        return K
+
+    while t != steps:
+        print(t/steps)
+        t += 1
+        event()
+        for topic in range(numberoftopics):
+            datelli = []
+            for n in K.nodes:
+                datelli.append(K.nodes[n]['relevance{}'.format(topic)])
+            pd.DataFrame({'x': datelli})
+            datoni[topic].append(datelli)
+
+
+
+    fig, axs = plt.subplots(topics, topics)
+    fig.suptitle('Vertically stacked subplots')
+    topicone=0
+    for i in range(len(axs)):
+        for l in range(len(axs[i])):
+            if i!=l:
+                axs[i,l].plot(datoni[topicone], 'k', alpha=0.2)
+                axs[i,l].plot(np.mean(datoni[topicone], axis=1), 'r--', label='mean')
+                axs[i,l].plot(np.median(datoni[topicone], axis=1), 'b', label='median')
+                axs[i,l].legend()
+                axs[i,l].grid()
+                topicone+=1
+                plt.show()
+
+banana=tildeprobbound(G)
+
+
+
+"""
+
+
+#plot for multiple opinions
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+X = np.arange(0.0001, 1, 0.05)
+Y = np.arange(0.0001, 1, 0.05)
+Z = np.arange(0.0001, 1, 0.05)
+X, Y, Z = np.meshgrid(X, Y, Z, indexing="ij")
+c = 1-abs(X**(Y*Z))
+
+img = ax.scatter(X, Y, Z, c=c, alpha=0.5, cmap=plt.hot())
+fig.colorbar(img)
+plt.show()
+
+
+
+
+
+
+#for the network graph
+topicone=0
+    networkbeliefs=np.zeros((topics,topics))
+    for i in range(len(networkbeliefs)):
+        for l in range(len(networkbeliefs[1])):
+            if i!=l:
+                networkbeliefs[i,l]=np.mean(datoni[topicone])
+                topicone += 1
+    beliefs = nx.from_numpy_array(networkbeliefs, create_using=nx.DiGraph)
+    pos = nx.spring_layout(beliefs)
+
+    edge_labels = dict(((u, v),
+                    str(u+1) +":"+ str(v+1) +" "+ str(d))
+                    for u, v, d in beliefs.edges(data=True))
+    nx.draw(beliefs,with_labels=True)
+    nx.draw_networkx_edge_labels(beliefs,pos=pos, edge_labels=edge_labels)
+    return(networkbeliefs)
+"""
