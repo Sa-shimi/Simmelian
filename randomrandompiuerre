@@ -1,0 +1,426 @@
+import random
+import statistics
+import networkx as nx
+import pandas as pd
+from itertools import combinations
+import numpy as np
+import matplotlib.pyplot as plt
+from factor_analyzer import FactorAnalyzer
+from sklearn.decomposition import FactorAnalysis
+import scipy.stats as stats
+import statsmodels.api as sm
+from statsmodels.formula.api import ols
+
+
+
+
+
+
+
+
+exp=nx.Graph()
+exp.add_edge(0,1)
+exp.add_edge(1,2)
+exp.add_edge(2,3)
+exp.add_edge(3,4)
+exp.add_edge(4,5)
+exp.add_edge(6,7)
+exp.add_edge(7,8)
+exp.add_edge(8,9)
+exp.add_edge(9,10)
+exp.add_edge(10,11)
+exp.add_edge(12,13)
+exp.add_edge(13,14)
+exp.add_edge(14,15)
+exp.add_edge(15,16)
+exp.add_edge(16,17)
+exp.add_edge(18,19)
+exp.add_edge(19,20)
+exp.add_edge(20,21)
+exp.add_edge(21,22)
+exp.add_edge(22,23)
+exp.add_edge(24,25)
+exp.add_edge(25,26)
+exp.add_edge(26,27)
+exp.add_edge(27,28)
+exp.add_edge(28,29)
+exp.add_edge(30,31)
+exp.add_edge(31,32)
+exp.add_edge(32,33)
+exp.add_edge(33,34)
+exp.add_edge(34,35)
+
+exp.add_edge(0,6)
+exp.add_edge(1,7)
+exp.add_edge(2,8)
+exp.add_edge(3,9)
+exp.add_edge(4,10)
+exp.add_edge(5,11)
+exp.add_edge(6,12)
+exp.add_edge(7,13)
+exp.add_edge(8,14)
+exp.add_edge(9,15)
+exp.add_edge(10,16)
+exp.add_edge(11,17)
+exp.add_edge(12,18)
+exp.add_edge(13,19)
+exp.add_edge(14,20)
+exp.add_edge(15,21)
+exp.add_edge(16,22)
+exp.add_edge(17,23)
+exp.add_edge(18,24)
+exp.add_edge(19,25)
+exp.add_edge(20,26)
+exp.add_edge(21,27)
+exp.add_edge(22,28)
+exp.add_edge(23,29)
+exp.add_edge(24,30)
+exp.add_edge(25,31)
+exp.add_edge(26,32)
+exp.add_edge(27,33)
+exp.add_edge(28,34)
+exp.add_edge(29,35)
+
+
+
+
+
+exp.add_edge(30,0)
+exp.add_edge(31,1)
+exp.add_edge(32,2)
+exp.add_edge(33,3)
+exp.add_edge(34,4)
+exp.add_edge(35,5)
+exp.add_edge(5,0)
+exp.add_edge(11,6)
+exp.add_edge(17,12)
+exp.add_edge(23,18)
+exp.add_edge(29,24)
+exp.add_edge(35,30)
+print(nx.degree(exp))
+
+
+#addedones
+exp.add_edge(1,32)
+exp.add_edge(2,31)
+exp.add_edge(3,5)
+exp.add_edge(7,12)
+exp.add_edge(9,22)
+exp.add_edge(10,21)
+exp.add_edge(14,33)
+exp.add_edge(19,30)
+exp.add_edge(29,34)
+
+
+nx.draw(exp,with_labels=True)
+plt.show()
+
+#G.add_edges_from(seed[0])
+#G=nx.watts_strogatz_graph(25,4,0.2)
+#G=nx.fast_gnp_random_graph(10,1)
+
+G=exp
+
+
+rewiring=9
+num = len(list(G.nodes))
+samples = 5000
+steps=600
+title='Clique Network'
+
+
+influence=[]
+for n in range(num):
+    influence.append([])
+
+
+
+ultravertical = nx.DiGraph()
+for n in range(num):
+    ultravertical.add_edge(n, n + 1)
+
+F=ultravertical
+
+
+
+def test(G):
+    l=0
+
+
+
+
+
+    opinionbanana=[]
+    initial_opinion = []
+    datas = []
+    lll = combinations(G.nodes(), 2)
+
+
+    def Control_Centrality(F):
+        length = len(F.nodes)
+        i = 1
+
+        def CC(F):
+            pippa = F.out_degree()
+            pippa1 = np.array(pippa)
+            pippa2 = pippa1[pippa1[:, 1] != 0]
+            F = F.subgraph(pippa2[:, 0])
+            return F
+
+        def layer(F):
+            culo = [x for x in F.nodes if x not in CC(F).nodes]
+            banana = [i] * len(culo)
+            results = np.column_stack((culo, banana))
+            return results
+
+        results = layer(F)
+        while len(results) < length:
+            results = np.concatenate([results, layer(F)])
+            results = np.unique(results, axis=0)
+            i += 1
+            F = CC(F)
+            layer(F)
+        return dict(zip(results[:, 0], (results[:, 1])))
+
+    def tildealt(G):
+        pl = 0
+        thr = 0
+
+
+        def tilde(G):
+            cliques = list(nx.enumerate_all_cliques(G))
+            triads = [i for i in cliques if len(i) == 3]
+            simm = []
+
+            def combine(arr, s):
+                return list(combinations(arr, s))
+
+            for n in triads:
+                for l in combine(n, 2):
+                    simm.append(l)
+
+            simmelian = []
+            for i in simm:
+                if i not in simmelian:
+                    simmelian.append(i)
+
+
+
+
+            nx.set_node_attributes(G, 0, name='threshold')
+            for n in G.nodes:
+                G.nodes[n]['threshold'] = thr
+            F = ultravertical
+
+            BC = Control_Centrality(F)
+
+            nx.set_node_attributes(G, 0, name='relevance')
+
+            for n in G.nodes:
+                G.nodes[n]['relevance'] = np.random.beta(1, 2)
+                initial_opinion.append(G.nodes[n]['relevance'])
+
+            influence_matrix = np.matrix(np.zeros((num, num)))
+            for i in G.nodes:
+                influence_matrix[i, i] = 0.1
+                for j in G.neighbors(i):
+                    if [i, j] in simmelian:
+                        if BC[i] - BC[j] < 0:
+                            influence_matrix[i, j] = 0.8
+                        elif BC[i] - BC[j] > 0:
+                            influence_matrix[i, j] = 0.8
+                        elif BC[i] - BC[j] == 0:
+                            influence_matrix[i, j] = 0.8
+                    elif [i, j] not in simmelian:
+                        if BC[i] - BC[j] > 0:
+                            influence_matrix[i, j] = 0.8
+                        elif BC[i] - BC[j] < 0:
+                            influence_matrix[i, j] = 0.8
+                        elif BC[i] - BC[j] == 0:
+                            influence_matrix[i, j] = 0.8
+
+            influence_matrix_correct = np.matrix(np.zeros((num, num)))
+            for i in range(num):
+                for j in range(num):
+                    influence_matrix_correct[i, j] = influence_matrix[i, j] / np.sum(influence_matrix[i])
+
+            probability_matrix = np.matrix(np.zeros((num, num)))
+            for i in G.nodes:
+                for j in G.neighbors(i):
+                    if i == j:
+                        probability_matrix[i, j] = 1
+                    else:
+                        probability_matrix[i, j] = 0.3
+
+
+            datoni = []
+            K = G.copy()
+            t = 0
+            influence_matrices = []
+
+            def event():
+
+                P = K.copy()
+
+                influence_matrix_real = np.matrix(np.zeros((num, num)))
+                influence_matrix_tilde = np.matrix(np.zeros((num, num)))
+                for i in K.nodes:
+                    influence_matrix_real[i, i] = influence_matrix[i, i]
+                    for j in K.neighbors(i):
+                        if random.random() < probability_matrix[i, j]:
+                            if P.nodes[j]['relevance'] > P.nodes[j]['threshold']:
+                                influence_matrix_real[i, j] = influence_matrix[i, j]
+                            else:
+                                influence_matrix_real[i, j] = 0
+                        else:
+                            influence_matrix_real[i, j] = 0
+                for i in K.nodes:
+                    influence_matrix_tilde[i, i] = influence_matrix_real[i, i] / np.sum(influence_matrix_real[i],
+                                                                                        axis=1)
+                    for j in K.nodes:
+                        influence_matrix_tilde[i, j] = influence_matrix_real[i, j] / np.sum(influence_matrix_real[i],
+                                                                                            axis=1
+                                                                                            )
+                influence_matrices.append(influence_matrix_tilde)
+                for i in K.nodes:
+                    opchange = [P.nodes[i]['relevance'] * influence_matrix_tilde[i, i]]
+                    for j in K.neighbors(i):
+                        opchange.append(influence_matrix_tilde[i, j] * P.nodes[j]['relevance'])
+                    K.nodes[i]["relevance"] = np.sum(opchange)
+                return K
+
+            while t != steps:
+                datelli = []
+                datini = []
+                t += 1
+                event()
+                for n in K.nodes:
+                    datelli.append(K.nodes[n]['relevance'])
+                    if K.nodes[n]['relevance'] > K.nodes[n]['threshold']:
+                        datini.append(n)
+                pd.DataFrame({'x': datelli})
+                datoni.append(datelli)
+            """
+            plt.plot(datoni, 'k', alpha=0.1)
+            plt.title('DeGroot (classic)')
+
+            plt.plot(np.mean(datoni, axis=1), 'r--', label='mean')
+            plt.plot(np.median(datoni, axis=1), 'b', label='median')
+            plt.legend()
+            plt.grid()
+            plt.show()
+            """
+
+            def matrixMul(a, n):
+                if (n <= 1):
+                    return a
+                else:
+                    return np.matmul(matrixMul(a, n - 1), a)
+
+            def matrixMultt(a, n):
+                tempArr = a
+                for i in range(0, n):
+                    tempArr = influence_matrices[i] @ tempArr
+                return tempArr
+
+
+            plt.clf()
+
+
+            datas.append(np.array(matrixMultt(influence_matrices[0], steps)[1][0]))
+
+            banana=matrixMultt(influence_matrices[0], steps)[1][0].tolist()
+
+
+
+            for i in range(num):
+                influence[i].append(matrixMultt(influence_matrices[0], steps)[1][0].tolist()[0][i])
+
+            X_axis = np.arange(len(G.nodes))
+
+
+            plt.bar(X_axis + 0.2, np.asarray(matrixMul(influence_matrix_correct, steps))[1], 0.4, alpha=0.7,
+                    color='blue', label='without randomness')
+            plt.bar(X_axis - 0.2, np.asarray(matrixMultt(influence_matrices[0], steps))[1], 0.4, alpha=0.7, color='red',
+                    label='with randomness')
+
+            plt.legend()
+
+
+        while pl != samples:
+            print(100*(pl/samples),'%')
+            pl += 1
+            tilde(G)
+    tildealt(G)
+    plt.show()
+
+
+
+
+
+
+
+
+
+
+    return influence
+
+
+
+banana=test(G)
+
+
+
+
+dfs = [pd.DataFrame({k: sample}) for k, sample in enumerate(banana)]
+
+
+df = pd.concat(dfs, ignore_index=True, axis=1)
+df = df.rename(columns={0: '0', 1: '1', 2:'2',3:'3', 4: '4', 5:'5',6: '6', 7: '7',8: '8', 9: '9',
+                        10:'10',11:'11',12:'12',13:'13',14:'14',15:'15',16:'16',17:'17',18:'18',19:'19',
+                        20:'20',21:'21',22:'22',23:'23',24:'24',25:'25',26:'26',27:'27',28:'28',29:'29',
+                        30:'30',31:'31',32:'32',33:'33',34:'34',35:'35'})
+
+
+
+library(readr)
+library(wrapr)
+library(tidyverse)
+library(sna)
+library(igraph)
+library(ergm)
+library(haven)
+
+
+data <- read_excel("C:/Users/Manag22/PycharmProjects/pythonProject/6x6notvertical03lim.xlsx", 
+                   +     col_types = c("skip", "numeric", "numeric", 
+                                       +         "numeric", "numeric"))
+
+data<-X6x6notvertical01lim
+
+colnames(data) <- c("ns4", "ns5","S4","S5")
+
+dati<-data %>% gather(group, influence)
+tapply(dati$influence,dati$group,mean)
+tapply(dati$influence,dati$group,var)
+ggplot(aes(x=group,y=influence),data=dati)+geom_boxplot()+theme_bw()
+
+mod1<-aov(influence ~ group, data=dati,contrasts = list(group="contr.sum"))
+plot(mod1)
+summary.lm(mod1)
+
+intercept<-mean(dati$influence)
+intercept
+
+alphas<-tapply(dati$influence,dati$group,mean)-mean(dati$influence)
+alphas
+
+
+
+TukeyHSD(mod1)
+
+
+
+kruskal.test(influence ~ group, data = dati)
+
+pairwise.wilcox.test(dati$influence,dati$group,p.adjust.method = 'bonferroni')
