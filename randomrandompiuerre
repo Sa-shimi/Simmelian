@@ -5,133 +5,24 @@ import pandas as pd
 from itertools import combinations
 import numpy as np
 import matplotlib.pyplot as plt
-from factor_analyzer import FactorAnalyzer
-from sklearn.decomposition import FactorAnalysis
-import scipy.stats as stats
+from sklearn.linear_model import LinearRegression
 import statsmodels.api as sm
-from statsmodels.formula.api import ols
-
-
-
-
-
-
-
-
-exp=nx.Graph()
-exp.add_edge(0,1)
-exp.add_edge(1,2)
-exp.add_edge(2,3)
-exp.add_edge(3,4)
-exp.add_edge(4,5)
-exp.add_edge(6,7)
-exp.add_edge(7,8)
-exp.add_edge(8,9)
-exp.add_edge(9,10)
-exp.add_edge(10,11)
-exp.add_edge(12,13)
-exp.add_edge(13,14)
-exp.add_edge(14,15)
-exp.add_edge(15,16)
-exp.add_edge(16,17)
-exp.add_edge(18,19)
-exp.add_edge(19,20)
-exp.add_edge(20,21)
-exp.add_edge(21,22)
-exp.add_edge(22,23)
-exp.add_edge(24,25)
-exp.add_edge(25,26)
-exp.add_edge(26,27)
-exp.add_edge(27,28)
-exp.add_edge(28,29)
-exp.add_edge(30,31)
-exp.add_edge(31,32)
-exp.add_edge(32,33)
-exp.add_edge(33,34)
-exp.add_edge(34,35)
-
-exp.add_edge(0,6)
-exp.add_edge(1,7)
-exp.add_edge(2,8)
-exp.add_edge(3,9)
-exp.add_edge(4,10)
-exp.add_edge(5,11)
-exp.add_edge(6,12)
-exp.add_edge(7,13)
-exp.add_edge(8,14)
-exp.add_edge(9,15)
-exp.add_edge(10,16)
-exp.add_edge(11,17)
-exp.add_edge(12,18)
-exp.add_edge(13,19)
-exp.add_edge(14,20)
-exp.add_edge(15,21)
-exp.add_edge(16,22)
-exp.add_edge(17,23)
-exp.add_edge(18,24)
-exp.add_edge(19,25)
-exp.add_edge(20,26)
-exp.add_edge(21,27)
-exp.add_edge(22,28)
-exp.add_edge(23,29)
-exp.add_edge(24,30)
-exp.add_edge(25,31)
-exp.add_edge(26,32)
-exp.add_edge(27,33)
-exp.add_edge(28,34)
-exp.add_edge(29,35)
-
-
-
-
-
-exp.add_edge(30,0)
-exp.add_edge(31,1)
-exp.add_edge(32,2)
-exp.add_edge(33,3)
-exp.add_edge(34,4)
-exp.add_edge(35,5)
-exp.add_edge(5,0)
-exp.add_edge(11,6)
-exp.add_edge(17,12)
-exp.add_edge(23,18)
-exp.add_edge(29,24)
-exp.add_edge(35,30)
-print(nx.degree(exp))
-
-
-#addedones
-exp.add_edge(1,32)
-exp.add_edge(2,31)
-exp.add_edge(3,5)
-exp.add_edge(7,12)
-exp.add_edge(9,22)
-exp.add_edge(10,21)
-exp.add_edge(14,33)
-exp.add_edge(19,30)
-exp.add_edge(29,34)
-
-
-nx.draw(exp,with_labels=True)
-plt.show()
 
 #G.add_edges_from(seed[0])
 #G=nx.watts_strogatz_graph(25,4,0.2)
 #G=nx.fast_gnp_random_graph(10,1)
 
-G=exp
 
 
-rewiring=9
-num = len(list(G.nodes))
-samples = 5000
-steps=600
+
+num = 30
+samples = 1000
+steps=250
 title='Clique Network'
 
 
 influence=[]
-for n in range(num):
-    influence.append([])
+
 
 
 
@@ -143,17 +34,22 @@ F=ultravertical
 
 
 
-def test(G):
+def test():
     l=0
 
-
+    def networkgeneration():
+        G = nx.barabasi_albert_graph(num, 2)
+        if nx.is_connected(G):
+            return G
+        else:
+            return networkgeneration()
 
 
 
     opinionbanana=[]
     initial_opinion = []
     datas = []
-    lll = combinations(G.nodes(), 2)
+
 
 
     def Control_Centrality(F):
@@ -182,12 +78,16 @@ def test(G):
             layer(F)
         return dict(zip(results[:, 0], (results[:, 1])))
 
-    def tildealt(G):
+    def tildealt():
         pl = 0
         thr = 0
 
 
-        def tilde(G):
+        def tilde():
+
+            G=networkgeneration()
+            num = len(list(G.nodes))
+
             cliques = list(nx.enumerate_all_cliques(G))
             triads = [i for i in cliques if len(i) == 3]
             simm = []
@@ -204,8 +104,26 @@ def test(G):
                 if i not in simmelian:
                     simmelian.append(i)
 
+            simmeliansubj=[]
+            for n in simmelian:
+                if n[0] not in simmeliansubj:
+                    simmeliansubj.append(n[0])
+                if n[1] not in simmeliansubj:
+                    simmeliansubj.append(n[1])
 
+            issimmelian=[]
+            for n in range(num):
+                if n in simmeliansubj:
+                    issimmelian.append(1)
+                else:
+                    issimmelian.append(0)
 
+            underdog = []
+            for i in G.nodes():
+                degreeneighbors = []
+                for j in G.neighbors(i):
+                    degreeneighbors.append(nx.degree_centrality(G)[j])
+                underdog.append(nx.degree_centrality(G)[i] / np.mean(degreeneighbors))
 
             nx.set_node_attributes(G, 0, name='threshold')
             for n in G.nodes:
@@ -250,7 +168,7 @@ def test(G):
                     if i == j:
                         probability_matrix[i, j] = 1
                     else:
-                        probability_matrix[i, j] = 0.3
+                        probability_matrix[i, j] = 0.9
 
 
             datoni = []
@@ -334,8 +252,17 @@ def test(G):
 
 
             for i in range(num):
-                influence[i].append(matrixMultt(influence_matrices[0], steps)[1][0].tolist()[0][i])
-
+                parameters=[]
+                parameters.append(matrixMultt(influence_matrices[0], steps)[1][0].tolist()[0][i])
+                parameters.append((matrixMultt(influence_matrices[0], steps)[1][0].tolist()[0][i])*num)
+                parameters.append(nx.betweenness_centrality(G)[i])
+                parameters.append(nx.eigenvector_centrality(G)[i])
+                parameters.append(nx.degree_centrality(G)[i])
+                parameters.append(nx.closeness_centrality(G)[i])
+                parameters.append(nx.pagerank(G)[i])
+                parameters.append(issimmelian[i])
+                parameters.append(underdog[i])
+                influence.append(parameters)
             X_axis = np.arange(len(G.nodes))
 
 
@@ -350,15 +277,8 @@ def test(G):
         while pl != samples:
             print(100*(pl/samples),'%')
             pl += 1
-            tilde(G)
-    tildealt(G)
-    plt.show()
-
-
-
-
-
-
+            tilde()
+    tildealt()
 
 
 
@@ -367,7 +287,7 @@ def test(G):
 
 
 
-banana=test(G)
+banana=test()
 
 
 
@@ -376,11 +296,19 @@ dfs = [pd.DataFrame({k: sample}) for k, sample in enumerate(banana)]
 
 
 df = pd.concat(dfs, ignore_index=True, axis=1)
-df = df.rename(columns={0: '0', 1: '1', 2:'2',3:'3', 4: '4', 5:'5',6: '6', 7: '7',8: '8', 9: '9',
-                        10:'10',11:'11',12:'12',13:'13',14:'14',15:'15',16:'16',17:'17',18:'18',19:'19',
-                        20:'20',21:'21',22:'22',23:'23',24:'24',25:'25',26:'26',27:'27',28:'28',29:'29',
-                        30:'30',31:'31',32:'32',33:'33',34:'34',35:'35'})
+df = df.T
+df = df.rename(columns={0: 'influence', 1: 'influence (norm)', 2: 'betweenness', 3:'eigenvector',4:'degree',
+                        5:'closeness',6:'pagerank',7:'simmelian',8:'underdog'})
 
+
+x= df[df.columns[2:]].to_numpy()
+x = sm.add_constant(x)
+y=df['influence (norm)'].to_numpy()
+y1=df['influence'].to_numpy()
+
+model = sm.OLS(y, x)
+results = model.fit()
+print(results.summary())
 
 
 library(readr)
