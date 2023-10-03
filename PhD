@@ -1,0 +1,187 @@
+"""
+This is the first python script intended for the PhD course "Mathematical models for..XXX".
+The script is intended for teaching purposes and has no peculiar function. Each chunk should be running by itself in the
+console.
+
+For this specific script we won't need particular requirements.
+
+The first thing you should do when creating a script is "importing" the modules you will need. It is useful as, in case 
+you're using someone else's script, you quickly know what are the necessary packages. 
+"""
+
+import random
+
+# Lines preceded by "#" are not read by the interpreter and can, thus, be used to add comments or guiding people through 
+# your script.
+
+#TODO: YOU CAN ALSO CREATE NOTES FOR YOURSELF BY ADDING A "TODO" AFTER THE "#"
+
+"You can also use quotes - don't recommend as this is not completely ignored"
+
+"""
+Or also triple quotes, which is recommended only for particularly long texts.
+"""
+
+
+# Learning to create variables and to read errors. Some actions or functions are not doable with certain object types.
+
+# Let's create an object, x, and assign a value to it
+x = 2
+print(x)
+
+# When we "print" a value or variable or object, we ask the interpreter to return the content of the variable or object
+
+# If we put 2 "=" together, we're not adding a value, we're creating a boolean statement. 
+x == 3
+# What is the warning telling us?
+
+# Try this one now!
+x == 2
+
+#ok ok, we can make multiple variables and make calculations with them
+y = 4
+z = x + y
+
+# Let's try even mor complex calculus..
+k = x * y ** (1 / 2)
+
+# Mmm.. what if we try this?
+x = '3'
+
+l = x+y
+
+# What is the error warning telling us?
+# Let's investigate what type of object we're dealing with
+type(x)
+# Remember that some actions or functions are not doable with certain objects. Do not worry, properly developed packages
+# have built-in instructions and clear error warnings.
+
+# Let's try new objects. Lists!
+
+lst = [1, 2, 3, 4, 5, 6]
+
+print(lst[1])
+# What number shall we expect?
+
+# Indexes in python language start from 0, for lists, arrays, dicts, everything
+
+
+# Lists are the most commonly used objects on python as they're the corner stone of most python objects (such as arrays,
+# DataFrame etc.. they can be created in different ways. the most common is to "append" an element in a list
+
+lst = []
+
+#The append function allows us to add an element (the one in brackets) at the end of the list. there are otherXXXXXXere
+lst.append(0)
+
+print(lst)
+
+lst.append(1)
+lst.append(2)
+lst.append(3)
+lst.append(4)
+lst.append(5)
+
+# what if we want to carry out an iterative action for each element of the list?
+
+for n in lst:
+    print(n)
+
+# can we create a list from 0 to 10 without having to type "lst.append" more than once?
+
+for n in range(0, 10):
+    lst.append(n)
+print(lst)
+
+
+for n in range(10):
+    lst.append(n)
+print(lst)
+
+# let's try a little task:
+# let's create 3 lists, the first list wil contain odd numbers from 0 to 10, te second list will contain even numbers
+# from 0 to 10 and the third, of the same length of the first one, will be composed by the sum of the elements of the
+# previous two lists
+
+even=[2,4,6,8,10]
+odd=[1,3,5,7,9]
+result=[]
+
+for n in range(len(even)):
+    result.append((even[n]+odd[n]))
+
+print(result)
+
+
+#let's work on if statements
+
+lst=list(range(10))
+
+for n in lst:
+    if n==7:
+        print(n)
+
+lst.append('banana')
+for n in lst:
+    if type(n)==str:
+        print(n)
+
+
+
+# task for the first day:
+# consider a sorted list containing numbers from 0 to 1000000. what is the fastest way to find the position of
+# a randomly generated number?
+# explain reasoning
+
+
+random_number=random.randrange(100000000)
+lst=list(random.sample(range(100000000),30000000))
+
+#do not worry! creating this object will take quite some time :/
+
+if random_number not in lst:
+    lst.append(random_number)
+lst=sorted(lst)
+
+
+#solution:
+
+
+not_yet_found = True
+goal_index = 0
+lst_copy = lst
+while not_yet_found:
+    half1 = int(len(lst_copy) / 2)
+    half2 = len(lst_copy) - half1
+    if lst_copy[half1] > random_number:
+        lst_copy = lst_copy[:half1]
+    elif lst_copy[half1] < random_number:
+        goal_index += half1
+        lst_copy = lst_copy[-half2:]
+    elif lst_copy[half1] == random_number:
+        not_yet_found = False
+        print(f'This is the number you were looking for: {goal_index + int(len(lst_copy) / 2)}')
+
+
+
+
+
+
+incredibly_huge_amount_of_data = []
+
+tiny_object = incredibly_huge_amount_of_data
+
+sasha = 3
+students = 2
+able_to_teach = False
+marco = 2
+unhappy = 2
+happy = 1
+banana = []
+
+
+def is_odd(number_to_check):
+    if number_to_check % 2 == 0:
+        return False
+    else:
+        return True
